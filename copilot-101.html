@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot 101 — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <span class="brand-mark">D&amp;C</span>
+            <span class="brand-text">AI Learning Hub</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="copilot-101.html" class="nav-link active">Copilot 101</a>
+            <a href="copilot-102.html" class="nav-link">Copilot 102</a>
+            <a href="prompt-training.html" class="nav-link">Prompt Engineering</a>
+            <a href="market-research.html" class="nav-link">Market Research</a>
+            <a href="email-agent.html" class="nav-link">Email Agent</a>
+            <a href="index.html#feedback" class="nav-link nav-link-accent">Feedback Hub</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Copilot 101: The Basics</h1>
+            <p>Everything you need to know to start using Microsoft Copilot effectively — where to find it, how it thinks, and how to get the most from every conversation.</p>
+        </section>
+
+        <!-- What Is Copilot -->
+        <section class="section">
+            <h2 class="section-title">What Is Microsoft Copilot?</h2>
+            <div class="content-block">
+                <p>Microsoft Copilot is an AI assistant built into your Microsoft 365 tools. Think of it as a very capable colleague who can draft content, summarize documents, analyze data, and brainstorm ideas — but only when you give it clear direction.</p>
+                <p>You'll encounter Copilot in two main places: the <strong>web interface</strong> and <strong>within your M365 work apps</strong>. Understanding when to use each is the first step to getting real value from it.</p>
+            </div>
+        </section>
+
+        <!-- Web vs Work -->
+        <section class="section section-alt">
+            <h2 class="section-title">Web vs. Work: When to Use Each</h2>
+            <p class="section-desc">Copilot shows up in two modes. Choosing the right one for your task makes a real difference in the quality of what you get back.</p>
+
+            <div class="two-column">
+                <div>
+                    <h4 class="column-header column-header-good">Copilot on the Web</h4>
+                    <div class="mode-card">
+                        <p class="mode-url"><strong>Where:</strong> <a href="https://copilot.microsoft.com" target="_blank" rel="noopener">copilot.microsoft.com</a> or the Copilot app</p>
+                        <p><strong>What it can access:</strong> Public internet knowledge and anything you paste into the chat.</p>
+                        <h4>Best for:</h4>
+                        <ul class="feature-list">
+                            <li>General research and brainstorming</li>
+                            <li>Drafting content from scratch when you don't need internal files</li>
+                            <li>Learning about a new topic, industry, or framework</li>
+                            <li>Asking "how do I..." questions about tools, processes, or concepts</li>
+                            <li>Generating ideas before you start working in Word or PowerPoint</li>
+                            <li>Quick calculations, comparisons, or fact-finding</li>
+                        </ul>
+                        <div class="callout callout-info" style="margin-top: 1rem;">
+                            <h4>Think of it as...</h4>
+                            <p>A smart research assistant who knows a lot about the world but nothing about your files, emails, or calendar.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="column-header column-header-caution">Copilot at Work (M365)</h4>
+                    <div class="mode-card">
+                        <p class="mode-url"><strong>Where:</strong> The Copilot panel in Teams, Outlook, Word, Excel, PowerPoint, or the M365 app</p>
+                        <p><strong>What it can access:</strong> Your emails, calendar, Teams chats, SharePoint files, and OneDrive — anything in your M365 tenant.</p>
+                        <h4>Best for:</h4>
+                        <ul class="feature-list">
+                            <li>Summarizing a long email thread or Teams meeting</li>
+                            <li>Drafting a document based on an existing file or meeting notes</li>
+                            <li>Finding information buried in your emails or Teams channels</li>
+                            <li>Analyzing data in a specific Excel spreadsheet</li>
+                            <li>Creating a presentation from a Word document</li>
+                            <li>Catching up on what you missed in a Teams channel</li>
+                        </ul>
+                        <div class="callout" style="margin-top: 1rem;">
+                            <h4>Think of it as...</h4>
+                            <p>A colleague who has read all your emails, sat in all your meetings, and can pull from your shared files — but only what you have access to.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout callout-info">
+                <h4>Quick Decision Rule</h4>
+                <p>Ask yourself: <strong>"Does this task need my internal files, emails, or meeting notes?"</strong></p>
+                <ul>
+                    <li><strong>Yes</strong> &rarr; Use Copilot at Work (inside M365 apps)</li>
+                    <li><strong>No</strong> &rarr; Use Copilot on the Web</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- How Chat Memory Works -->
+        <section class="section">
+            <h2 class="section-title">How Chat Memory Works</h2>
+            <p class="section-desc">Understanding what Copilot remembers — and what it doesn't — is key to using it well.</p>
+
+            <div class="framework-grid">
+                <div class="framework-item">
+                    <div class="framework-letter" style="background: var(--blue);">1</div>
+                    <div class="framework-body">
+                        <h3>Within a single chat: Copilot remembers everything</h3>
+                        <p>As long as you stay in the same conversation, Copilot can see everything you've said and everything it has responded with. It builds context as you go.</p>
+                        <div class="example-box">
+                            <strong>Example:</strong> If you say "Summarize this report" and then later say "Now turn that summary into an email to the client," Copilot knows what "that summary" refers to.
+                        </div>
+                    </div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter" style="background: var(--blue);">2</div>
+                    <div class="framework-body">
+                        <h3>Between chats: Copilot starts fresh</h3>
+                        <p>When you open a new conversation, Copilot has no memory of previous chats. It doesn't carry over context, files, or instructions from earlier sessions.</p>
+                        <div class="example-box">
+                            <strong>Example:</strong> If you spent 20 minutes refining a competitive analysis in one chat, then start a new chat asking "Can you update that analysis?" — Copilot won't know what you're referring to.
+                        </div>
+                    </div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter" style="background: var(--blue);">3</div>
+                    <div class="framework-body">
+                        <h3>Context window has limits</h3>
+                        <p>Even within a single chat, there's a limit to how much Copilot can hold in memory. Very long conversations may cause it to "forget" earlier details. If your responses start losing quality, it may be time to start a new chat with a fresh summary.</p>
+                        <div class="example-box">
+                            <strong>Tip:</strong> If a conversation is getting long, copy the key outputs and start a new chat. Paste in a summary like: "Here's what we've established so far: [paste key points]. Now let's continue with..."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- When to Stay vs Start New -->
+        <section class="section section-alt">
+            <h2 class="section-title">Same Chat or New Chat?</h2>
+            <p class="section-desc">This is one of the most practical decisions you'll make. Here's a simple guide.</p>
+
+            <div class="two-column">
+                <div>
+                    <h4 class="column-header column-header-good">Stay in the Same Chat When...</h4>
+                    <ul class="check-list">
+                        <li>You're iterating on the same output (e.g., refining an email draft)</li>
+                        <li>Your next request builds directly on the previous response</li>
+                        <li>You need Copilot to remember specific instructions you gave earlier</li>
+                        <li>You're in the middle of a multi-step workflow (e.g., research &rarr; analysis &rarr; deliverable)</li>
+                        <li>You're referencing files or data you've already shared in this session</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="column-header column-header-caution">Start a New Chat When...</h4>
+                    <ul class="x-list">
+                        <li>You're switching to a completely different topic or project</li>
+                        <li>The current conversation is getting long and Copilot's responses are declining in quality</li>
+                        <li>You want a "fresh perspective" without prior assumptions</li>
+                        <li>The chat has accumulated instructions that no longer apply (e.g., you told it to write in a formal tone but now need casual)</li>
+                        <li>You're done with one task and starting something unrelated</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout">
+                <h4>Pro Tip: The "Carry-Over Summary"</h4>
+                <p>When you need to start a new chat but want to preserve context, use this approach:</p>
+                <div class="prompt-template" style="margin-top: 0.75rem;">
+                    <pre class="prompt-code">Here's the context from our previous work:
+- Project: [project name]
+- Client: [client details]
+- What we've done so far: [key decisions and outputs]
+- What we're working on now: [current task]
+
+Please continue from here and [next action].</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Copilot in Each App -->
+        <section class="section">
+            <h2 class="section-title">Where to Find Copilot in Your Apps</h2>
+            <p class="section-desc">A quick overview of where Copilot lives in each M365 app and what it does best there.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">&#x1F4E7;</div>
+                    <h3>Outlook</h3>
+                    <p>Summarize long email threads, draft replies, and adjust tone. Look for the Copilot icon when composing or reading an email.</p>
+                    <p class="card-detail"><strong>Try:</strong> "Summarize this thread and highlight any action items for me."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#x1F4DD;</div>
+                    <h3>Word</h3>
+                    <p>Draft new documents, rewrite sections, summarize long documents, or transform content. Access Copilot from the ribbon or the side panel.</p>
+                    <p class="card-detail"><strong>Try:</strong> "Draft an executive summary of this document in 200 words."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#x1F4CA;</div>
+                    <h3>Excel</h3>
+                    <p>Analyze data, create formulas, build charts, and spot trends. Copilot works best with data formatted as tables.</p>
+                    <p class="card-detail"><strong>Try:</strong> "What are the top 5 trends in this data? Add a chart."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#x1F4CA;</div>
+                    <h3>PowerPoint</h3>
+                    <p>Create presentations from scratch, from a Word doc, or from an outline. Also useful for reorganizing and summarizing existing decks.</p>
+                    <p class="card-detail"><strong>Try:</strong> "Create a presentation from [document name] with 10 slides."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#x1F4AC;</div>
+                    <h3>Teams</h3>
+                    <p>Get meeting summaries, catch up on chats, and find information across channels. Copilot can recap meetings you missed and extract action items.</p>
+                    <p class="card-detail"><strong>Try:</strong> "What decisions were made in today's meeting and who has action items?"</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#x1F50D;</div>
+                    <h3>Microsoft 365 Chat</h3>
+                    <p>The cross-app assistant that can search across your emails, files, meetings, and chats simultaneously. Access it from the M365 app or Teams.</p>
+                    <p class="card-detail"><strong>Try:</strong> "Find the latest version of the strategy deck for [client] and summarize the key recommendations."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common First-Timer Mistakes -->
+        <section class="section section-alt">
+            <h2 class="section-title">Common First-Timer Mistakes</h2>
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <div class="mistake-bad">&#x2717; Using the web for tasks that need your files</div>
+                    <div class="mistake-good">&#x2713; Switch to Copilot in the app (Word, Outlook, Teams) when you need internal data</div>
+                    <p>Copilot on the web can't see your SharePoint, emails, or Teams. If your task involves company information, use the M365 integration instead.</p>
+                </div>
+                <div class="mistake-card">
+                    <div class="mistake-bad">&#x2717; Starting a new chat for every follow-up question</div>
+                    <div class="mistake-good">&#x2713; Stay in the same chat when building on previous outputs</div>
+                    <p>Every new chat wipes Copilot's memory. If you're refining something, keep going in the same conversation.</p>
+                </div>
+                <div class="mistake-card">
+                    <div class="mistake-bad">&#x2717; Asking one-word questions like "Summarize"</div>
+                    <div class="mistake-good">&#x2713; Tell Copilot what to focus on, who the audience is, and how to format the output</div>
+                    <p>Vague prompts get vague responses. Even a few extra words of context dramatically improve the result.</p>
+                </div>
+                <div class="mistake-card">
+                    <div class="mistake-bad">&#x2717; Trusting everything Copilot says without checking</div>
+                    <div class="mistake-good">&#x2713; Verify data points, client names, and any specific claims</div>
+                    <p>Copilot is confident even when it's wrong. Always review outputs before sharing them with clients or colleagues.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Your First 5 Minutes -->
+        <section class="section">
+            <h2 class="section-title">Your First 5 Minutes with Copilot</h2>
+            <p class="section-desc">Not sure where to start? Try these tasks right now to get comfortable.</p>
+
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Open Copilot on the web</h3>
+                        <p>Go to <a href="https://copilot.microsoft.com" target="_blank" rel="noopener">copilot.microsoft.com</a> and sign in with your work account. Try asking: "What are the top 3 trends in management consulting in 2026?"</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Try Copilot in Outlook</h3>
+                        <p>Open a long email thread and click the Copilot icon. Ask it to "Summarize this thread and highlight any action items for me." Notice how it pulls context directly from the emails.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Iterate on a response</h3>
+                        <p>Stay in the same chat and ask Copilot to adjust its response: "Make that shorter" or "Now rewrite it as bullet points for a slide deck." This is where the real power is — building on each exchange.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Start a new chat for a different task</h3>
+                        <p>Click "New Chat" and try something different — maybe drafting a quick email or brainstorming ideas for a client meeting. Notice how it starts completely fresh with no memory of your previous conversation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="section section-alt">
+            <h2 class="section-title">What's Next?</h2>
+            <p class="section-desc">Now that you understand the basics, here's where to go next depending on what you want to learn.</p>
+
+            <div class="card-grid">
+                <a href="prompt-training.html" class="card card-link">
+                    <div class="card-icon">&#x1F4AC;</div>
+                    <h3>Prompt Engineering</h3>
+                    <p>Learn the CRAFT framework for writing effective prompts and practice with our interactive coach.</p>
+                    <span class="card-cta">Next: Write Better Prompts &rarr;</span>
+                </a>
+                <a href="copilot-102.html" class="card card-link">
+                    <div class="card-icon">&#x1F916;</div>
+                    <h3>Copilot 102: Using Agents</h3>
+                    <p>Discover pre-built Copilot agents and learn which ones are most useful for different consulting tasks.</p>
+                    <span class="card-cta">Next: Explore Agents &rarr;</span>
+                </a>
+                <a href="market-research.html" class="card card-link">
+                    <div class="card-icon">&#x1F4CA;</div>
+                    <h3>Market Research with AI</h3>
+                    <p>Apply what you've learned to accelerate competitive analysis, industry sizing, and client deliverables.</p>
+                    <span class="card-cta">Next: Research Workflows &rarr;</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

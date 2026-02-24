@@ -1287,6 +1287,231 @@ footer {
 
 
 /* ============================================
+   Learning Path (Home Page)
+   ============================================ */
+
+.learning-path {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.path-step {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+
+.path-number {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: var(--blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-top: 0.25rem;
+}
+
+.path-content {
+    flex: 1;
+    position: relative;
+}
+
+.path-link {
+    display: block;
+    padding: 1.25rem 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.path-link:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.path-link h3 {
+    color: var(--navy);
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+}
+
+.path-link p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.path-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+.path-tag-start {
+    background: var(--green-light);
+    color: var(--green);
+}
+
+.path-tag-core {
+    background: var(--blue-pale);
+    color: var(--blue);
+}
+
+.path-tag-applied {
+    background: var(--gold-light);
+    color: #8a7234;
+}
+
+.path-connector {
+    width: 2px;
+    height: 28px;
+    background: var(--gray-300);
+    margin-left: 21px;
+}
+
+.path-connector-branch {
+    height: 20px;
+}
+
+.path-branch {
+    margin-left: 0;
+}
+
+.path-branch-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+    margin-left: 58px;
+}
+
+.path-branch-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.path-step-branch .path-number {
+    background: var(--gold);
+    color: var(--navy);
+    width: 38px;
+    height: 38px;
+    font-size: 0.85rem;
+}
+
+
+/* ============================================
+   Copilot 101 & 102 Pages
+   ============================================ */
+
+.mode-card {
+    padding: 1.25rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.mode-card p {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.mode-card h4 {
+    color: var(--navy);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.mode-url {
+    font-size: 0.9rem;
+}
+
+.card-detail {
+    font-size: 0.85rem !important;
+    color: var(--gray-500) !important;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--gray-100);
+}
+
+/* Agent detail within accordion */
+.agent-detail p {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.agent-detail h4 {
+    color: var(--navy);
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+}
+
+/* Agent reference table */
+.agent-table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+}
+
+.agent-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    font-size: 0.9rem;
+}
+
+.agent-table thead {
+    background: var(--navy);
+    color: var(--white);
+}
+
+.agent-table th {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.agent-table td {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+}
+
+.agent-table tbody tr:hover {
+    background: var(--gray-50);
+}
+
+.agent-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* ============================================
    Utilities & Responsive
    ============================================ */
 
@@ -1337,5 +1562,35 @@ footer {
     }
     .mistakes-grid {
         grid-template-columns: 1fr;
+    }
+    .path-branch-options {
+        grid-template-columns: 1fr;
+    }
+    .path-branch-label {
+        margin-left: 0;
+        text-align: center;
+    }
+    .path-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .path-connector {
+        margin-left: 0;
+    }
+    .path-link p,
+    .path-link .card-cta {
+        text-align: center;
+    }
+    .path-step-branch {
+        flex-direction: column;
+        align-items: center;
+    }
+    .agent-table {
+        font-size: 0.8rem;
+    }
+    .agent-table th,
+    .agent-table td {
+        padding: 0.6rem 0.75rem;
     }
 }

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot 102: Using Agents — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <span class="brand-mark">D&amp;C</span>
+            <span class="brand-text">AI Learning Hub</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="copilot-101.html" class="nav-link">Copilot 101</a>
+            <a href="copilot-102.html" class="nav-link active">Copilot 102</a>
+            <a href="prompt-training.html" class="nav-link">Prompt Engineering</a>
+            <a href="market-research.html" class="nav-link">Market Research</a>
+            <a href="email-agent.html" class="nav-link">Email Agent</a>
+            <a href="index.html#feedback" class="nav-link nav-link-accent">Feedback Hub</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Copilot 102: Using Agents</h1>
+            <p>Go beyond basic chat — learn how to use pre-built Copilot agents to automate workflows, get specialized outputs, and work faster across Microsoft 365.</p>
+        </section>
+
+        <!-- What Are Agents -->
+        <section class="section">
+            <h2 class="section-title">What Are Copilot Agents?</h2>
+            <div class="content-block">
+                <p>Agents are specialized Copilot assistants that are pre-configured for specific tasks. Instead of starting from scratch every time and writing detailed prompts, agents come with built-in instructions, knowledge, and workflows tuned for a particular job.</p>
+                <p>Think of it this way: regular Copilot is a generalist — it can do many things if you tell it exactly what you want. An agent is a specialist — it already knows what you're likely trying to do and is set up to do it well.</p>
+            </div>
+            <div class="callout callout-info" style="margin-top: 1.5rem; max-width: 800px;">
+                <h4>Where to Find Agents</h4>
+                <p>Agents are available in <strong>Microsoft 365 Copilot Chat</strong> (in Teams or the M365 app). Look for the <strong>right-side panel</strong> or the <strong>@ mention</strong> feature to browse and select available agents. Your organization may also have custom agents built in Copilot Studio.</p>
+            </div>
+        </section>
+
+        <!-- Built-in vs Custom -->
+        <section class="section section-alt">
+            <h2 class="section-title">Types of Agents</h2>
+            <p class="section-desc">There are two categories of agents you'll encounter. Both work the same way — you just access them differently.</p>
+
+            <div class="two-column">
+                <div>
+                    <h4 class="column-header column-header-good">Microsoft Built-in Agents</h4>
+                    <div class="mode-card">
+                        <p>These come pre-installed with your Microsoft 365 Copilot license. They're maintained by Microsoft and designed for common business tasks.</p>
+                        <ul class="feature-list">
+                            <li>Available to everyone with a Copilot license</li>
+                            <li>Regularly updated with new capabilities</li>
+                            <li>Optimized for M365 data and workflows</li>
+                            <li>No setup required — just find and use them</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="column-header column-header-caution">Custom / Organization Agents</h4>
+                    <div class="mode-card">
+                        <p>These are built by your organization (or by you) using <strong>Microsoft Copilot Studio</strong>. They can be tailored to your firm's specific workflows and data.</p>
+                        <ul class="feature-list">
+                            <li>Customized for your organization's needs</li>
+                            <li>Can connect to internal data sources</li>
+                            <li>Built and managed in Copilot Studio</li>
+                            <li>Can be shared with specific teams or the whole org</li>
+                        </ul>
+                        <div class="callout" style="margin-top: 1rem;">
+                            <p>Our <a href="email-agent.html">Email Agent training</a> walks you through building your own custom agent from scratch.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Agents Reference -->
+        <section class="section">
+            <h2 class="section-title">Agents You Should Know</h2>
+            <p class="section-desc">Here are the most useful agents for consulting work, organized by the type of task they help with.</p>
+
+            <!-- Facilitator -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Facilitator — Meeting Prep &amp; Follow-Up</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="agent-detail">
+                            <p><strong>What it does:</strong> Helps prepare for meetings and manage follow-up. It can create agendas, summarize past meetings on a topic, draft follow-up emails, and extract action items from transcripts.</p>
+                            <h4>Best for:</h4>
+                            <ul class="feature-list">
+                                <li>Preparing for a client check-in by reviewing past meeting notes</li>
+                                <li>Generating a structured agenda based on outstanding items</li>
+                                <li>Drafting follow-up emails with action items after a call</li>
+                                <li>Tracking recurring discussion topics across multiple meetings</li>
+                            </ul>
+                            <div class="prompt-template" style="margin-top: 1rem;">
+                                <p class="prompt-label">Example Prompt:</p>
+                                <pre class="prompt-code">Review my meetings with the Acme Corp team over the last 2 weeks.
+What are the open action items? Draft a follow-up email summarizing
+what was discussed and what's still outstanding.</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Researcher — Information Gathering &amp; Synthesis</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="agent-detail">
+                            <p><strong>What it does:</strong> Searches across the web and your M365 data to find, compile, and synthesize information on a topic. It can pull from multiple sources and present a structured overview.</p>
+                            <h4>Best for:</h4>
+                            <ul class="feature-list">
+                                <li>Quickly building a landscape overview of an industry or topic</li>
+                                <li>Finding internal documents related to a project</li>
+                                <li>Compiling public information about competitors or markets</li>
+                                <li>Synthesizing findings from multiple sources into a brief</li>
+                            </ul>
+                            <div class="prompt-template" style="margin-top: 1rem;">
+                                <p class="prompt-label">Example Prompt:</p>
+                                <pre class="prompt-code">Research the current state of the plant-based food market in North America.
+Include market size, key players, recent M&amp;A activity, and growth projections.
+Synthesize into an executive-ready brief with sources cited.</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Writer — Document Drafting &amp; Editing</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="agent-detail">
+                            <p><strong>What it does:</strong> Specializes in creating, editing, and formatting written content. It goes beyond basic Copilot in Word by offering more control over tone, structure, and style consistency.</p>
+                            <h4>Best for:</h4>
+                            <ul class="feature-list">
+                                <li>Drafting memos, proposals, or client-facing documents</li>
+                                <li>Rewriting content for a different audience or tone</li>
+                                <li>Editing for clarity, conciseness, and professional polish</li>
+                                <li>Creating consistent document templates</li>
+                            </ul>
+                            <div class="prompt-template" style="margin-top: 1rem;">
+                                <p class="prompt-label">Example Prompt:</p>
+                                <pre class="prompt-code">Take the notes from last week's strategy session and draft a 2-page
+client memo. Use a professional but accessible tone. Structure it as:
+1. Executive Summary, 2. Key Findings, 3. Recommended Next Steps.
+Keep it under 800 words.</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Interpreter — Data Analysis &amp; Visualization</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="agent-detail">
+                            <p><strong>What it does:</strong> Focused on working with data — analyzing spreadsheets, identifying patterns, creating visualizations, and translating data into business insights.</p>
+                            <h4>Best for:</h4>
+                            <ul class="feature-list">
+                                <li>Analyzing survey results or financial data</li>
+                                <li>Creating charts and graphs from raw data</li>
+                                <li>Identifying trends, outliers, and correlations</li>
+                                <li>Translating complex data into client-ready narratives</li>
+                            </ul>
+                            <div class="prompt-template" style="margin-top: 1rem;">
+                                <p class="prompt-label">Example Prompt:</p>
+                                <pre class="prompt-code">Analyze the attached revenue data for the last 8 quarters.
+Identify the top 3 trends, flag any anomalies, and create a
+line chart showing revenue by product category.
+Summarize the story this data tells for the CEO.</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Designer — Presentation &amp; Visual Creation</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="agent-detail">
+                            <p><strong>What it does:</strong> Helps create and improve visual content — presentations, diagrams, infographics, and formatted layouts. It's particularly strong at turning text content into visual formats.</p>
+                            <h4>Best for:</h4>
+                            <ul class="feature-list">
+                                <li>Creating presentations from Word documents or meeting notes</li>
+                                <li>Improving the visual design of existing slides</li>
+                                <li>Generating diagrams and process flows</li>
+                                <li>Formatting content for visual impact</li>
+                            </ul>
+                            <div class="prompt-template" style="margin-top: 1rem;">
+                                <p class="prompt-label">Example Prompt:</p>
+                                <pre class="prompt-code">Create a 12-slide board presentation from our strategy document.
+Use a clean, professional layout. Include a title slide, executive
+summary, one slide per strategic pillar (4 pillars), a timeline
+slide, a financial summary, and a next steps slide.</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Project Manager — Task &amp; Workflow Tracking</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="agent-detail">
+                            <p><strong>What it does:</strong> Helps organize and track project work — extracting tasks from communications, creating status summaries, identifying blockers, and generating project updates.</p>
+                            <h4>Best for:</h4>
+                            <ul class="feature-list">
+                                <li>Extracting and organizing action items from multiple meetings</li>
+                                <li>Creating weekly status reports from Teams activity</li>
+                                <li>Identifying which workstreams are behind schedule</li>
+                                <li>Drafting project update emails for stakeholders</li>
+                            </ul>
+                            <div class="prompt-template" style="margin-top: 1rem;">
+                                <p class="prompt-label">Example Prompt:</p>
+                                <pre class="prompt-code">Review all Teams messages and meetings from the Acme Corp project
+channel this week. Create a status update that includes:
+- Completed items
+- In-progress items with owners
+- Blockers or risks
+- Key decisions made</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Which Agent for Which Task -->
+        <section class="section section-alt">
+            <h2 class="section-title">Which Agent for Which Task?</h2>
+            <p class="section-desc">Use this quick-reference table to pick the right agent for common consulting scenarios.</p>
+
+            <div class="agent-table-wrapper">
+                <table class="agent-table">
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Best Agent</th>
+                            <th>Why</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Preparing for a client meeting</td>
+                            <td><strong>Facilitator</strong></td>
+                            <td>Reviews past meetings and creates agendas</td>
+                        </tr>
+                        <tr>
+                            <td>Building an industry overview from scratch</td>
+                            <td><strong>Researcher</strong></td>
+                            <td>Searches and synthesizes information from multiple sources</td>
+                        </tr>
+                        <tr>
+                            <td>Drafting a client memo or proposal</td>
+                            <td><strong>Writer</strong></td>
+                            <td>Optimized for structured, polished documents</td>
+                        </tr>
+                        <tr>
+                            <td>Analyzing survey data or financials</td>
+                            <td><strong>Interpreter</strong></td>
+                            <td>Built for data analysis and visualization</td>
+                        </tr>
+                        <tr>
+                            <td>Creating a board presentation</td>
+                            <td><strong>Designer</strong></td>
+                            <td>Focuses on visual output and slide design</td>
+                        </tr>
+                        <tr>
+                            <td>Writing a weekly project status email</td>
+                            <td><strong>Project Manager</strong></td>
+                            <td>Aggregates updates from meetings, chats, and files</td>
+                        </tr>
+                        <tr>
+                            <td>Summarizing a long email chain</td>
+                            <td><strong>Copilot in Outlook</strong></td>
+                            <td>No agent needed — built-in Outlook Copilot handles this well</td>
+                        </tr>
+                        <tr>
+                            <td>Quick brainstorming or idea generation</td>
+                            <td><strong>Copilot Chat (no agent)</strong></td>
+                            <td>General-purpose Copilot is flexible enough for open-ended exploration</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- How to Use an Agent -->
+        <section class="section">
+            <h2 class="section-title">How to Use an Agent: Step by Step</h2>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Open Microsoft 365 Copilot Chat</h3>
+                        <p>Go to the Microsoft 365 app or open Copilot in Teams. This is the central hub where agents are accessible.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Browse or search for agents</h3>
+                        <p>Look for the agent selector in the right panel or type <strong>@</strong> to see available agents. You can search by name or browse by category.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Select the agent and start your conversation</h3>
+                        <p>Click on the agent you want. It will open a focused chat with that agent's specialized capabilities. You can prompt it just like regular Copilot — but it already has context about its domain.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Iterate and refine</h3>
+                        <p>Just like regular Copilot, agents work best when you iterate. Ask follow-ups, request adjustments, and build on the output. The same chat-memory rules apply — stay in the conversation to maintain context.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips for Working with Agents -->
+        <section class="section section-alt">
+            <h2 class="section-title">Tips for Getting the Most from Agents</h2>
+            <div class="tips-grid">
+                <div class="tip">
+                    <div class="tip-number">1</div>
+                    <h4>Don't Over-Prompt</h4>
+                    <p>Agents already have built-in instructions. You don't need to repeat their purpose — just tell them what you need. "Summarize last week's meetings" is enough for the Facilitator agent.</p>
+                </div>
+                <div class="tip">
+                    <div class="tip-number">2</div>
+                    <h4>Use the Right Agent</h4>
+                    <p>A general-purpose Copilot prompt can often work, but the right agent gives you better output with less effort. Match the task to the specialist.</p>
+                </div>
+                <div class="tip">
+                    <div class="tip-number">3</div>
+                    <h4>Combine Agents in Sequence</h4>
+                    <p>Use Researcher to gather information, then Writer to draft the deliverable, then Designer to build the presentation. Chain agents together for complex workflows.</p>
+                </div>
+                <div class="tip">
+                    <div class="tip-number">4</div>
+                    <h4>Provide Specifics</h4>
+                    <p>Even though agents are specialized, they still benefit from specifics: client name, time range, file names, audience, and desired format.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- When Not to Use an Agent -->
+        <section class="section">
+            <h2 class="section-title">When You Don't Need an Agent</h2>
+            <div class="content-block">
+                <p>Agents are powerful, but they're not always necessary. Here are situations where regular Copilot works just as well:</p>
+                <ul class="feature-list" style="margin-top: 1rem;">
+                    <li><strong>Quick one-off questions</strong> — "What's the definition of EBITDA?" or "Give me 5 icebreaker questions for a workshop."</li>
+                    <li><strong>Simple summarization in-app</strong> — Use Copilot directly in Outlook, Word, or Teams for straightforward summarization tasks.</li>
+                    <li><strong>Open-ended brainstorming</strong> — When you don't know exactly what you need yet, start with general Copilot and switch to an agent once you have direction.</li>
+                    <li><strong>One-time formatting tasks</strong> — "Convert these bullets into a numbered list" or "Rewrite this in a more formal tone."</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="section section-alt">
+            <h2 class="section-title">What's Next?</h2>
+            <p class="section-desc">Now that you understand agents, deepen your skills with these modules.</p>
+
+            <div class="card-grid">
+                <a href="prompt-training.html" class="card card-link">
+                    <div class="card-icon">&#x1F4AC;</div>
+                    <h3>Prompt Engineering</h3>
+                    <p>Master the CRAFT framework to write prompts that get better results from both Copilot and agents.</p>
+                    <span class="card-cta">Improve Your Prompts &rarr;</span>
+                </a>
+                <a href="market-research.html" class="card card-link">
+                    <div class="card-icon">&#x1F4CA;</div>
+                    <h3>Market Research with AI</h3>
+                    <p>See agents and prompting in action with a complete market research workflow.</p>
+                    <span class="card-cta">Research Workflows &rarr;</span>
+                </a>
+                <a href="email-agent.html" class="card card-link">
+                    <div class="card-icon">&#x1F916;</div>
+                    <h3>Build Your Own Agent</h3>
+                    <p>Ready to create a custom agent? Follow our step-by-step guide to build an email agent in Copilot Studio.</p>
+                    <span class="card-cta">Build an Agent &rarr;</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
