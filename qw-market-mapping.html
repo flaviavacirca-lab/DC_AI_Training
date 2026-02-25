@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Win: Market Mapping &amp; Hypothesis Brainstorming — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="quick-wins.html" class="nav-link active">Quick Wins</a>
+            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="learning-path.html" class="nav-link">Learning Path</a>
+            <a href="live-trainings.html" class="nav-link">Trainings</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Market Mapping &amp; Hypothesis Brainstorming</h1>
+            <p>Create competitive landscapes and generate testable hypotheses in one prompt.</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <section class="section">
+            <div class="qw-page-content">
+                <div class="qw-scenario">
+                    <strong>The scenario:</strong> You need to create a competitive landscape map for a client entering a new industry vertical. You want not just a list of competitors, but a structured map with positioning frameworks and hypotheses your team can test.
+                </div>
+
+                <h2 class="section-title">Weak vs. Improved Prompt</h2>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "List competitors in fintech."
+                            <div class="prompt-comp-output">You'll get a flat list with no segmentation, no positioning, and no strategic framing. Not useful for a client deck.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "I'm mapping the competitive landscape for a client entering B2B fintech payments. Help me create a structured competitive map that includes: (1) 15&ndash;20 key players categorized by segment (processing, infrastructure, embedded finance), (2) for each: estimated revenue range, funding stage, key differentiator, (3) a 2x2 framework suggestion for positioning these players (e.g., scale vs. specialization), and (4) 3 hypotheses about where the market is headed. Format as a table I can paste into a deck."
+                            <div class="prompt-comp-output">You'll get a segmented competitive map, a positioning framework, and forward-looking hypotheses &mdash; all structured for a client presentation.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="why-works">
+                    <h4>Why the improved prompt works</h4>
+                    <ul>
+                        <li><strong>Segmentation:</strong> Categorizing by segment creates structure, not just a list.</li>
+                        <li><strong>Depth:</strong> Revenue, funding, and differentiators give each entry analytical value.</li>
+                        <li><strong>Frameworks:</strong> The 2x2 positioning request creates a strategic lens.</li>
+                        <li><strong>Forward-looking:</strong> Hypotheses push beyond descriptive analysis into strategic insight.</li>
+                    </ul>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">I'm mapping the competitive landscape for a client in [INDUSTRY/VERTICAL]. Help me create:
+1. [N] key players categorized by segment ([LIST SEGMENTS])
+2. For each: estimated revenue range, funding stage, key differentiator
+3. A 2x2 positioning framework (e.g., [AXIS 1] vs. [AXIS 2])
+4. 3 hypotheses about where the market is headed
+Format as a table I can paste into a deck.</pre>
+                    <p class="try-it-note">The 2x2 framework is especially useful for the "competitive landscape" slide. Verify company details against primary sources.</p>
+                </div>
+
+                <div class="page-completion">
+                    <div data-module-complete="qw-market-mapping"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <p style="text-align: center;"><a href="quick-wins.html">&larr; Back to Quick Wins</a> &nbsp;&middot;&nbsp; <a href="copilot-for-consulting.html#mapping">Full Market Mapping Module &rarr;</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

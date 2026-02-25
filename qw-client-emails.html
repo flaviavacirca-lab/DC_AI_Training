@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Win: Draft Sharper Client Emails — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="quick-wins.html" class="nav-link active">Quick Wins</a>
+            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="learning-path.html" class="nav-link">Learning Path</a>
+            <a href="live-trainings.html" class="nav-link">Trainings</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Draft Sharper Client Emails</h1>
+            <p>Write polished, concise progress updates and follow-ups in one prompt.</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <section class="section">
+            <div class="qw-page-content">
+                <div class="qw-scenario">
+                    <strong>The scenario:</strong> You need to send a progress update to a VP-level client sponsor at a Fortune 500 company. The email needs to be professional but warm, concise but complete, and clearly structured. Instead of staring at a blank email for 20 minutes, use Copilot to generate a strong first draft.
+                </div>
+
+                <h2 class="section-title">Weak vs. Improved Prompt</h2>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "Write an email to my client about the project."
+                            <div class="prompt-comp-output">You'll get something generic and vague. No specifics about findings, no clear next steps, wrong tone. You'll rewrite the whole thing.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "Draft a concise progress update email to a VP-level client sponsor at a Fortune 500 company. The project is a strategic growth assessment. Cover: (1) key findings so far &mdash; we've identified 3 potential market entry opportunities, (2) next steps &mdash; finalizing financial models next week, (3) any open items &mdash; we need their internal revenue data by Friday. Tone should be professional but warm, 150 words max."
+                            <div class="prompt-comp-output">You'll get a polished email with clear structure, the right tone for a senior audience, and all three key points covered concisely.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="why-works">
+                    <h4>Why the improved prompt works</h4>
+                    <ul>
+                        <li><strong>Audience:</strong> Specifying "VP-level" and "Fortune 500" sets the right formality and conciseness.</li>
+                        <li><strong>Content structure:</strong> Three numbered points (findings, next steps, open items) gives Copilot a clear framework.</li>
+                        <li><strong>Tone:</strong> "Professional but warm" prevents overly stiff or overly casual output.</li>
+                        <li><strong>Constraint:</strong> "150 words max" forces brevity, which senior clients appreciate.</li>
+                    </ul>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">Draft a concise [EMAIL TYPE] to [RECIPIENT ROLE] at [COMPANY TYPE]. The project is [BRIEF CONTEXT]. Cover:
+1. Key findings so far — [SUMMARY]
+2. Next steps — [WHAT'S PLANNED]
+3. Open items — [WHAT'S NEEDED FROM THEM]
+Tone: professional but warm. Under [N] words.</pre>
+                    <p class="try-it-note">Works great in Copilot in Outlook. You can also use this in the Copilot chat and paste the result.</p>
+                </div>
+
+                <div class="page-completion">
+                    <div data-module-complete="qw-client-emails"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <p style="text-align: center;"><a href="quick-wins.html">&larr; Back to Quick Wins</a> &nbsp;&middot;&nbsp; <a href="copilot-for-consulting.html#ops">Full Email &amp; Ops Module &rarr;</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

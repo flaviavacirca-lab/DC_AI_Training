@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Win: Accelerate Market Research — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="quick-wins.html" class="nav-link active">Quick Wins</a>
+            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="learning-path.html" class="nav-link">Learning Path</a>
+            <a href="live-trainings.html" class="nav-link">Trainings</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Accelerate Market Research</h1>
+            <p>Get a structured market brief in minutes instead of hours.</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <section class="section">
+            <div class="qw-page-content">
+                <div class="qw-scenario">
+                    <strong>The scenario:</strong> You're kicking off a new engagement and need to quickly size a market and identify key players. Normally you'd spend 2&ndash;3 hours pulling data from multiple sources and assembling it into a brief. With Copilot, you can get a solid first pass in 15 minutes.
+                </div>
+
+                <h2 class="section-title">Weak vs. Improved Prompt</h2>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "Tell me about the healthcare market."
+                            <div class="prompt-comp-output">You'll get a generic overview &mdash; think Wikipedia article. No structure, no sizing, no competitive landscape. Not useful for a client engagement.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "I'm a strategy consultant preparing for a client engagement in the U.S. digital health market. Help me create a market sizing framework that includes: (1) TAM/SAM/SOM estimates with sources, (2) key segments by buyer type, (3) top 10 companies by revenue, and (4) growth drivers for the next 3&ndash;5 years. Format as a structured brief I can share with my team."
+                            <div class="prompt-comp-output">You'll get an organized brief with clear sections, specific companies, estimated market sizes, and a framework your team can build on.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="why-works">
+                    <h4>Why the improved prompt works</h4>
+                    <ul>
+                        <li><strong>Context:</strong> It tells Copilot who you are and why you need this.</li>
+                        <li><strong>Specificity:</strong> It lists exactly what you want (TAM/SAM, companies, growth drivers).</li>
+                        <li><strong>Format:</strong> It asks for a structured brief, not a free-form essay.</li>
+                        <li><strong>Audience:</strong> It mentions sharing with the team, which shapes the tone.</li>
+                    </ul>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">I'm a strategy consultant preparing for a client engagement in [INDUSTRY/MARKET]. Help me create a market sizing framework that includes:
+1. TAM/SAM/SOM estimates with sources
+2. Key segments by [BUYER TYPE / GEOGRAPHY / PRODUCT]
+3. Top [N] companies by revenue or market share
+4. Growth drivers for the next 3-5 years
+Format as a structured brief I can share with my team.</pre>
+                    <p class="try-it-note">Replace the bracketed sections with your specific engagement details. Use Copilot in web mode for broad research.</p>
+                </div>
+
+                <div class="page-completion">
+                    <div data-module-complete="qw-market-research"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <p style="text-align: center;"><a href="quick-wins.html">&larr; Back to Quick Wins</a> &nbsp;&middot;&nbsp; <a href="copilot-for-consulting.html#research">Full Research Module &rarr;</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

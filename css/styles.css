@@ -120,12 +120,13 @@ ul, ol {
 
 .nav-link {
     color: rgba(255,255,255,0.8);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.65rem;
     border-radius: 6px;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-weight: 500;
     transition: var(--transition);
     text-decoration: none;
+    white-space: nowrap;
 }
 .nav-link:hover {
     color: var(--white);
@@ -187,6 +188,7 @@ ul, ol {
     .nav-link {
         padding: 0.75rem 1rem;
         width: 100%;
+        font-size: 0.9rem;
     }
 }
 
@@ -1592,5 +1594,878 @@ footer {
     .agent-table th,
     .agent-table td {
         padding: 0.6rem 0.75rem;
+    }
+}
+
+
+/* ============================================
+   New Components — Site Restructure
+   ============================================ */
+
+/* --- Brand Link --- */
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--white);
+    text-decoration: none;
+}
+.brand-link:hover {
+    text-decoration: none;
+}
+
+/* --- Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 1rem;
+}
+.modal-content {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    max-width: 440px;
+    width: 100%;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+}
+.modal-content h2 {
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+.modal-content > p {
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+.modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    color: var(--gray-400);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.25rem;
+}
+.modal-close:hover {
+    color: var(--gray-700);
+}
+.modal-note {
+    margin-top: 1rem;
+    font-size: 0.8rem !important;
+    color: var(--gray-500) !important;
+    text-align: center;
+}
+.form-error {
+    background: var(--red-light);
+    color: var(--red);
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+.form-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    margin-top: 0.25rem;
+}
+
+/* --- Auth Banner --- */
+.auth-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 2rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.auth-banner-signed-in {
+    background: var(--green-light);
+    border-bottom: 1px solid rgba(45,138,78,0.2);
+}
+.auth-banner-signed-out {
+    background: var(--blue-pale);
+    border-bottom: 1px solid rgba(59,108,180,0.15);
+}
+.auth-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.auth-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+.auth-user-details {
+    display: flex;
+    flex-direction: column;
+}
+.auth-user-details strong {
+    font-size: 0.9rem;
+    color: var(--navy);
+}
+.auth-progress-text {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+}
+.auth-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.auth-prompt {
+    display: flex;
+    flex-direction: column;
+}
+.auth-prompt strong {
+    font-size: 0.9rem;
+    color: var(--navy);
+}
+.auth-prompt span {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+}
+
+/* --- Button Variants --- */
+.btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.82rem;
+}
+.btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+}
+.btn-gold:hover {
+    background: #d4b46a;
+    border-color: #d4b46a;
+    text-decoration: none;
+}
+
+/* --- Completion Toggle --- */
+.completion-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius);
+    background: var(--white);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gray-600);
+    transition: var(--transition);
+}
+.completion-toggle:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+.completion-toggle.completed {
+    background: var(--green-light);
+    border-color: var(--green);
+    color: var(--green);
+}
+.completion-toggle.completed:hover {
+    background: var(--white);
+    border-color: var(--gray-300);
+    color: var(--gray-600);
+}
+.completion-icon {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.completion-signin {
+    border-style: dashed;
+    color: var(--gray-500);
+}
+.completion-signin:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    border-style: solid;
+}
+
+/* --- Progress Bar --- */
+.progress-bar-container {
+    background: var(--gray-200);
+    border-radius: 20px;
+    height: 12px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--green) 100%);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+    min-width: 0;
+}
+.progress-summary {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+.progress-overview {
+    margin-bottom: 1.5rem;
+}
+.progress-module-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+.progress-module-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+.progress-module-item:hover {
+    background: var(--gray-50);
+    text-decoration: none;
+}
+.progress-done {
+    color: var(--green);
+}
+.progress-check {
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+}
+.progress-module-title {
+    flex: 1;
+}
+.progress-signin-prompt {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+/* --- Quick Win Tiles --- */
+.qw-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+.qw-tile {
+    display: block;
+    padding: 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+.qw-tile:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+.qw-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.qw-tile h3 {
+    color: var(--navy);
+    font-size: 1.05rem;
+    margin-bottom: 0.35rem;
+}
+.qw-tile p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* --- Segment Buttons --- */
+.segment-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+.segment-btn {
+    display: block;
+    padding: 1.5rem;
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    text-align: center;
+    color: inherit;
+    transition: var(--transition);
+}
+.segment-btn:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+}
+.segment-btn strong {
+    display: block;
+    color: var(--navy);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+.segment-btn span {
+    color: var(--gray-500);
+    font-size: 0.85rem;
+}
+
+/* --- Prompt Comparison --- */
+.prompt-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+@media (max-width: 640px) {
+    .prompt-comparison { grid-template-columns: 1fr; }
+}
+.prompt-weak,
+.prompt-improved {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+.prompt-weak .prompt-comp-header {
+    background: var(--red-light);
+    color: var(--red);
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.prompt-improved .prompt-comp-header {
+    background: var(--green-light);
+    color: var(--green);
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.prompt-comp-body {
+    padding: 1rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-top: none;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    font-size: 0.9rem;
+    color: var(--gray-700);
+    line-height: 1.6;
+}
+.prompt-comp-output {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--gray-200);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gray-500);
+}
+
+/* --- Try-It Template Box --- */
+.try-it-box {
+    background: var(--gold-light);
+    border: 1px solid var(--gold);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+.try-it-box h4 {
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+.try-it-box .prompt-code {
+    margin-bottom: 0.75rem;
+}
+.try-it-box .try-it-note {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    font-style: italic;
+}
+
+/* --- Why It Works --- */
+.why-works {
+    background: var(--blue-pale);
+    border-left: 3px solid var(--blue);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1rem 0;
+}
+.why-works h4 {
+    color: var(--navy);
+    margin-bottom: 0.35rem;
+    font-size: 0.95rem;
+}
+.why-works p, .why-works li {
+    color: var(--gray-700);
+    font-size: 0.9rem;
+}
+
+/* --- Prompt Library --- */
+.prompt-search-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+.prompt-search-bar input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.65rem 1rem;
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: var(--transition);
+}
+.prompt-search-bar input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(59,108,180,0.15);
+}
+.filter-chips {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+.filter-btn {
+    padding: 0.4rem 0.85rem;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 20px;
+    background: var(--white);
+    color: var(--gray-600);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.filter-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+.filter-btn.active {
+    background: var(--blue);
+    color: var(--white);
+    border-color: var(--blue);
+}
+.prompt-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.25rem;
+}
+.prompt-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+.prompt-card:hover {
+    box-shadow: var(--shadow);
+}
+.prompt-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+}
+.prompt-card-title {
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 1rem;
+}
+.prompt-card-cat {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: var(--blue-pale);
+    color: var(--blue);
+    white-space: nowrap;
+}
+.prompt-card-situation {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    margin-bottom: 0.75rem;
+    font-style: italic;
+}
+.prompt-template-text {
+    background: var(--gray-800);
+    color: #e0e8f0;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 0.5rem;
+}
+.prompt-card-notes {
+    font-size: 0.82rem;
+    color: var(--gray-500);
+    margin-bottom: 0.5rem;
+}
+.save-prompt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.75rem;
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    background: var(--white);
+    color: var(--gray-500);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.save-prompt-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+.save-prompt-btn.saved {
+    background: var(--gold-light);
+    border-color: var(--gold);
+    color: #8a7234;
+}
+
+/* --- Account Dashboard --- */
+.account-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.account-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.account-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+.account-user h2 {
+    color: var(--navy);
+    font-size: 1.3rem;
+    margin-bottom: 0.1rem;
+}
+.account-user p {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+.account-section {
+    margin-bottom: 2.5rem;
+}
+.account-section h3 {
+    color: var(--navy);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-100);
+}
+.recent-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+.recent-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 0.9rem;
+}
+.recent-list li a {
+    color: var(--blue);
+}
+.recent-date {
+    color: var(--gray-400);
+    font-size: 0.8rem;
+}
+.rec-list {
+    list-style: none;
+    padding: 0;
+}
+.rec-list li {
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 0.9rem;
+    color: var(--gray-600);
+}
+.rec-list li a {
+    color: var(--blue);
+    font-weight: 500;
+}
+.empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--gray-500);
+    font-size: 0.95rem;
+}
+.saved-prompts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.saved-prompt-card {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.saved-prompt-card:hover {
+    border-color: var(--blue);
+}
+.saved-prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--gray-50);
+}
+.saved-prompt-header strong {
+    color: var(--navy);
+    font-size: 0.9rem;
+}
+.saved-prompt-cat {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    background: var(--blue-pale);
+    color: var(--blue);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+}
+.remove-prompt-btn {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--gray-400);
+    cursor: pointer;
+    padding: 0 0.25rem;
+}
+.remove-prompt-btn:hover {
+    color: var(--red);
+}
+.saved-prompt-body {
+    display: none;
+    padding: 0 1rem 1rem;
+}
+.saved-prompt-card.expanded .saved-prompt-body {
+    display: block;
+}
+
+/* --- Auth Gate (Live Trainings) --- */
+.auth-gate {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+.auth-gate h2 {
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+}
+.auth-gate p {
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Workflow Module Cards --- */
+.workflow-module {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+.workflow-module h3 {
+    color: var(--navy);
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+}
+.workflow-module-scenario {
+    background: var(--gray-50);
+    border-left: 3px solid var(--navy);
+    padding: 0.85rem 1rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--gray-700);
+    font-style: italic;
+}
+.module-completion {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-100);
+}
+
+/* --- Client Impact --- */
+.impact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.impact-card {
+    padding: 1.75rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+.impact-card h3 {
+    color: var(--navy);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+.impact-card p {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.impact-card ul {
+    margin-top: 0.5rem;
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+.impact-card ul li {
+    margin-bottom: 0.3rem;
+}
+
+/* --- Trainings Page --- */
+.trainings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.training-card {
+    padding: 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+}
+.training-card h3 {
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+.training-card p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+.empty-placeholder {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--gray-500);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--gray-300);
+}
+
+/* --- Success Message --- */
+.inline-success {
+    background: var(--green-light);
+    color: var(--green);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+}
+
+/* --- Page Completion Footer --- */
+.page-completion {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* --- QW Page Layout --- */
+.qw-page-content {
+    max-width: 800px;
+}
+.qw-scenario {
+    background: var(--gray-50);
+    border-left: 3px solid var(--navy);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--gray-700);
+}
+
+/* --- Responsive Additions --- */
+@media (max-width: 768px) {
+    .auth-banner {
+        padding: 0.75rem 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .qw-tiles {
+        grid-template-columns: 1fr;
+    }
+    .segment-buttons {
+        grid-template-columns: 1fr;
+    }
+    .prompt-comparison {
+        grid-template-columns: 1fr;
+    }
+    .prompt-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .impact-cards {
+        grid-template-columns: 1fr;
+    }
+    .trainings-grid {
+        grid-template-columns: 1fr;
+    }
+    .account-header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .prompt-search-bar {
+        flex-direction: column;
     }
 }

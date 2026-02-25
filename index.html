@@ -7,20 +7,22 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Top Navigation -->
     <nav class="top-nav">
         <div class="nav-brand">
-            <span class="brand-mark">D&amp;C</span>
-            <span class="brand-text">AI Learning Hub</span>
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
         </div>
         <div class="nav-links">
             <a href="index.html" class="nav-link active">Home</a>
-            <a href="copilot-101.html" class="nav-link">Copilot 101</a>
-            <a href="copilot-102.html" class="nav-link">Copilot 102</a>
-            <a href="prompt-training.html" class="nav-link">Prompt Engineering</a>
-            <a href="market-research.html" class="nav-link">Market Research</a>
-            <a href="email-agent.html" class="nav-link">Email Agent</a>
-            <a href="#feedback" class="nav-link nav-link-accent" id="nav-feedback">Feedback Hub</a>
+            <a href="quick-wins.html" class="nav-link">Quick Wins</a>
+            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="learning-path.html" class="nav-link">Learning Path</a>
+            <a href="live-trainings.html" class="nav-link">Trainings</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
         </div>
         <button class="mobile-menu-btn" aria-label="Toggle menu">
             <span></span><span></span><span></span>
@@ -28,130 +30,80 @@
     </nav>
 
     <main>
-        <!-- Hero Section -->
+        <!-- Hero -->
         <section class="hero">
             <div class="hero-content">
-                <h1>Welcome to the Denneen&nbsp;&amp;&nbsp;Company AI&nbsp;Learning&nbsp;Hub</h1>
-                <p class="hero-subtitle">Your internal resource for mastering Microsoft Copilot and AI-powered consulting workflows. Explore training modules, practice your prompting skills, and help us shape how we use AI as a team.</p>
+                <h1>Use Copilot to Improve Client&nbsp;Work&nbsp;&mdash; Faster&nbsp;&amp;&nbsp;Smarter</h1>
+                <p class="hero-subtitle">Tactical examples, prompts, and workflows built for Denneen consultants.</p>
                 <div class="hero-actions">
-                    <a href="copilot-101.html" class="btn btn-primary">Start Learning</a>
-                    <a href="#learning-path" class="btn btn-outline">View Learning Path</a>
+                    <a href="quick-wins.html" class="btn btn-primary">Show Me Quick Wins</a>
+                    <a href="prompt-library.html" class="btn btn-outline">Browse Prompt Library</a>
+                    <a href="learning-path.html" class="btn btn-outline">Start the Learning Path</a>
                 </div>
             </div>
         </section>
 
-        <!-- Recommended Learning Path -->
-        <section class="section" id="learning-path">
-            <h2 class="section-title">Recommended Learning Path</h2>
-            <p class="section-desc">New to Copilot? Follow this path from beginning to end. Already comfortable with the basics? Jump to whichever module is most relevant to your work.</p>
+        <!-- Auth Banner -->
+        <div id="auth-banner"></div>
 
-            <div class="learning-path">
-                <div class="path-step">
-                    <div class="path-number">1</div>
-                    <div class="path-content">
-                        <a href="copilot-101.html" class="path-link">
-                            <h3>Copilot 101: The Basics</h3>
-                            <p>Start here if you're new. Learn when to use web vs. work, how chat memory works, and how to navigate Copilot across your M365 apps.</p>
-                            <span class="card-cta">Start Here &rarr;</span>
-                        </a>
-                        <span class="path-tag path-tag-start">Start Here</span>
-                    </div>
-                </div>
-                <div class="path-connector"></div>
-                <div class="path-step">
-                    <div class="path-number">2</div>
-                    <div class="path-content">
-                        <a href="prompt-training.html" class="path-link">
-                            <h3>Prompt Engineering</h3>
-                            <p>Learn the CRAFT framework for writing effective prompts. Practice with an interactive coach and get instant feedback on your prompt structure.</p>
-                            <span class="card-cta">Continue &rarr;</span>
-                        </a>
-                        <span class="path-tag path-tag-core">Core Skill</span>
-                    </div>
-                </div>
-                <div class="path-connector"></div>
-                <div class="path-step">
-                    <div class="path-number">3</div>
-                    <div class="path-content">
-                        <a href="copilot-102.html" class="path-link">
-                            <h3>Copilot 102: Using Agents</h3>
-                            <p>Go beyond basic chat. Learn which pre-built agents are available and how to pick the right one for research, writing, data analysis, and more.</p>
-                            <span class="card-cta">Continue &rarr;</span>
-                        </a>
-                        <span class="path-tag path-tag-core">Level Up</span>
-                    </div>
-                </div>
-                <div class="path-connector path-connector-branch"></div>
-                <div class="path-branch">
-                    <p class="path-branch-label">Choose your focus:</p>
-                    <div class="path-branch-options">
-                        <div class="path-step path-step-branch">
-                            <div class="path-number">4a</div>
-                            <div class="path-content">
-                                <a href="market-research.html" class="path-link">
-                                    <h3>Market Research with AI</h3>
-                                    <p>Apply your skills to real consulting workflows — competitive analysis, industry sizing, and client deliverables.</p>
-                                    <span class="card-cta">Go &rarr;</span>
-                                </a>
-                                <span class="path-tag path-tag-applied">Applied</span>
-                            </div>
-                        </div>
-                        <div class="path-step path-step-branch">
-                            <div class="path-number">4b</div>
-                            <div class="path-content">
-                                <a href="email-agent.html" class="path-link">
-                                    <h3>Build an Email Agent</h3>
-                                    <p>Build your own custom Copilot agent in Copilot Studio — a hands-on project to create an email drafting assistant.</p>
-                                    <span class="card-cta">Go &rarr;</span>
-                                </a>
-                                <span class="path-tag path-tag-applied">Hands-On</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Quick Wins for Client Work -->
+        <section class="section" id="quick-wins">
+            <h2 class="section-title">Quick Wins for Client Work</h2>
+            <p class="section-desc">Practical examples you can try on your next project. Each takes 5&ndash;10 minutes.</p>
+            <div class="qw-tiles">
+                <a href="qw-market-research.html" class="qw-tile">
+                    <div class="qw-icon">&#x1F4CA;</div>
+                    <h3>Accelerate Market Research</h3>
+                    <p>Size markets and map competitors in a fraction of the time.</p>
+                </a>
+                <a href="qw-interview-synthesis.html" class="qw-tile">
+                    <div class="qw-icon">&#x1F399;</div>
+                    <h3>Synthesize Interviews Faster</h3>
+                    <p>Pull themes from stakeholder interviews in minutes.</p>
+                </a>
+                <a href="qw-client-emails.html" class="qw-tile">
+                    <div class="qw-icon">&#x2709;</div>
+                    <h3>Draft Sharper Client Emails</h3>
+                    <p>Write polished updates and follow-ups for VP-level clients.</p>
+                </a>
+                <a href="qw-deck-drafts.html" class="qw-tile">
+                    <div class="qw-icon">&#x1F4D1;</div>
+                    <h3>Build Deck First Drafts Faster</h3>
+                    <p>Generate slide storylines and talking points quickly.</p>
+                </a>
+                <a href="qw-market-mapping.html" class="qw-tile">
+                    <div class="qw-icon">&#x1F5FA;</div>
+                    <h3>Market Mapping &amp; Hypothesis Brainstorming</h3>
+                    <p>Create competitive landscapes and generate testable hypotheses.</p>
+                </a>
+                <a href="qw-data-summary.html" class="qw-tile">
+                    <div class="qw-icon">&#x1F4C8;</div>
+                    <h3>Summarize + Interpret Data</h3>
+                    <p>Find the story in survey data and quantitative research.</p>
+                </a>
             </div>
         </section>
 
-        <!-- All Training Modules -->
-        <section class="section section-alt" id="modules">
-            <h2 class="section-title">All Training Modules</h2>
-            <p class="section-desc">Quick access to every module. Pick the one that fits your needs right now.</p>
-            <div class="card-grid">
-                <a href="copilot-101.html" class="card card-link">
-                    <div class="card-icon">&#x1F4D6;</div>
-                    <h3>Copilot 101: The Basics</h3>
-                    <p>Where to find Copilot, web vs. work mode, how chat memory works, and when to start a new conversation.</p>
-                    <span class="card-cta">Start Module &rarr;</span>
+        <!-- Choose Your Starting Point -->
+        <section class="section section-alt" id="starting-point">
+            <h2 class="section-title">Choose Your Starting Point</h2>
+            <p class="section-desc">Not sure where to begin? Pick what matches your experience level.</p>
+            <div class="segment-buttons">
+                <a href="learning-path.html" class="segment-btn">
+                    <strong>I'm New to Copilot</strong>
+                    <span>Start from the beginning with Copilot 101</span>
                 </a>
-                <a href="prompt-training.html" class="card card-link">
-                    <div class="card-icon">&#x1F4AC;</div>
-                    <h3>Prompt Engineering</h3>
-                    <p>Learn the structure of effective prompts, practice with an interactive coach, and build confidence using Copilot for everyday consulting work.</p>
-                    <span class="card-cta">Start Module &rarr;</span>
+                <a href="quick-wins.html" class="segment-btn">
+                    <strong>I Use It Occasionally</strong>
+                    <span>Jump into practical quick wins</span>
                 </a>
-                <a href="copilot-102.html" class="card card-link">
-                    <div class="card-icon">&#x1F916;</div>
-                    <h3>Copilot 102: Using Agents</h3>
-                    <p>Discover pre-built agents for research, writing, data analysis, and project management — and learn which to use when.</p>
-                    <span class="card-cta">Start Module &rarr;</span>
+                <a href="copilot-for-consulting.html" class="segment-btn">
+                    <strong>I Want Advanced Workflows</strong>
+                    <span>Consulting-specific modules</span>
                 </a>
-                <a href="market-research.html" class="card card-link">
-                    <div class="card-icon">&#x1F4CA;</div>
-                    <h3>Market Research with AI</h3>
-                    <p>Use Copilot to accelerate competitive analysis, industry sizing, trend synthesis, and client deliverable creation.</p>
-                    <span class="card-cta">Start Module &rarr;</span>
-                </a>
-                <a href="email-agent.html" class="card card-link">
-                    <div class="card-icon">&#x2709;</div>
-                    <h3>Build an Email Agent</h3>
-                    <p>Step-by-step guide to building a Copilot agent that drafts emails, reviews your writing, and learns from your communication style.</p>
-                    <span class="card-cta">Start Module &rarr;</span>
-                </a>
-                <a href="#feedback" class="card card-link card-accent">
-                    <div class="card-icon">&#x1F4E3;</div>
-                    <h3>Feedback Hub</h3>
-                    <p>Request new training topics, share how you're using AI, or tell us what's working (and what isn't).</p>
-                    <span class="card-cta">Share Feedback &rarr;</span>
+                <a href="prompt-library.html" class="segment-btn">
+                    <strong>Show Me Consulting Examples</strong>
+                    <span>Browse ready-to-use prompts</span>
                 </a>
             </div>
         </section>
@@ -159,7 +111,7 @@
         <!-- Feedback Hub -->
         <section class="section" id="feedback">
             <h2 class="section-title">Feedback Hub</h2>
-            <p class="section-desc">Help us improve how Denneen &amp; Company uses AI. Submit training requests, share your experience, or flag issues below. All submissions are sent directly to the AI implementation team.</p>
+            <p class="section-desc">Help us improve how Denneen &amp; Company uses AI. Submit training requests, share your experience, or flag issues below.</p>
 
             <div class="form-tabs">
                 <button class="form-tab active" data-tab="request">Training Request</button>
@@ -167,7 +119,6 @@
                 <button class="form-tab" data-tab="idea">Idea / Suggestion</button>
             </div>
 
-            <!-- Training Request Form -->
             <div class="form-panel active" id="tab-request">
                 <form class="feedback-form" id="form-request" data-type="Training Request">
                     <div class="form-group">
@@ -194,7 +145,6 @@
                 </form>
             </div>
 
-            <!-- Implementation Feedback Form -->
             <div class="form-panel" id="tab-feedback">
                 <form class="feedback-form" id="form-feedback" data-type="Implementation Feedback">
                     <div class="form-group">
@@ -236,7 +186,6 @@
                 </form>
             </div>
 
-            <!-- Idea / Suggestion Form -->
             <div class="form-panel" id="tab-idea">
                 <form class="feedback-form" id="form-idea" data-type="Idea / Suggestion">
                     <div class="form-group">
@@ -263,11 +212,10 @@
                 </form>
             </div>
 
-            <!-- Success Message -->
             <div class="form-success" id="form-success" hidden>
                 <div class="success-icon">&#x2705;</div>
                 <h3>Thank you!</h3>
-                <p>Your submission has been received and an email notification has been sent to the AI implementation team. We'll follow up if needed.</p>
+                <p>Your submission has been received and an email notification has been sent to the AI implementation team.</p>
                 <button class="btn btn-outline" id="submit-another">Submit Another Response</button>
             </div>
         </section>
@@ -303,6 +251,8 @@
         </div>
     </footer>
 
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

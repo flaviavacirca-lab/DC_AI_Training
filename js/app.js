@@ -14,8 +14,6 @@
         menuBtn.addEventListener('click', function () {
             navLinks.classList.toggle('open');
         });
-
-        // Close menu when a link is clicked
         navLinks.querySelectorAll('.nav-link').forEach(function (link) {
             link.addEventListener('click', function () {
                 navLinks.classList.remove('open');
@@ -28,19 +26,13 @@
         header.addEventListener('click', function () {
             var item = this.closest('.accordion-item');
             var wasOpen = item.classList.contains('open');
-
-            // Close all in this accordion
             var accordion = item.closest('.accordion');
             if (accordion) {
                 accordion.querySelectorAll('.accordion-item').forEach(function (i) {
                     i.classList.remove('open');
                 });
             }
-
-            // Toggle the clicked one
-            if (!wasOpen) {
-                item.classList.add('open');
-            }
+            if (!wasOpen) item.classList.add('open');
         });
     });
 
@@ -48,126 +40,66 @@
     document.querySelectorAll('.form-tab').forEach(function (tab) {
         tab.addEventListener('click', function () {
             var tabName = this.getAttribute('data-tab');
-
-            // Update active tab
-            document.querySelectorAll('.form-tab').forEach(function (t) {
-                t.classList.remove('active');
-            });
+            document.querySelectorAll('.form-tab').forEach(function (t) { t.classList.remove('active'); });
             this.classList.add('active');
-
-            // Show matching panel
-            document.querySelectorAll('.form-panel').forEach(function (panel) {
-                panel.classList.remove('active');
-            });
-            var targetPanel = document.getElementById('tab-' + tabName);
-            if (targetPanel) {
-                targetPanel.classList.add('active');
-            }
-
-            // Hide success message if visible
+            document.querySelectorAll('.form-panel').forEach(function (p) { p.classList.remove('active'); });
+            var target = document.getElementById('tab-' + tabName);
+            if (target) target.classList.add('active');
             var success = document.getElementById('form-success');
-            if (success) {
-                success.hidden = true;
-            }
+            if (success) success.hidden = true;
         });
     });
 
-    // --- Form Submission & Email Notification ---
+    // --- Form Submission ---
     var NOTIFY_EMAIL = 'flavia.vacirca@denneen.com';
 
     document.querySelectorAll('.feedback-form').forEach(function (form) {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
-
             var formData = new FormData(this);
             var formType = this.getAttribute('data-type');
             var entries = {};
+            formData.forEach(function (v, k) { entries[k] = v; });
 
-            formData.forEach(function (value, key) {
-                entries[key] = value;
-            });
-
-            // Build email body
             var subject = 'AI Learning Hub: New ' + formType;
-            var bodyParts = [
-                'New submission from the Denneen & Company AI Learning Hub',
-                '',
-                'Type: ' + formType,
-                'Submitted: ' + new Date().toLocaleString(),
-                ''
-            ];
-
+            var bodyParts = ['New submission from the Denneen & Company AI Learning Hub', '', 'Type: ' + formType, 'Submitted: ' + new Date().toLocaleString(), ''];
             Object.keys(entries).forEach(function (key) {
-                var label = key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
-                bodyParts.push(label + ': ' + entries[key]);
+                bodyParts.push(key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1') + ': ' + entries[key]);
             });
 
-            var body = bodyParts.join('\n');
-
-            // Send via mailto (opens user's email client with pre-filled email)
             var mailtoLink = 'mailto:' + encodeURIComponent(NOTIFY_EMAIL) +
                 '?subject=' + encodeURIComponent(subject) +
-                '&body=' + encodeURIComponent(body);
+                '&body=' + encodeURIComponent(bodyParts.join('\n'));
 
-            // Save submission to localStorage for record-keeping
-            saveSubmission(formType, entries);
+            try {
+                var submissions = JSON.parse(localStorage.getItem('dc_ai_hub_submissions') || '[]');
+                submissions.push({ type: formType, data: entries, timestamp: new Date().toISOString() });
+                localStorage.setItem('dc_ai_hub_submissions', JSON.stringify(submissions));
+            } catch (ex) {}
 
-            // Open mailto link
             window.location.href = mailtoLink;
-
-            // Show success message
             showFormSuccess();
-
-            // Reset form
             this.reset();
         });
     });
 
-    function saveSubmission(type, data) {
-        try {
-            var submissions = JSON.parse(localStorage.getItem('dc_ai_hub_submissions') || '[]');
-            submissions.push({
-                type: type,
-                data: data,
-                timestamp: new Date().toISOString()
-            });
-            localStorage.setItem('dc_ai_hub_submissions', JSON.stringify(submissions));
-        } catch (e) {
-            // localStorage not available
-        }
-    }
-
     function showFormSuccess() {
-        // Hide all form panels
-        document.querySelectorAll('.form-panel').forEach(function (panel) {
-            panel.classList.remove('active');
-        });
-
-        // Show success message
+        document.querySelectorAll('.form-panel').forEach(function (p) { p.classList.remove('active'); });
         var success = document.getElementById('form-success');
-        if (success) {
-            success.hidden = false;
-        }
+        if (success) success.hidden = false;
     }
 
-    // "Submit another" button
     var submitAnother = document.getElementById('submit-another');
     if (submitAnother) {
         submitAnother.addEventListener('click', function () {
             var success = document.getElementById('form-success');
-            if (success) {
-                success.hidden = true;
-            }
-
-            // Re-activate first tab
+            if (success) success.hidden = true;
             var firstTab = document.querySelector('.form-tab');
-            if (firstTab) {
-                firstTab.click();
-            }
+            if (firstTab) firstTab.click();
         });
     }
 
-    // --- Smooth scroll for hash links ---
+    // --- Smooth Scroll ---
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {
             var targetId = this.getAttribute('href').substring(1);
@@ -175,10 +107,287 @@
             if (target) {
                 e.preventDefault();
                 var offset = 80;
-                var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - offset, behavior: 'smooth' });
             }
         });
     });
+
+    // --- Prompt Library: Search & Filter ---
+    var searchInput = document.getElementById('prompt-search');
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var promptCards = document.querySelectorAll('.prompt-card');
+
+    if (searchInput && promptCards.length) {
+        searchInput.addEventListener('input', filterPrompts);
+    }
+
+    filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            filterBtns.forEach(function (b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            filterPrompts();
+        });
+    });
+
+    function filterPrompts() {
+        var search = searchInput ? searchInput.value.toLowerCase() : '';
+        var activeFilter = document.querySelector('.filter-btn.active');
+        var category = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+
+        promptCards.forEach(function (card) {
+            var text = card.textContent.toLowerCase();
+            var cardCat = card.getAttribute('data-category');
+            var matchesSearch = !search || text.indexOf(search) !== -1;
+            var matchesFilter = category === 'all' || cardCat === category;
+            card.style.display = (matchesSearch && matchesFilter) ? '' : 'none';
+        });
+    }
+
+    // --- Save Prompt Buttons ---
+    document.querySelectorAll('.save-prompt-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var card = this.closest('.prompt-card');
+            if (!card) return;
+            var title = card.querySelector('.prompt-card-title');
+            var category = card.getAttribute('data-category');
+            var promptEl = card.querySelector('.prompt-template-text');
+
+            if (window.DCAuth && !DCAuth.isAuthenticated()) {
+                DCAuth.showSignInModal(function () {
+                    doSavePrompt(btn, title, category, promptEl);
+                });
+                return;
+            }
+            doSavePrompt(btn, title, category, promptEl);
+        });
+    });
+
+    function doSavePrompt(btn, titleEl, category, promptEl) {
+        if (!window.DCProgress) return;
+        DCProgress.savePrompt({
+            title: titleEl ? titleEl.textContent : 'Untitled',
+            category: category || 'General',
+            prompt: promptEl ? promptEl.textContent : ''
+        });
+        btn.textContent = 'Saved!';
+        btn.classList.add('saved');
+        setTimeout(function () {
+            btn.textContent = 'Save';
+            btn.classList.remove('saved');
+        }, 2000);
+    }
+
+    // --- Live Trainings: Auth Gate ---
+    var trainingsGate = document.getElementById('trainings-auth-gate');
+    var trainingsContent = document.getElementById('trainings-content');
+    if (trainingsGate && trainingsContent) {
+        function checkTrainingsAccess() {
+            if (window.DCAuth && DCAuth.isAuthenticated()) {
+                trainingsGate.hidden = true;
+                trainingsContent.hidden = false;
+            } else {
+                trainingsGate.hidden = false;
+                trainingsContent.hidden = true;
+            }
+        }
+        checkTrainingsAccess();
+        if (window.DCAuth) DCAuth.onAuthChange(checkTrainingsAccess);
+
+        var gateSignIn = document.getElementById('trainings-signin-btn');
+        if (gateSignIn) {
+            gateSignIn.addEventListener('click', function () {
+                DCAuth.showSignInModal(function () { checkTrainingsAccess(); });
+            });
+        }
+    }
+
+    // --- Topic Request Form (Live Trainings) ---
+    var topicForm = document.getElementById('topic-request-form');
+    if (topicForm) {
+        topicForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var topic = document.getElementById('topic-input').value.trim();
+            var details = document.getElementById('topic-details').value.trim();
+            if (!topic) return;
+
+            try {
+                var requests = JSON.parse(localStorage.getItem('dc_ai_hub_topic_requests') || '[]');
+                var user = window.DCAuth ? DCAuth.getUser() : null;
+                requests.push({
+                    topic: topic,
+                    details: details,
+                    submittedBy: user ? user.name : 'Anonymous',
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('dc_ai_hub_topic_requests', JSON.stringify(requests));
+            } catch (ex) {}
+
+            this.reset();
+            var msg = document.getElementById('topic-success');
+            if (msg) {
+                msg.hidden = false;
+                setTimeout(function () { msg.hidden = true; }, 3000);
+            }
+        });
+    }
+
+    // --- Account Page ---
+    var accountPage = document.getElementById('account-page');
+    if (accountPage) {
+        renderAccountPage();
+        if (window.DCAuth) DCAuth.onAuthChange(renderAccountPage);
+    }
+
+    function renderAccountPage() {
+        if (!document.getElementById('account-page')) return;
+        var user = window.DCAuth ? DCAuth.getUser() : null;
+
+        // Account header
+        var header = document.getElementById('account-header');
+        if (header) {
+            if (user) {
+                header.innerHTML =
+                    '<div class="account-user">' +
+                        '<span class="account-avatar">' + escapeHtml(user.name.charAt(0).toUpperCase()) + '</span>' +
+                        '<div><h2>' + escapeHtml(user.name) + '</h2><p>' + escapeHtml(user.email) + '</p></div>' +
+                    '</div>' +
+                    '<button class="btn btn-outline btn-sm" id="account-signout">Sign Out</button>';
+                document.getElementById('account-signout').addEventListener('click', function () {
+                    DCAuth.signOut();
+                    renderAccountPage();
+                    if (window.DCProgress) DCProgress.updateAllProgressUI();
+                });
+            } else {
+                header.innerHTML =
+                    '<div><h2>Sign in to view your dashboard</h2><p>Track progress, save prompts, and get recommendations.</p></div>' +
+                    '<button class="btn btn-primary" id="account-signin">Sign In</button>';
+                document.getElementById('account-signin').addEventListener('click', function () {
+                    DCAuth.showSignInModal(function () {
+                        renderAccountPage();
+                        if (window.DCProgress) DCProgress.updateAllProgressUI();
+                    });
+                });
+            }
+        }
+
+        if (!user) {
+            var sections = document.querySelectorAll('.account-section');
+            sections.forEach(function (s) { s.style.display = 'none'; });
+            return;
+        } else {
+            var sections2 = document.querySelectorAll('.account-section');
+            sections2.forEach(function (s) { s.style.display = ''; });
+        }
+
+        // Progress overview
+        var progressEl = document.getElementById('account-progress');
+        if (progressEl && window.DCProgress) {
+            var completed = DCProgress.getCompletedCount();
+            var total = DCProgress.MODULES.length;
+            var pct = Math.round((completed / total) * 100);
+            var recent = DCProgress.getRecentlyCompleted(5);
+
+            var html =
+                '<div class="progress-bar-container"><div class="progress-bar-fill" style="width:' + pct + '%"></div></div>' +
+                '<p class="progress-summary"><strong>' + completed + ' of ' + total + '</strong> completed (' + pct + '%)</p>';
+
+            if (recent.length > 0) {
+                html += '<h4>Recently Completed</h4><ul class="recent-list">';
+                recent.forEach(function (r) {
+                    html += '<li><a href="' + r.page + '">' + escapeHtml(r.title) + '</a><span class="recent-date">' + new Date(r.timestamp).toLocaleDateString() + '</span></li>';
+                });
+                html += '</ul>';
+            }
+            progressEl.innerHTML = html;
+        }
+
+        // Saved prompts
+        var savedEl = document.getElementById('account-saved');
+        if (savedEl && window.DCProgress) {
+            var prompts = DCProgress.getSavedPrompts();
+            if (prompts.length === 0) {
+                savedEl.innerHTML = '<p class="empty-state">No saved prompts yet. Browse the <a href="prompt-library.html">Prompt Library</a> to save prompts for quick access.</p>';
+            } else {
+                var html2 = '<div class="saved-prompts-list">';
+                prompts.forEach(function (p) {
+                    html2 +=
+                        '<div class="saved-prompt-card" data-prompt-id="' + p.id + '">' +
+                            '<div class="saved-prompt-header">' +
+                                '<div><strong>' + escapeHtml(p.title) + '</strong><span class="saved-prompt-cat">' + escapeHtml(p.category) + '</span></div>' +
+                                '<button class="remove-prompt-btn" data-id="' + p.id + '" title="Remove">&times;</button>' +
+                            '</div>' +
+                            '<div class="saved-prompt-body">' +
+                                '<pre class="prompt-code">' + escapeHtml(p.prompt) + '</pre>' +
+                            '</div>' +
+                        '</div>';
+                });
+                html2 += '</div>';
+                savedEl.innerHTML = html2;
+
+                savedEl.querySelectorAll('.remove-prompt-btn').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        DCProgress.removeSavedPrompt(this.getAttribute('data-id'));
+                        renderAccountPage();
+                    });
+                });
+
+                savedEl.querySelectorAll('.saved-prompt-card').forEach(function (card) {
+                    card.addEventListener('click', function (e) {
+                        if (e.target.classList.contains('remove-prompt-btn')) return;
+                        this.classList.toggle('expanded');
+                    });
+                });
+            }
+        }
+
+        // Recommendations
+        var recsEl = document.getElementById('account-recommendations');
+        if (recsEl && window.DCProgress) {
+            var completedCount2 = DCProgress.getCompletedCount();
+            var html3 = '';
+            if (completedCount2 < 3) {
+                html3 =
+                    '<p>Looks like you\'re just getting started. Here\'s where we\'d recommend beginning:</p>' +
+                    '<ul class="rec-list">' +
+                        '<li><a href="copilot-101.html">Copilot 101: The Basics</a> &mdash; Start here if you\'re new to Copilot</li>' +
+                        '<li><a href="qw-market-research.html">Quick Win: Accelerate Market Research</a> &mdash; See immediate value</li>' +
+                        '<li><a href="qw-client-emails.html">Quick Win: Draft Sharper Client Emails</a> &mdash; A fast, practical win</li>' +
+                    '</ul>';
+            } else {
+                html3 =
+                    '<p>Great progress! Here are some next steps to level up:</p>' +
+                    '<ul class="rec-list">' +
+                        '<li><a href="copilot-for-consulting.html">Copilot for Consulting</a> &mdash; Workflow-specific modules for client work</li>' +
+                        '<li><a href="prompt-library.html">Prompt Library</a> &mdash; Ready-to-use prompts for common scenarios</li>' +
+                        '<li><a href="copilot-102.html">Copilot 102: Using Agents</a> &mdash; Take your skills further</li>' +
+                    '</ul>';
+            }
+            recsEl.innerHTML = html3;
+        }
+
+        // Submissions form
+        var subForm = document.getElementById('usecase-form');
+        if (subForm) {
+            subForm.onsubmit = function (e) {
+                e.preventDefault();
+                var content = document.getElementById('usecase-content').value.trim();
+                var module = document.getElementById('usecase-module').value;
+                if (!content) return;
+                if (window.DCProgress) DCProgress.addSubmission(content, module);
+                this.reset();
+                var msg2 = document.getElementById('usecase-success');
+                if (msg2) {
+                    msg2.hidden = false;
+                    setTimeout(function () { msg2.hidden = true; }, 3000);
+                }
+            };
+        }
+    }
+
+    function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
 
 })();
