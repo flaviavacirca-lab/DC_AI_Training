@@ -282,29 +282,37 @@ For each hypothesis, provide:
             <h2 class="section-title">Interactive Prompt Coach</h2>
             <p class="section-desc">Practice writing prompts and get instant feedback on their structure and effectiveness. Our coach evaluates your prompt against the CRAFT framework and suggests improvements.</p>
 
-            <div class="coach-container">
+            <div class="coach-container prompt-coach-widget">
                 <div class="coach-input">
-                    <label for="user-prompt">Write your prompt below:</label>
-                    <textarea id="user-prompt" rows="6" placeholder="e.g., Act as a strategy consultant. Summarize this industry report in 5 bullet points focused on growth drivers and competitive threats. Format as an executive briefing for a C-suite audience. Keep it under 200 words."></textarea>
+                    <label>Write your prompt below:</label>
+                    <textarea class="coach-textarea" rows="6" placeholder="e.g., Act as a strategy consultant. Summarize this industry report in 5 bullet points focused on growth drivers and competitive threats. Format as an executive briefing for a C-suite audience. Keep it under 200 words."></textarea>
                     <div class="coach-actions">
-                        <button class="btn btn-primary" id="analyze-prompt">Analyze My Prompt</button>
-                        <button class="btn btn-outline" id="clear-prompt">Clear</button>
+                        <button class="btn btn-primary coach-analyze-btn">Analyze My Prompt</button>
+                        <button class="btn btn-outline coach-clear-btn">Clear</button>
                     </div>
                 </div>
 
-                <div class="coach-results" id="coach-results" hidden>
+                <div class="coach-results" hidden>
                     <h3>Prompt Analysis</h3>
                     <div class="score-display">
-                        <div class="score-circle" id="prompt-score">
+                        <div class="score-circle prompt-score">
                             <span class="score-value">0</span>
                             <span class="score-label">/ 100</span>
                         </div>
                     </div>
-                    <div class="craft-checklist" id="craft-checklist"></div>
-                    <div class="coach-suggestions" id="coach-suggestions"></div>
-                    <div class="improved-prompt" id="improved-prompt" hidden>
+                    <div class="craft-checklist"></div>
+                    <div class="coach-suggestions"></div>
+                    <div class="improved-prompt" hidden>
                         <h4>Suggested Improvement</h4>
-                        <pre class="prompt-code" id="improved-prompt-text"></pre>
+                        <pre class="prompt-code improved-prompt-text"></pre>
+                    </div>
+                    <div class="structure-suggestion" hidden style="margin-top: 1.25rem;">
+                        <h4 style="color: var(--navy); margin-bottom: 0.5rem;">Suggested CRAFT Structure</h4>
+                        <pre class="prompt-code structure-suggestion-text"></pre>
+                    </div>
+                    <div class="better-questions" hidden style="margin-top: 1.25rem;">
+                        <h4 style="color: var(--navy); margin-bottom: 0.5rem;">Better Questions to Ask Copilot</h4>
+                        <ul class="better-questions-list" style="color: var(--gray-700); font-size: 0.9rem;"></ul>
                     </div>
                 </div>
 
@@ -313,7 +321,7 @@ For each hypothesis, provide:
                     <h3>Try It in Copilot</h3>
                     <p>Once you're happy with your prompt, try it directly in Microsoft Copilot:</p>
                     <div class="copilot-actions">
-                        <button class="btn btn-primary" id="copy-prompt">Copy Prompt to Clipboard</button>
+                        <button class="btn btn-primary coach-copy-btn">Copy Prompt to Clipboard</button>
                         <a href="https://copilot.microsoft.com" target="_blank" rel="noopener" class="btn btn-outline">Open Microsoft Copilot</a>
                     </div>
                     <p class="copilot-note">You can also use your prompt in Copilot within Word, Excel, Outlook, or Teams — just paste it into the Copilot chat panel in any M365 app.</p>

@@ -35,7 +35,54 @@
 
         <div id="auth-banner"></div>
 
+        <!-- Prompt Coach -->
         <section class="section">
+            <p class="section-desc" style="margin-bottom: 1.25rem;">Not sure how to phrase it? Drop your draft here and we'll tighten it up.</p>
+
+            <div class="coach-container prompt-coach-widget">
+                <div class="coach-input">
+                    <label>Paste your draft prompt:</label>
+                    <textarea class="coach-textarea" rows="4" placeholder="e.g., Summarize this report for my client..."></textarea>
+                    <div class="coach-actions">
+                        <button class="btn btn-primary coach-analyze-btn">Improve My Prompt</button>
+                        <button class="btn btn-outline coach-clear-btn">Clear</button>
+                    </div>
+                </div>
+
+                <div class="coach-results" hidden>
+                    <h3>Prompt Analysis</h3>
+                    <div class="score-display">
+                        <div class="score-circle prompt-score">
+                            <span class="score-value">0</span>
+                            <span class="score-label">/ 100</span>
+                        </div>
+                    </div>
+                    <div class="craft-checklist"></div>
+                    <div class="coach-suggestions"></div>
+                    <div class="improved-prompt" hidden>
+                        <h4>Improved Prompt</h4>
+                        <pre class="prompt-code improved-prompt-text"></pre>
+                    </div>
+                    <div class="structure-suggestion" hidden style="margin-top: 1.25rem;">
+                        <h4 style="color: var(--navy); margin-bottom: 0.5rem;">Suggested CRAFT Structure</h4>
+                        <pre class="prompt-code structure-suggestion-text"></pre>
+                    </div>
+                    <div class="better-questions" hidden style="margin-top: 1.25rem;">
+                        <h4 style="color: var(--navy); margin-bottom: 0.5rem;">Better Questions to Ask Copilot</h4>
+                        <ul class="better-questions-list" style="color: var(--gray-700); font-size: 0.9rem;"></ul>
+                    </div>
+                </div>
+
+                <div class="copilot-section">
+                    <div class="copilot-actions">
+                        <button class="btn btn-primary coach-copy-btn">Copy Prompt to Clipboard</button>
+                        <a href="https://copilot.microsoft.com" target="_blank" rel="noopener" class="btn btn-outline">Open in Copilot</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
             <!-- Search -->
             <div class="prompt-search-bar">
                 <input type="text" id="prompt-search" placeholder="Search prompts..." aria-label="Search prompts">
@@ -295,5 +342,6 @@
     <script src="js/auth.js"></script>
     <script src="js/progress.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/prompt-coach.js"></script>
 </body>
 </html>

@@ -1,50 +1,16 @@
 /* ============================================
-   Interactive Prompt Coach
+   Interactive Prompt Coach — Reusable Module
    Analyzes prompts against the CRAFT framework
    and provides structured feedback.
+
+   Usage:
+     DCPromptCoach.init(containerElement)
+   The container must include the expected HTML
+   structure (see prompt-coach-template).
    ============================================ */
 
 (function () {
     'use strict';
-
-    var analyzeBtn = document.getElementById('analyze-prompt');
-    var clearBtn = document.getElementById('clear-prompt');
-    var copyBtn = document.getElementById('copy-prompt');
-    var promptInput = document.getElementById('user-prompt');
-    var resultsPanel = document.getElementById('coach-results');
-
-    if (!analyzeBtn || !promptInput) return;
-
-    analyzeBtn.addEventListener('click', function () {
-        var prompt = promptInput.value.trim();
-        if (!prompt) {
-            promptInput.focus();
-            return;
-        }
-        analyzePrompt(prompt);
-    });
-
-    if (clearBtn) {
-        clearBtn.addEventListener('click', function () {
-            promptInput.value = '';
-            if (resultsPanel) resultsPanel.hidden = true;
-            promptInput.focus();
-        });
-    }
-
-    if (copyBtn) {
-        copyBtn.addEventListener('click', function () {
-            var text = promptInput.value.trim();
-            if (!text) return;
-            navigator.clipboard.writeText(text).then(function () {
-                var original = copyBtn.textContent;
-                copyBtn.textContent = 'Copied!';
-                setTimeout(function () {
-                    copyBtn.textContent = original;
-                }, 2000);
-            });
-        });
-    }
 
     // --- CRAFT Analysis Engine ---
 
@@ -99,10 +65,8 @@
     function analyzePrompt(prompt) {
         var results = {};
         var score = 0;
-        var maxScore = 100;
         var foundCount = 0;
 
-        // Check each CRAFT dimension
         Object.keys(craftChecks).forEach(function (key) {
             var check = craftChecks[key];
             var found = check.patterns.some(function (pattern) {
@@ -116,24 +80,19 @@
             if (found) foundCount++;
         });
 
-        // Base score from CRAFT coverage (each dimension = 16 points, total 80)
         score += foundCount * 16;
 
-        // Bonus points for length and detail
         var wordCount = prompt.split(/\s+/).length;
         if (wordCount >= 20) score += 5;
         if (wordCount >= 50) score += 5;
         if (wordCount >= 80) score += 5;
 
-        // Bonus for line breaks / structure
         var lineCount = prompt.split('\n').filter(function (l) { return l.trim().length > 0; }).length;
         if (lineCount >= 3) score += 5;
 
-        score = Math.min(score, maxScore);
+        score = Math.min(score, 100);
 
-        // Generate suggestions
         var suggestions = [];
-
         Object.keys(results).forEach(function (key) {
             if (!results[key].found) {
                 suggestions.push(results[key].missing);
@@ -143,40 +102,104 @@
         if (wordCount < 15) {
             suggestions.push('Your prompt is very short. More detail usually yields better results — aim for at least 30-50 words.');
         }
-
         if (lineCount < 2 && wordCount > 30) {
             suggestions.push('Consider breaking your prompt into multiple lines or sections for clarity.');
         }
-
-        if (!/\?/.test(prompt) && !/\b(please|help|can you|could you)\b/i.test(prompt)) {
-            // Not a concern, but could note
-        }
-
-        // Check for specific consulting-useful patterns
         if (!/\b(example|e\.g\.|for instance|such as|like)\b/i.test(prompt) && wordCount > 30) {
             suggestions.push('Including an example of what you want can significantly improve output quality.');
         }
 
-        // Render results
-        renderResults(score, results, suggestions, prompt);
+        return { score: score, craftResults: results, suggestions: suggestions };
     }
 
-    function renderResults(score, craftResults, suggestions, originalPrompt) {
-        if (!resultsPanel) return;
-        resultsPanel.hidden = false;
+    function generateImprovedPrompt(original, craftResults) {
+        var parts = [];
+        if (!craftResults.role.found) {
+            parts.push('Act as an experienced strategy consultant.');
+        }
+        if (!craftResults.context.found) {
+            parts.push('I\'m working on a consulting engagement and need your help.');
+        }
+        parts.push('');
+        parts.push(original);
+        if (!craftResults.format.found) {
+            parts.push('');
+            parts.push('Present your response as a structured outline with clear sections and bullet points.');
+        }
+        if (!craftResults.tone.found) {
+            parts.push('');
+            parts.push('Keep the tone professional and concise. Audience is a senior business executive.');
+        }
+        return parts.join('\n');
+    }
 
-        // Score circle
-        var scoreCircle = document.getElementById('prompt-score');
+    function generateStructureSuggestion(craftResults) {
+        var lines = ['Suggested CRAFT structure for your prompt:', ''];
+        if (!craftResults.role.found) {
+            lines.push('Role: "Act as [role] with expertise in [domain]."');
+        } else {
+            lines.push('Role: (detected in your prompt)');
+        }
+        if (!craftResults.context.found) {
+            lines.push('Context: "I\'m working on [project/task] for [client/audience]."');
+        } else {
+            lines.push('Context: (detected in your prompt)');
+        }
+        if (!craftResults.action.found) {
+            lines.push('Task: "[Analyze/Summarize/Draft/Compare] [specific subject]."');
+        } else {
+            lines.push('Task: (detected in your prompt)');
+        }
+        if (!craftResults.format.found) {
+            lines.push('Output: "Format as [table/bullets/outline/email]."');
+        } else {
+            lines.push('Output: (detected in your prompt)');
+        }
+        if (!craftResults.tone.found) {
+            lines.push('Constraints: "Keep it under [N] words. Audience: [role]. Exclude: [X]."');
+        } else {
+            lines.push('Constraints: (detected in your prompt)');
+        }
+        return lines.join('\n');
+    }
+
+    function generateBetterQuestions(original, craftResults) {
+        var questions = [];
+        var hasContext = craftResults.context.found;
+        var hasRole = craftResults.role.found;
+
+        if (!hasContext) {
+            questions.push('What specific project or client is this for? Adding context helps Copilot tailor the response.');
+        }
+        if (!hasRole) {
+            questions.push('What perspective should Copilot take? (e.g., strategy consultant, market analyst, project manager)');
+        }
+        if (!craftResults.format.found) {
+            questions.push('How will you use the output? Knowing the format (deck, email, brief) helps Copilot structure it right.');
+        }
+        if (questions.length === 0) {
+            questions.push('Your prompt is well-structured. Consider: is there anything you want Copilot to specifically avoid or emphasize?');
+        }
+        return questions;
+    }
+
+    // --- Render into a container ---
+
+    function renderResults(container, score, craftResults, suggestions, originalPrompt) {
+        var resultsEl = container.querySelector('.coach-results');
+        if (!resultsEl) return;
+        resultsEl.hidden = false;
+
+        var scoreCircle = resultsEl.querySelector('.prompt-score');
         if (scoreCircle) {
             scoreCircle.querySelector('.score-value').textContent = score;
-            scoreCircle.className = 'score-circle';
+            scoreCircle.className = 'score-circle prompt-score';
             if (score >= 75) scoreCircle.classList.add('score-high');
             else if (score >= 45) scoreCircle.classList.add('score-mid');
             else scoreCircle.classList.add('score-low');
         }
 
-        // CRAFT checklist
-        var checklist = document.getElementById('craft-checklist');
+        var checklist = resultsEl.querySelector('.craft-checklist');
         if (checklist) {
             checklist.innerHTML = '';
             Object.keys(craftResults).forEach(function (key) {
@@ -188,8 +211,7 @@
             });
         }
 
-        // Suggestions
-        var suggestionsEl = document.getElementById('coach-suggestions');
+        var suggestionsEl = resultsEl.querySelector('.coach-suggestions');
         if (suggestionsEl) {
             suggestionsEl.innerHTML = '';
             if (suggestions.length > 0) {
@@ -198,7 +220,6 @@
                 heading.style.color = '#1a2744';
                 heading.style.marginBottom = '0.75rem';
                 suggestionsEl.appendChild(heading);
-
                 suggestions.forEach(function (s) {
                     var div = document.createElement('div');
                     div.className = 'suggestion-item';
@@ -214,9 +235,9 @@
             }
         }
 
-        // Generate improved prompt if score < 75
-        var improvedSection = document.getElementById('improved-prompt');
-        var improvedText = document.getElementById('improved-prompt-text');
+        // Improved prompt
+        var improvedSection = resultsEl.querySelector('.improved-prompt');
+        var improvedText = resultsEl.querySelector('.improved-prompt-text');
         if (improvedSection && improvedText && score < 75) {
             improvedSection.hidden = false;
             improvedText.textContent = generateImprovedPrompt(originalPrompt, craftResults);
@@ -224,35 +245,99 @@
             improvedSection.hidden = true;
         }
 
-        // Scroll to results
-        resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Structure suggestion
+        var structureSection = resultsEl.querySelector('.structure-suggestion');
+        var structureText = resultsEl.querySelector('.structure-suggestion-text');
+        if (structureSection && structureText) {
+            structureSection.hidden = false;
+            structureText.textContent = generateStructureSuggestion(craftResults);
+        }
+
+        // Better questions
+        var questionsSection = resultsEl.querySelector('.better-questions');
+        var questionsList = resultsEl.querySelector('.better-questions-list');
+        if (questionsSection && questionsList) {
+            var questions = generateBetterQuestions(originalPrompt, craftResults);
+            if (questions.length > 0) {
+                questionsSection.hidden = false;
+                questionsList.innerHTML = '';
+                questions.forEach(function (q) {
+                    var li = document.createElement('li');
+                    li.textContent = q;
+                    questionsList.appendChild(li);
+                });
+            }
+        }
+
+        resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    function generateImprovedPrompt(original, craftResults) {
-        var parts = [];
+    // --- Initialize a Prompt Coach instance on a container ---
 
-        if (!craftResults.role.found) {
-            parts.push('Act as an experienced strategy consultant.');
+    function init(container) {
+        if (!container) return;
+
+        var analyzeBtn = container.querySelector('.coach-analyze-btn');
+        var clearBtn = container.querySelector('.coach-clear-btn');
+        var copyBtn = container.querySelector('.coach-copy-btn');
+        var promptInput = container.querySelector('.coach-textarea');
+        var resultsPanel = container.querySelector('.coach-results');
+
+        if (!analyzeBtn || !promptInput) return;
+
+        analyzeBtn.addEventListener('click', function () {
+            var prompt = promptInput.value.trim();
+            if (!prompt) {
+                promptInput.focus();
+                return;
+            }
+            var result = analyzePrompt(prompt);
+            renderResults(container, result.score, result.craftResults, result.suggestions, prompt);
+        });
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function () {
+                promptInput.value = '';
+                if (resultsPanel) resultsPanel.hidden = true;
+                promptInput.focus();
+            });
         }
 
-        if (!craftResults.context.found) {
-            parts.push('I\'m working on a consulting engagement and need your help.');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function () {
+                var text = promptInput.value.trim();
+                if (!text) return;
+                navigator.clipboard.writeText(text).then(function () {
+                    var original = copyBtn.textContent;
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function () {
+                        copyBtn.textContent = original;
+                    }, 2000);
+                });
+            });
         }
+    }
 
-        parts.push('');
-        parts.push(original);
+    // --- Auto-init: find all .prompt-coach-widget containers ---
 
-        if (!craftResults.format.found) {
-            parts.push('');
-            parts.push('Present your response as a structured outline with clear sections and bullet points.');
-        }
+    function autoInit() {
+        document.querySelectorAll('.prompt-coach-widget').forEach(function (el) {
+            init(el);
+        });
+    }
 
-        if (!craftResults.tone.found) {
-            parts.push('');
-            parts.push('Keep the tone professional and concise. Audience is a senior business executive.');
-        }
+    // --- Expose ---
 
-        return parts.join('\n');
+    window.DCPromptCoach = {
+        init: init,
+        analyzePrompt: analyzePrompt,
+        generateImprovedPrompt: generateImprovedPrompt
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', autoInit);
+    } else {
+        autoInit();
     }
 
 })();
