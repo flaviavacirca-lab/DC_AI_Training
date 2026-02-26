@@ -3,253 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Denneen &amp; Company — AI Learning Hub</title>
+    <title>Denneen AI Learning Hub</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <nav class="top-nav">
-        <div class="nav-brand">
-            <a href="index.html" class="brand-link">
+<body class="login-page">
+    <main class="login-container">
+        <div class="login-card">
+            <div class="login-brand">
                 <span class="brand-mark">D&amp;C</span>
-                <span class="brand-text">AI Learning Hub</span>
-            </a>
-        </div>
-        <div class="nav-links">
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="quick-wins.html" class="nav-link">Quick Wins</a>
-            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
-            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
-            <a href="learning-path.html" class="nav-link">Learning Path</a>
-            <a href="live-trainings.html" class="nav-link">Trainings</a>
-            <a href="resources.html" class="nav-link">Resources</a>
-            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
-        </div>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span><span></span><span></span>
-        </button>
-    </nav>
-
-    <main>
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Use Copilot to Improve Client&nbsp;Work&nbsp;&mdash; Faster&nbsp;&amp;&nbsp;Smarter</h1>
-                <p class="hero-subtitle">Tactical examples, prompts, and workflows built for Denneen consultants.</p>
-                <div class="hero-actions">
-                    <a href="quick-wins.html" class="btn btn-primary">Show Me Quick Wins</a>
-                    <a href="prompt-library.html" class="btn btn-outline">Browse Prompt Library</a>
-                    <a href="learning-path.html" class="btn btn-outline">Start the Learning Path</a>
+            </div>
+            <h1>Denneen AI Learning Hub</h1>
+            <p class="login-subtitle">Internal resource for Denneen employees to improve Copilot usage in client work.</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-name">Your Name</label>
+                    <input type="text" id="login-name" required placeholder="e.g., Jane Smith">
                 </div>
-            </div>
-        </section>
-
-        <!-- Auth Banner -->
-        <div id="auth-banner"></div>
-
-        <!-- Quick Wins for Client Work -->
-        <section class="section" id="quick-wins">
-            <h2 class="section-title">Quick Wins for Client Work</h2>
-            <p class="section-desc">Practical examples you can try on your next project. Each takes 5&ndash;10 minutes.</p>
-            <div class="qw-tiles">
-                <a href="qw-market-research.html" class="qw-tile">
-                    <div class="qw-icon">&#x1F4CA;</div>
-                    <h3>Accelerate Market Research</h3>
-                    <p>Size markets and map competitors in a fraction of the time.</p>
-                </a>
-                <a href="qw-interview-synthesis.html" class="qw-tile">
-                    <div class="qw-icon">&#x1F399;</div>
-                    <h3>Synthesize Interviews Faster</h3>
-                    <p>Pull themes from stakeholder interviews in minutes.</p>
-                </a>
-                <a href="qw-client-emails.html" class="qw-tile">
-                    <div class="qw-icon">&#x2709;</div>
-                    <h3>Draft Sharper Client Emails</h3>
-                    <p>Write polished updates and follow-ups for VP-level clients.</p>
-                </a>
-                <a href="qw-deck-drafts.html" class="qw-tile">
-                    <div class="qw-icon">&#x1F4D1;</div>
-                    <h3>Build Deck First Drafts Faster</h3>
-                    <p>Generate slide storylines and talking points quickly.</p>
-                </a>
-                <a href="qw-market-mapping.html" class="qw-tile">
-                    <div class="qw-icon">&#x1F5FA;</div>
-                    <h3>Market Mapping &amp; Hypothesis Brainstorming</h3>
-                    <p>Create competitive landscapes and generate testable hypotheses.</p>
-                </a>
-                <a href="qw-data-summary.html" class="qw-tile">
-                    <div class="qw-icon">&#x1F4C8;</div>
-                    <h3>Summarize + Interpret Data</h3>
-                    <p>Find the story in survey data and quantitative research.</p>
-                </a>
-            </div>
-        </section>
-
-        <!-- Choose Your Starting Point -->
-        <section class="section section-alt" id="starting-point">
-            <h2 class="section-title">Choose Your Starting Point</h2>
-            <p class="section-desc">Not sure where to begin? Pick what matches your experience level.</p>
-            <div class="segment-buttons">
-                <a href="learning-path.html" class="segment-btn">
-                    <strong>I'm New to Copilot</strong>
-                    <span>Start from the beginning with Copilot 101</span>
-                </a>
-                <a href="quick-wins.html" class="segment-btn">
-                    <strong>I Use It Occasionally</strong>
-                    <span>Jump into practical quick wins</span>
-                </a>
-                <a href="copilot-for-consulting.html" class="segment-btn">
-                    <strong>I Want Advanced Workflows</strong>
-                    <span>Consulting-specific modules</span>
-                </a>
-                <a href="prompt-library.html" class="segment-btn">
-                    <strong>Show Me Consulting Examples</strong>
-                    <span>Browse ready-to-use prompts</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- Feedback Hub -->
-        <section class="section" id="feedback">
-            <h2 class="section-title">Feedback Hub</h2>
-            <p class="section-desc">Help us improve how Denneen &amp; Company uses AI. Submit training requests, share your experience, or flag issues below.</p>
-
-            <div class="form-tabs">
-                <button class="form-tab active" data-tab="request">Training Request</button>
-                <button class="form-tab" data-tab="feedback">Implementation Feedback</button>
-                <button class="form-tab" data-tab="idea">Idea / Suggestion</button>
-            </div>
-
-            <div class="form-panel active" id="tab-request">
-                <form class="feedback-form" id="form-request" data-type="Training Request">
-                    <div class="form-group">
-                        <label for="req-name">Your Name</label>
-                        <input type="text" id="req-name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="req-topic">What topic or skill would you like training on?</label>
-                        <textarea id="req-topic" name="topic" rows="3" required placeholder="e.g., Using Copilot to summarize long client documents"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="req-urgency">How urgent is this?</label>
-                        <select id="req-urgency" name="urgency">
-                            <option value="low">Nice to have</option>
-                            <option value="medium" selected>Would help my current work</option>
-                            <option value="high">Blocking my workflow</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="req-context">Any additional context?</label>
-                        <textarea id="req-context" name="context" rows="2" placeholder="Optional — describe a specific scenario or challenge"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-submit">Submit Request</button>
-                </form>
-            </div>
-
-            <div class="form-panel" id="tab-feedback">
-                <form class="feedback-form" id="form-feedback" data-type="Implementation Feedback">
-                    <div class="form-group">
-                        <label for="fb-name">Your Name</label>
-                        <input type="text" id="fb-name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fb-tool">Which AI tool are you providing feedback on?</label>
-                        <select id="fb-tool" name="tool">
-                            <option value="copilot-m365">Microsoft 365 Copilot</option>
-                            <option value="copilot-teams">Copilot in Teams</option>
-                            <option value="copilot-outlook">Copilot in Outlook</option>
-                            <option value="copilot-word">Copilot in Word</option>
-                            <option value="copilot-excel">Copilot in Excel</option>
-                            <option value="copilot-ppt">Copilot in PowerPoint</option>
-                            <option value="copilot-agent">Copilot Agent / Studio</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="fb-rating">Overall, how useful has this tool been?</label>
-                        <div class="rating-group">
-                            <label class="rating-option"><input type="radio" name="rating" value="1" required> <span>1 — Not useful</span></label>
-                            <label class="rating-option"><input type="radio" name="rating" value="2"> <span>2</span></label>
-                            <label class="rating-option"><input type="radio" name="rating" value="3"> <span>3 — Neutral</span></label>
-                            <label class="rating-option"><input type="radio" name="rating" value="4"> <span>4</span></label>
-                            <label class="rating-option"><input type="radio" name="rating" value="5"> <span>5 — Very useful</span></label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="fb-wins">What's working well?</label>
-                        <textarea id="fb-wins" name="wins" rows="3" placeholder="Describe a specific task where AI helped you"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="fb-challenges">What's not working or could be improved?</label>
-                        <textarea id="fb-challenges" name="challenges" rows="3" required placeholder="Be specific — this helps us prioritize fixes"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-submit">Submit Feedback</button>
-                </form>
-            </div>
-
-            <div class="form-panel" id="tab-idea">
-                <form class="feedback-form" id="form-idea" data-type="Idea / Suggestion">
-                    <div class="form-group">
-                        <label for="idea-name">Your Name</label>
-                        <input type="text" id="idea-name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="idea-title">Idea Title</label>
-                        <input type="text" id="idea-title" name="title" required placeholder="e.g., Auto-generate meeting follow-up emails">
-                    </div>
-                    <div class="form-group">
-                        <label for="idea-desc">Describe your idea</label>
-                        <textarea id="idea-desc" name="description" rows="4" required placeholder="What would it do? How would it help the team?"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="idea-impact">Expected impact</label>
-                        <select id="idea-impact" name="impact">
-                            <option value="individual">Helps me personally</option>
-                            <option value="team" selected>Helps the whole team</option>
-                            <option value="client">Improves client deliverables</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-submit">Submit Idea</button>
-                </form>
-            </div>
-
-            <div class="form-success" id="form-success" hidden>
-                <div class="success-icon">&#x2705;</div>
-                <h3>Thank you!</h3>
-                <p>Your submission has been received and an email notification has been sent to the AI implementation team.</p>
-                <button class="btn btn-outline" id="submit-another">Submit Another Response</button>
-            </div>
-        </section>
-
-        <!-- Resources -->
-        <section class="section section-alt">
-            <h2 class="section-title">Additional Resources</h2>
-            <div class="resource-list">
-                <a href="https://support.microsoft.com/en-us/copilot" class="resource-item" target="_blank" rel="noopener">
-                    <strong>Microsoft Copilot Official Docs</strong>
-                    <span>Microsoft's official getting-started guide and feature reference</span>
-                </a>
-                <a href="https://adoption.microsoft.com/en-us/copilot/" class="resource-item" target="_blank" rel="noopener">
-                    <strong>Microsoft Copilot Adoption Hub</strong>
-                    <span>Best practices, scenarios, and success stories for enterprise Copilot adoption</span>
-                </a>
-                <a href="https://learn.microsoft.com/en-us/microsoft-365-copilot/microsoft-365-copilot-overview" class="resource-item" target="_blank" rel="noopener">
-                    <strong>Microsoft 365 Copilot Overview</strong>
-                    <span>Technical overview of capabilities across Word, Excel, PowerPoint, Outlook, and Teams</span>
-                </a>
-                <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/" class="resource-item" target="_blank" rel="noopener">
-                    <strong>Copilot Studio Documentation</strong>
-                    <span>Build and customize your own Copilot agents with Microsoft Copilot Studio</span>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
-            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+                <div class="form-group">
+                    <label for="login-email">Work Email</label>
+                    <input type="email" id="login-email" required placeholder="your.name@denneen.com">
+                </div>
+                <div class="form-error" id="login-error" hidden></div>
+                <button type="submit" class="btn btn-primary" style="width:100%">Sign In</button>
+            </form>
+            <p class="login-restriction">Access restricted to @denneen.com accounts.</p>
         </div>
-    </footer>
+    </main>
 
     <script src="js/auth.js"></script>
     <script src="js/progress.js"></script>

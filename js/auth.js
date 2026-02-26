@@ -13,12 +13,6 @@
     var DENNEEN_DOMAIN = 'denneen.com';
 
     // --- MSAL Configuration ---
-    // To enable Microsoft sign-in:
-    // 1. Register an app in Azure AD (Entra ID)
-    // 2. Set redirect URI to your GitHub Pages URL
-    // 3. Add the client ID below
-    // 4. Include MSAL.js via CDN in your HTML:
-    //    <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
     var MSAL_CONFIG = {
         auth: {
             clientId: '', // Azure AD App Registration client ID
@@ -128,6 +122,7 @@
         }
         clearStoredAuth();
         notifyChange();
+        window.location.replace('index.html');
     }
 
     function requireAuth(callback) {
@@ -149,7 +144,55 @@
         });
     }
 
-    // --- Sign-In Modal ---
+    // --- Site Gate ---
+
+    function gateSite() {
+        var pageName = window.location.pathname.split('/').pop();
+        var isLoginPage = !pageName || pageName === 'index.html';
+
+        if (isAuthenticated()) {
+            if (isLoginPage) {
+                window.location.replace('suggested-training-flow.html');
+                return;
+            }
+        } else {
+            if (!isLoginPage) {
+                window.location.replace('index.html');
+                return;
+            }
+        }
+    }
+
+    // --- Login Page Form Handler ---
+
+    function handleLoginPage() {
+        var loginForm = document.getElementById('login-form');
+        if (!loginForm) return;
+
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var name = document.getElementById('login-name').value.trim();
+            var email = document.getElementById('login-email').value.trim();
+            var errorEl = document.getElementById('login-error');
+
+            if (!isValidDenneenEmail(email)) {
+                errorEl.textContent = 'Please use your @denneen.com email address.';
+                errorEl.hidden = false;
+                return;
+            }
+
+            var result = signIn(name, email);
+            if (result && result.error) {
+                errorEl.textContent = result.error;
+                errorEl.hidden = false;
+                return;
+            }
+
+            window.location.replace('suggested-training-flow.html');
+        });
+    }
+
+    // --- Sign-In Modal (for in-page auth prompts) ---
 
     function showSignInModal(onSuccess) {
         var existing = document.getElementById('signin-modal');
@@ -228,9 +271,20 @@
     if (msalInstance) {
         msalInstance.handleRedirectPromise().then(function (response) {
             if (response) notifyChange();
+            gateSite();
         }).catch(function (err) {
             console.error('MSAL redirect error:', err);
+            gateSite();
         });
+    } else {
+        gateSite();
+    }
+
+    // Handle login form when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', handleLoginPage);
+    } else {
+        handleLoginPage();
     }
 
     // --- Expose ---
