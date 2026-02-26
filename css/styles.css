@@ -2469,3 +2469,210 @@ footer {
         flex-direction: column;
     }
 }
+
+/* ============================================
+   Login Page
+   ============================================ */
+
+body.login-page {
+    padding-top: 0;
+    background: var(--navy);
+    min-height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+.login-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2.5rem;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.login-brand {
+    margin-bottom: 1.5rem;
+}
+
+.login-brand .brand-mark {
+    font-size: 2rem;
+    background: var(--navy);
+    color: var(--gold);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-weight: 800;
+}
+
+.login-card h1 {
+    color: var(--navy);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.login-card .form-group {
+    text-align: left;
+    margin-bottom: 1.25rem;
+}
+
+.login-card .form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+}
+
+.login-card .form-group input {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.login-card .form-group input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(59,108,180,0.15);
+}
+
+.login-restriction {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+}
+
+/* ============================================
+   Flow Steps (Training Flow Page)
+   ============================================ */
+
+.flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.flow-step {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+}
+
+.flow-step-number {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 32px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 1rem;
+}
+
+.flow-step-body {
+    flex: 1;
+    padding-bottom: 1.5rem;
+    padding-left: 1rem;
+}
+
+.flow-step-link {
+    display: block;
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+a.flow-step-link:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+}
+
+.flow-step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.flow-step-header h3 {
+    color: var(--navy);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.flow-time {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gray-500);
+    background: var(--gray-100);
+    padding: 0.15rem 0.6rem;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.flow-step-body p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.flow-step-completion {
+    margin-top: 0.75rem;
+}
+
+.flow-step.path-step-complete .flow-step-link {
+    border-color: var(--green);
+    background: var(--green-light);
+}
+
+/* Flow time tag (Training Library cards) */
+.flow-time-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gray-500);
+    background: var(--gray-100);
+    padding: 0.15rem 0.6rem;
+    border-radius: 12px;
+    margin-top: 0.5rem;
+}
+
+/* --- Responsive: Flow Steps --- */
+@media (max-width: 768px) {
+    .flow-step-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .login-card {
+        padding: 2rem 1.5rem;
+    }
+}

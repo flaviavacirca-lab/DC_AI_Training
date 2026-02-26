@@ -16,6 +16,7 @@
         { id: 'copilot-102',       title: 'Copilot 102: Using Agents',             page: 'copilot-102.html',              category: 'learning-path' },
         { id: 'market-research',   title: 'Market Research with AI',               page: 'market-research.html',          category: 'learning-path' },
         { id: 'email-agent',       title: 'Build an Email Agent',                  page: 'email-agent.html',              category: 'learning-path' },
+        { id: 'copilot-transcripts', title: 'Copilot Transcripts in Meetings',    page: 'copilot-transcripts.html',      category: 'learning-path' },
         // Quick wins
         { id: 'qw-market-research',      title: 'Accelerate Market Research',            page: 'qw-market-research.html',       category: 'quick-win' },
         { id: 'qw-interview-synthesis',   title: 'Synthesize Interviews Faster',          page: 'qw-interview-synthesis.html',   category: 'quick-win' },

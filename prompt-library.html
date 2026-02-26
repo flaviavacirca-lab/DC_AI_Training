@@ -241,6 +241,46 @@
                     <button class="save-prompt-btn">Save</button>
                 </div>
 
+                <!-- Meeting Prep -->
+                <div class="prompt-card" data-category="synthesis">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Meeting Prep Brief</span>
+                        <span class="prompt-card-cat">Synthesis</span>
+                    </div>
+                    <p class="prompt-card-situation">You have a client meeting in an hour and need to get up to speed quickly.</p>
+                    <pre class="prompt-template-text">I have a meeting with [CLIENT/STAKEHOLDER] in one hour about [TOPIC]. Based on this context, prepare a 1-page meeting prep brief: (1) 3-5 key points I should know going in, (2) likely questions they'll ask and suggested responses, (3) 2-3 questions I should ask them, (4) potential risks or sensitive topics to navigate carefully.
+
+[PASTE RELEVANT CONTEXT: prior emails, notes, project background]</pre>
+                    <p class="prompt-card-notes">Use Copilot at Work to pull in recent emails/chats with this contact automatically.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Project Kickoff -->
+                <div class="prompt-card" data-category="brainstorming">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Project Kickoff Structurer</span>
+                        <span class="prompt-card-cat">Brainstorming</span>
+                    </div>
+                    <p class="prompt-card-situation">You're starting a new engagement and need to structure the initial workplan.</p>
+                    <pre class="prompt-template-text">We're kicking off a [PROJECT TYPE] engagement for a [CLIENT TYPE] client. The key question is: [STRATEGIC QUESTION]. Draft an initial workplan: (1) 3-4 workstreams with descriptions, (2) key activities for weeks 1-2, (3) data/information we'll need from the client, (4) potential risks and mitigations. Format as a structured outline suitable for an internal kickoff deck.</pre>
+                    <p class="prompt-card-notes">Refine the workstreams based on actual scope documents and SOW.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Transcript Analysis -->
+                <div class="prompt-card" data-category="synthesis">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Meeting Transcript Analyzer</span>
+                        <span class="prompt-card-cat">Synthesis</span>
+                    </div>
+                    <p class="prompt-card-situation">You have a Teams meeting transcript and need to extract structured insights from it.</p>
+                    <pre class="prompt-template-text">Analyze this meeting transcript and produce: (1) a 3-sentence executive summary, (2) decisions made (with who made them), (3) action items with owners and deadlines, (4) open questions or unresolved topics, (5) any risks or concerns raised. Flag anything that needs immediate follow-up.
+
+[PASTE TRANSCRIPT]</pre>
+                    <p class="prompt-card-notes">Works best with Copilot in Teams right after a transcribed meeting. See the Copilot Transcripts guide for more.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
             </div>
         </section>
     </main>
