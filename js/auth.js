@@ -153,6 +153,19 @@
         return false;
     }
 
+    // --- Acquire access token for API calls ---
+
+    function acquireToken(scopes) {
+        if (!msalInstance) return Promise.reject(new Error('MSAL not initialized'));
+        var accounts = msalInstance.getAllAccounts();
+        if (accounts.length === 0) return Promise.reject(new Error('Not authenticated'));
+        var request = { scopes: scopes, account: accounts[0] };
+        return msalInstance.acquireTokenSilent(request).catch(function (err) {
+            // Silent failed (e.g. token expired) — try popup
+            return msalInstance.acquireTokenPopup(request);
+        });
+    }
+
     // --- Auth error helpers ---
 
     function getAuthError() {
@@ -196,6 +209,7 @@
         getUser: getUser,
         isAuthenticated: isAuthenticated,
         requireAuth: requireAuth,
+        acquireToken: acquireToken,
         handleRedirectResponse: handleRedirectResponse,
         getAuthError: getAuthError,
         TENANT_ID: TENANT_ID

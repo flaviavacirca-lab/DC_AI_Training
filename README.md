@@ -95,6 +95,108 @@ Then visit `http://localhost:8080/index.html`.
 
 Make sure to register `http://localhost:8080/auth-callback.html` as a redirect URI in your Entra App Registration (see Step 4 above).
 
+## Azure Function Backend (Prompt Coach AI)
+
+The Prompt Coach "AI Improve" feature uses an Azure Function backend that proxies requests to Azure OpenAI. The backend validates Entra tokens so no API keys are exposed to the browser.
+
+### Architecture
+
+```
+Browser  →  MSAL acquireToken()  →  Bearer token
+         →  POST /api/prompt-coach  →  Azure Function
+                                        ├── Validate JWT (Entra JWKS)
+                                        └── Call Azure OpenAI
+                                        └── Return structured JSON
+```
+
+### Step 1: Create a second App Registration for the API
+
+1. Go to **Azure Portal** → **Microsoft Entra ID** → **App registrations** → **New registration**
+2. **Name:** `Denneen AI Hub API`
+3. **Supported account types:** Single tenant (Denneen only)
+4. Click **Register**
+5. Copy the **Application (client) ID** — this is `<API_CLIENT_ID>`
+
+### Step 2: Expose an API scope
+
+1. In the new API app registration, go to **Expose an API**
+2. Click **Set** next to Application ID URI → accept the default `api://<API_CLIENT_ID>`
+3. Click **Add a scope**:
+   - Scope name: `access_as_user`
+   - Who can consent: **Admins and users**
+   - Admin consent display name: `Access AI Learning Hub API`
+   - Admin consent description: `Allow the AI Learning Hub to call the API on behalf of the user`
+4. Click **Add scope**
+
+### Step 3: Grant the SPA permission to call the API
+
+1. Go back to the **SPA app registration** (Denneen AI Learning Hub)
+2. Go to **API permissions** → **Add a permission** → **My APIs**
+3. Select `Denneen AI Hub API` → check `access_as_user` → **Add permissions**
+4. Click **Grant admin consent for Denneen & Company**
+
+### Step 4: Deploy the Azure Function
+
+```bash
+cd azure-functions/dc-ai-hub
+
+# Install dependencies
+npm install
+
+# Create the Function App in Azure
+az functionapp create \
+  --resource-group <RESOURCE_GROUP> \
+  --consumption-plan-location eastus \
+  --runtime node \
+  --runtime-version 18 \
+  --functions-version 4 \
+  --name dc-ai-hub-api \
+  --storage-account <STORAGE_ACCOUNT>
+
+# Set environment variables
+az functionapp config appsettings set \
+  --name dc-ai-hub-api \
+  --resource-group <RESOURCE_GROUP> \
+  --settings \
+    TENANT_ID="<TENANT_ID>" \
+    API_CLIENT_ID="<API_CLIENT_ID>" \
+    AZURE_OPENAI_ENDPOINT="https://<resource>.openai.azure.com" \
+    AZURE_OPENAI_API_KEY="<key>" \
+    AZURE_OPENAI_DEPLOYMENT="<deployment-name>" \
+    AZURE_OPENAI_API_VERSION="2024-02-01" \
+    ALLOWED_ORIGIN="https://flaviavacirca-lab.github.io"
+
+# Deploy
+func azure functionapp publish dc-ai-hub-api
+```
+
+### Step 5: Configure CORS in Azure Portal
+
+1. Go to the Function App → **CORS**
+2. Add: `https://flaviavacirca-lab.github.io`
+3. Save
+
+### Step 6: Update the frontend code
+
+Open `js/promptCoachAgent.js` and replace the placeholders:
+
+```javascript
+var API_URL = 'https://dc-ai-hub-api.azurewebsites.net/api/prompt-coach';
+var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
+```
+
+### Environment Variables Reference
+
+| Variable | Description |
+|----------|-------------|
+| `TENANT_ID` | Denneen Microsoft Entra tenant ID |
+| `API_CLIENT_ID` | Application (client) ID of the API app registration |
+| `AZURE_OPENAI_ENDPOINT` | Azure OpenAI resource endpoint URL |
+| `AZURE_OPENAI_API_KEY` | Azure OpenAI API key |
+| `AZURE_OPENAI_DEPLOYMENT` | Chat model deployment name (e.g., `gpt-4o`) |
+| `AZURE_OPENAI_API_VERSION` | API version (default: `2024-02-01`) |
+| `ALLOWED_ORIGIN` | Comma-separated allowed CORS origins |
+
 ## Project Structure
 
 ```
@@ -113,9 +215,20 @@ Make sure to register `http://localhost:8080/auth-callback.html` as a redirect U
 │   ├── auth.js                 # MSAL authentication module
 │   ├── progress.js             # Progress tracking & saved prompts
 │   ├── app.js                  # UI interactions (nav, forms, account)
-│   └── prompt-coach.js         # CRAFT prompt analysis widget
+│   ├── prompt-coach.js         # CRAFT prompt analysis widget (regex-based)
+│   └── promptCoachAgent.js     # AI-powered prompt improvement (calls backend)
 ├── css/
 │   └── styles.css              # All styles
+├── azure-functions/
+│   └── dc-ai-hub/
+│       ├── package.json
+│       ├── host.json
+│       ├── local.settings.example.json
+│       └── src/
+│           ├── shared/
+│           │   └── validateToken.js    # Entra JWT validation
+│           └── functions/
+│               └── prompt-coach.js     # POST /api/prompt-coach
 └── README.md
 ```
 
