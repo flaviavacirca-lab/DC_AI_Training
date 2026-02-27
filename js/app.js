@@ -151,13 +151,6 @@
             var title = card.querySelector('.prompt-card-title');
             var category = card.getAttribute('data-category');
             var promptEl = card.querySelector('.prompt-template-text');
-
-            if (window.DCAuth && !DCAuth.isAuthenticated()) {
-                DCAuth.showSignInModal(function () {
-                    doSavePrompt(btn, title, category, promptEl);
-                });
-                return;
-            }
             doSavePrompt(btn, title, category, promptEl);
         });
     });
@@ -175,30 +168,6 @@
             btn.textContent = 'Save';
             btn.classList.remove('saved');
         }, 2000);
-    }
-
-    // --- Live Trainings: Auth Gate ---
-    var trainingsGate = document.getElementById('trainings-auth-gate');
-    var trainingsContent = document.getElementById('trainings-content');
-    if (trainingsGate && trainingsContent) {
-        function checkTrainingsAccess() {
-            if (window.DCAuth && DCAuth.isAuthenticated()) {
-                trainingsGate.hidden = true;
-                trainingsContent.hidden = false;
-            } else {
-                trainingsGate.hidden = false;
-                trainingsContent.hidden = true;
-            }
-        }
-        checkTrainingsAccess();
-        if (window.DCAuth) DCAuth.onAuthChange(checkTrainingsAccess);
-
-        var gateSignIn = document.getElementById('trainings-signin-btn');
-        if (gateSignIn) {
-            gateSignIn.addEventListener('click', function () {
-                DCAuth.showSignInModal(function () { checkTrainingsAccess(); });
-            });
-        }
     }
 
     // --- Topic Request Form (Live Trainings) ---
@@ -235,7 +204,6 @@
     var accountPage = document.getElementById('account-page');
     if (accountPage) {
         renderAccountPage();
-        if (window.DCAuth) DCAuth.onAuthChange(renderAccountPage);
     }
 
     function renderAccountPage() {
@@ -253,31 +221,12 @@
                     '</div>' +
                     '<button class="btn btn-outline btn-sm" id="account-signout">Sign Out</button>';
                 document.getElementById('account-signout').addEventListener('click', function () {
-                    DCAuth.signOut();
-                    renderAccountPage();
-                    if (window.DCProgress) DCProgress.updateAllProgressUI();
-                });
-            } else {
-                header.innerHTML =
-                    '<div><h2>Sign in to view your dashboard</h2><p>Track progress, save prompts, and get recommendations.</p></div>' +
-                    '<button class="btn btn-primary" id="account-signin">Sign In</button>';
-                document.getElementById('account-signin').addEventListener('click', function () {
-                    DCAuth.showSignInModal(function () {
-                        renderAccountPage();
-                        if (window.DCProgress) DCProgress.updateAllProgressUI();
-                    });
+                    DCAuth.logout();
                 });
             }
         }
 
-        if (!user) {
-            var sections = document.querySelectorAll('.account-section');
-            sections.forEach(function (s) { s.style.display = 'none'; });
-            return;
-        } else {
-            var sections2 = document.querySelectorAll('.account-section');
-            sections2.forEach(function (s) { s.style.display = ''; });
-        }
+        if (!user) return;
 
         // Progress overview
         var progressEl = document.getElementById('account-progress');

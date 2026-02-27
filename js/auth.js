@@ -1,303 +1,204 @@
 /* ============================================
    Denneen & Company — AI Learning Hub
-   Authentication Module
+   Authentication Module (Microsoft Entra ID)
+   MSAL.js v2 — Authorization Code Flow + PKCE
 
-   Tier 1: Microsoft Entra ID via MSAL.js (when configured)
-   Tier 2: Local auth with @denneen.com email validation
+   Requires: msal-browser.min.js loaded before this script
+   See README.md for Entra App Registration setup
    ============================================ */
 
 (function () {
     'use strict';
 
-    var AUTH_KEY = 'dc_ai_hub_auth';
+    // -------------------------------------------------------
+    // Configuration — replace after Entra ID App Registration
+    // -------------------------------------------------------
+    var TENANT_ID = '<TENANT_ID>';
+    var CLIENT_ID = '<CLIENT_ID>';
     var DENNEEN_DOMAIN = 'denneen.com';
 
-    // --- MSAL Configuration ---
-    var MSAL_CONFIG = {
+    // Derive redirect URIs dynamically (works on localhost & GitHub Pages)
+    var basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    var REDIRECT_URI = window.location.origin + basePath + 'auth-callback.html';
+    var POST_LOGOUT_URI = window.location.origin + basePath + 'index.html';
+
+    // Session-storage keys
+    var INTENDED_URL_KEY = 'dc_ai_hub_intended_url';
+    var AUTH_ERROR_KEY = 'dc_ai_hub_auth_error';
+
+    // MSAL configuration
+    var msalConfig = {
         auth: {
-            clientId: '', // Azure AD App Registration client ID
-            authority: 'https://login.microsoftonline.com/common',
-            redirectUri: window.location.origin
+            clientId: CLIENT_ID,
+            authority: 'https://login.microsoftonline.com/' + TENANT_ID,
+            redirectUri: REDIRECT_URI,
+            postLogoutRedirectUri: POST_LOGOUT_URI,
+            navigateToLoginRequestUrl: false
         },
         cache: {
-            cacheLocation: 'localStorage'
+            cacheLocation: 'localStorage',
+            storeAuthStateInCookie: false
         }
     };
 
+    var loginRequest = {
+        scopes: ['openid', 'profile', 'email']
+    };
+
     var msalInstance = null;
-    var authCallbacks = [];
 
-    // --- Email Validation ---
+    // --- Initialize MSAL ---
 
-    function isValidDenneenEmail(email) {
-        if (!email) return false;
-        return email.toLowerCase().trim().endsWith('@' + DENNEEN_DOMAIN);
+    function initAuth() {
+        if (typeof msal === 'undefined' || !msal.PublicClientApplication) {
+            console.error('MSAL.js library not loaded. Authentication will not work.');
+            return null;
+        }
+        try {
+            msalInstance = new msal.PublicClientApplication(msalConfig);
+            return msalInstance;
+        } catch (e) {
+            console.error('MSAL initialization failed:', e);
+            return null;
+        }
     }
 
-    // --- MSAL ---
+    // --- Login (MSAL redirect) ---
 
-    function initMSAL() {
-        if (!MSAL_CONFIG.auth.clientId) return false;
-        try {
-            if (typeof msal !== 'undefined' && msal.PublicClientApplication) {
-                msalInstance = new msal.PublicClientApplication(MSAL_CONFIG);
-                return true;
-            }
-        } catch (e) {
-            console.log('MSAL not available, using local auth');
+    function login() {
+        if (!msalInstance) return;
+        msalInstance.loginRedirect(loginRequest);
+    }
+
+    // --- Logout (MSAL redirect) ---
+
+    function logout() {
+        if (!msalInstance) {
+            window.location.replace('index.html');
+            return;
         }
+        msalInstance.logoutRedirect({
+            postLogoutRedirectUri: POST_LOGOUT_URI
+        });
+    }
+
+    // --- Get current user from MSAL cache ---
+
+    function getUser() {
+        if (!msalInstance) return null;
+        var accounts = msalInstance.getAllAccounts();
+        if (accounts.length === 0) return null;
+        var acct = accounts[0];
+        var claims = acct.idTokenClaims || {};
+        return {
+            name: claims.name || acct.name || acct.username,
+            email: (claims.preferred_username || acct.username || '').toLowerCase(),
+            upn: (claims.preferred_username || claims.upn || acct.username || '').toLowerCase(),
+            tid: claims.tid || ''
+        };
+    }
+
+    // --- Check authenticated + valid Denneen identity ---
+
+    function isAuthenticated() {
+        var user = getUser();
+        return user ? validateIdentity(user) : false;
+    }
+
+    // --- Validate Denneen identity (anti-spoof) ---
+
+    function validateIdentity(user) {
+        if (!user) return false;
+        // Tenant ID must match Denneen
+        if (user.tid !== TENANT_ID) return false;
+        // Email / UPN must be @denneen.com
+        var id = user.email || user.upn || '';
+        return id.endsWith('@' + DENNEEN_DOMAIN);
+    }
+
+    // --- Handle MSAL redirect response (auth-callback.html) ---
+
+    function handleRedirectResponse() {
+        if (!msalInstance) return Promise.reject(new Error('MSAL not initialized'));
+        return msalInstance.handleRedirectPromise().then(function (response) {
+            if (response) {
+                // Login just completed — validate identity
+                var user = getUser();
+                if (!validateIdentity(user)) {
+                    sessionStorage.setItem(AUTH_ERROR_KEY, 'Please sign in with your Denneen work account.');
+                    return msalInstance.logoutRedirect({ postLogoutRedirectUri: POST_LOGOUT_URI });
+                }
+                // Valid — redirect to intended page or account
+                var intended = sessionStorage.getItem(INTENDED_URL_KEY);
+                sessionStorage.removeItem(INTENDED_URL_KEY);
+                window.location.replace(intended || (basePath + 'account.html'));
+                return response;
+            }
+            // No redirect response — go to login
+            window.location.replace(basePath + 'index.html');
+            return null;
+        }).catch(function (err) {
+            console.error('Authentication error:', err);
+            sessionStorage.setItem(AUTH_ERROR_KEY, 'Authentication failed. Please try again.');
+            window.location.replace(basePath + 'index.html');
+        });
+    }
+
+    // --- Require auth (gate for protected pages) ---
+
+    function requireAuth() {
+        if (isAuthenticated()) return true;
+        sessionStorage.setItem(INTENDED_URL_KEY, window.location.href);
+        window.location.replace('index.html');
         return false;
     }
 
-    // --- Local Auth ---
+    // --- Auth error helpers ---
 
-    function getStoredAuth() {
-        try {
-            var data = JSON.parse(localStorage.getItem(AUTH_KEY));
-            if (data && data.name && data.email) return data;
-        } catch (e) {}
-        return null;
+    function getAuthError() {
+        var err = sessionStorage.getItem(AUTH_ERROR_KEY);
+        sessionStorage.removeItem(AUTH_ERROR_KEY);
+        return err;
     }
 
-    function setStoredAuth(name, email) {
-        try {
-            localStorage.setItem(AUTH_KEY, JSON.stringify({
-                name: name,
-                email: email.toLowerCase().trim(),
-                signedInAt: new Date().toISOString()
-            }));
-        } catch (e) {}
-    }
-
-    function clearStoredAuth() {
-        try { localStorage.removeItem(AUTH_KEY); } catch (e) {}
-    }
-
-    // --- Migrate from old progress.js user data ---
-
-    function migrateOldUserData() {
-        try {
-            var oldData = JSON.parse(localStorage.getItem('dc_ai_hub_user'));
-            if (oldData && oldData.name && oldData.email && !getStoredAuth()) {
-                setStoredAuth(oldData.name, oldData.email);
-            }
-        } catch (e) {}
-    }
-
-    // --- Public API ---
-
-    function getUser() {
-        if (msalInstance) {
-            var accounts = msalInstance.getAllAccounts();
-            if (accounts.length > 0) {
-                return {
-                    name: accounts[0].name || accounts[0].username,
-                    email: accounts[0].username
-                };
-            }
-        }
-        return getStoredAuth();
-    }
-
-    function isAuthenticated() {
-        return !!getUser();
-    }
-
-    function signIn(name, email) {
-        if (msalInstance) {
-            msalInstance.loginRedirect({ scopes: ['User.Read'] });
-            return { pending: true };
-        }
-        if (!isValidDenneenEmail(email)) {
-            return { error: 'Please use your @denneen.com email address.' };
-        }
-        setStoredAuth(name, email);
-        notifyChange();
-        return { success: true };
-    }
-
-    function signOut() {
-        if (msalInstance) {
-            msalInstance.logout();
-        }
-        clearStoredAuth();
-        notifyChange();
-        window.location.replace('index.html');
-    }
-
-    function requireAuth(callback) {
-        if (isAuthenticated()) {
-            callback(getUser());
-        } else {
-            showSignInModal(callback);
-        }
-    }
-
-    function onAuthChange(fn) {
-        authCallbacks.push(fn);
-    }
-
-    function notifyChange() {
-        var user = getUser();
-        authCallbacks.forEach(function (fn) {
-            try { fn(user); } catch (e) {}
-        });
-    }
-
-    // --- Site Gate ---
+    // --- Site-wide gate (runs automatically on every page) ---
 
     function gateSite() {
-        var pageName = window.location.pathname.split('/').pop();
-        var isLoginPage = !pageName || pageName === 'index.html';
+        var pageName = window.location.pathname.split('/').pop() || 'index.html';
 
-        if (isAuthenticated()) {
-            if (isLoginPage) {
+        // Login page and auth callback are exempt from gating
+        if (pageName === 'index.html' || pageName === 'auth-callback.html' || pageName === '') {
+            // If already authenticated on login page, redirect to training flow
+            if ((pageName === 'index.html' || pageName === '') && isAuthenticated()) {
                 window.location.replace('suggested-training-flow.html');
-                return;
             }
-        } else {
-            if (!isLoginPage) {
-                window.location.replace('index.html');
-                return;
-            }
-        }
-    }
-
-    // --- Login Page Form Handler ---
-
-    function handleLoginPage() {
-        var loginForm = document.getElementById('login-form');
-        if (!loginForm) return;
-
-        loginForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var name = document.getElementById('login-name').value.trim();
-            var email = document.getElementById('login-email').value.trim();
-            var errorEl = document.getElementById('login-error');
-
-            if (!isValidDenneenEmail(email)) {
-                errorEl.textContent = 'Please use your @denneen.com email address.';
-                errorEl.hidden = false;
-                return;
-            }
-
-            var result = signIn(name, email);
-            if (result && result.error) {
-                errorEl.textContent = result.error;
-                errorEl.hidden = false;
-                return;
-            }
-
-            window.location.replace('suggested-training-flow.html');
-        });
-    }
-
-    // --- Sign-In Modal (for in-page auth prompts) ---
-
-    function showSignInModal(onSuccess) {
-        var existing = document.getElementById('signin-modal');
-        if (existing) existing.remove();
-
-        if (msalInstance) {
-            msalInstance.loginRedirect({ scopes: ['User.Read'] });
             return;
         }
 
-        var modal = document.createElement('div');
-        modal.id = 'signin-modal';
-        modal.className = 'modal-overlay';
-        modal.innerHTML =
-            '<div class="modal-content">' +
-                '<button class="modal-close" aria-label="Close">&times;</button>' +
-                '<h2>Sign In</h2>' +
-                '<p>Use your Denneen &amp; Company email to track progress and save prompts.</p>' +
-                '<form id="signin-form">' +
-                    '<div class="form-group">' +
-                        '<label for="signin-name">Your Name</label>' +
-                        '<input type="text" id="signin-name" required placeholder="e.g., Jane Smith">' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                        '<label for="signin-email">Work Email</label>' +
-                        '<input type="email" id="signin-email" required placeholder="your.name@denneen.com">' +
-                    '</div>' +
-                    '<div class="form-error" id="signin-error" hidden></div>' +
-                    '<button type="submit" class="btn btn-primary" style="width:100%">Sign In</button>' +
-                '</form>' +
-                '<p class="modal-note">Your progress is stored locally in this browser.</p>' +
-            '</div>';
-
-        document.body.appendChild(modal);
-
-        modal.querySelector('.modal-close').addEventListener('click', function () {
-            modal.remove();
-        });
-        modal.addEventListener('click', function (e) {
-            if (e.target === modal) modal.remove();
-        });
-
-        document.getElementById('signin-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            var name = document.getElementById('signin-name').value.trim();
-            var email = document.getElementById('signin-email').value.trim();
-            var errorEl = document.getElementById('signin-error');
-
-            if (!isValidDenneenEmail(email)) {
-                errorEl.textContent = 'Please use your @denneen.com email address.';
-                errorEl.hidden = false;
-                return;
-            }
-
-            var result = signIn(name, email);
-            if (result && result.error) {
-                errorEl.textContent = result.error;
-                errorEl.hidden = false;
-                return;
-            }
-
-            modal.remove();
-            if (typeof onSuccess === 'function') {
-                onSuccess(getUser());
-            }
-        });
-
-        document.getElementById('signin-name').focus();
+        // All other pages require authentication
+        requireAuth();
     }
 
-    // --- Init ---
+    // --- Cleanup legacy local-auth storage ---
 
-    migrateOldUserData();
-    initMSAL();
+    try { localStorage.removeItem('dc_ai_hub_auth'); } catch (e) {}
 
-    if (msalInstance) {
-        msalInstance.handleRedirectPromise().then(function (response) {
-            if (response) notifyChange();
-            gateSite();
-        }).catch(function (err) {
-            console.error('MSAL redirect error:', err);
-            gateSite();
-        });
-    } else {
-        gateSite();
-    }
+    // --- Auto-initialize and gate ---
 
-    // Handle login form when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', handleLoginPage);
-    } else {
-        handleLoginPage();
-    }
+    initAuth();
+    gateSite();
 
-    // --- Expose ---
+    // --- Public API ---
 
     window.DCAuth = {
+        login: login,
+        logout: logout,
         getUser: getUser,
         isAuthenticated: isAuthenticated,
-        signIn: signIn,
-        signOut: signOut,
         requireAuth: requireAuth,
-        showSignInModal: showSignInModal,
-        onAuthChange: onAuthChange,
-        isValidDenneenEmail: isValidDenneenEmail
+        handleRedirectResponse: handleRedirectResponse,
+        getAuthError: getAuthError,
+        TENANT_ID: TENANT_ID
     };
 
 })();

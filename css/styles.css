@@ -2559,6 +2559,51 @@ body.login-page {
     color: var(--gray-500);
 }
 
+/* Microsoft Sign-In Button */
+.btn-ms-signin {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--white);
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--gray-800);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-ms-signin:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-ms-signin:active {
+    background: var(--gray-50);
+}
+
+.btn-ms-signin svg {
+    flex-shrink: 0;
+}
+
+/* Auth Error Banner */
+.auth-error-banner {
+    background: var(--red-light);
+    color: var(--red);
+    border: 1px solid var(--red);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
 /* ============================================
    Flow Steps (Training Flow Page)
    ============================================ */

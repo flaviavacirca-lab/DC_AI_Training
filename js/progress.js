@@ -2,12 +2,18 @@
    Denneen & Company — AI Learning Hub
    Progress Tracking & Saved Prompts
    Depends on: auth.js (DCAuth)
+
+   Storage keys (per-user):
+     dc_ai_training::<upn>::progress
+     dc_ai_training::<upn>::saved_prompts
    ============================================ */
 
 (function () {
     'use strict';
 
-    var PROGRESS_KEY = 'dc_ai_hub_progress';
+    var KEY_PREFIX = 'dc_ai_training::';
+    var KEY_PROGRESS = '::progress';
+    var KEY_PROMPTS = '::saved_prompts';
 
     var MODULES = [
         // Original training modules
@@ -33,56 +39,95 @@
         { id: 'cfc-ops',           title: 'Internal Ops & Email Efficiency',       page: 'copilot-for-consulting.html#ops',           category: 'consulting' }
     ];
 
-    // --- Data Layer ---
+    // --- User Key ---
 
-    function getAllProgress() {
-        try {
-            return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
-        } catch (e) { return {}; }
-    }
-
-    function saveAllProgress(data) {
-        try {
-            localStorage.setItem(PROGRESS_KEY, JSON.stringify(data));
-        } catch (e) {}
-    }
-
-    function getUserProgress() {
+    function getUserKey() {
         var user = window.DCAuth ? DCAuth.getUser() : null;
         if (!user) return null;
-        var all = getAllProgress();
-        var key = user.email.toLowerCase();
-        if (!all[key]) {
-            all[key] = { completed: {}, savedPrompts: [], practiceScores: {}, submissions: [] };
-            saveAllProgress(all);
+        return (user.upn || user.email || '').toLowerCase();
+    }
+
+    // --- Data Layer ---
+
+    function getUserProgress() {
+        var key = getUserKey();
+        if (!key) return null;
+        try {
+            return JSON.parse(localStorage.getItem(KEY_PREFIX + key + KEY_PROGRESS)) ||
+                   { completed: {}, practiceScores: {}, submissions: [] };
+        } catch (e) {
+            return { completed: {}, practiceScores: {}, submissions: [] };
         }
-        return all[key];
     }
 
     function saveUserProgress(progress) {
-        var user = window.DCAuth ? DCAuth.getUser() : null;
-        if (!user) return;
-        var all = getAllProgress();
-        all[user.email.toLowerCase()] = progress;
-        saveAllProgress(all);
+        var key = getUserKey();
+        if (!key) return;
+        try {
+            localStorage.setItem(KEY_PREFIX + key + KEY_PROGRESS, JSON.stringify(progress));
+        } catch (e) {}
     }
 
-    // --- Migrate old data ---
+    function getSavedPrompts() {
+        var key = getUserKey();
+        if (!key) return [];
+        try {
+            return JSON.parse(localStorage.getItem(KEY_PREFIX + key + KEY_PROMPTS)) || [];
+        } catch (e) { return []; }
+    }
+
+    function setSavedPrompts(prompts) {
+        var key = getUserKey();
+        if (!key) return;
+        try {
+            localStorage.setItem(KEY_PREFIX + key + KEY_PROMPTS, JSON.stringify(prompts));
+        } catch (e) {}
+    }
+
+    // --- Migration from old storage formats ---
 
     function migrateOldData() {
+        // Migrate from nested format (dc_ai_hub_progress)
         try {
-            var old = JSON.parse(localStorage.getItem('dc_ai_hub_user'));
-            if (old && old.email && old.completed) {
-                var all = getAllProgress();
-                var key = old.email.toLowerCase();
-                if (!all[key]) {
-                    all[key] = {
-                        completed: old.completed || {},
-                        savedPrompts: [],
-                        practiceScores: old.practiceScores || {},
-                        submissions: []
-                    };
-                    saveAllProgress(all);
+            var oldRaw = localStorage.getItem('dc_ai_hub_progress');
+            if (oldRaw) {
+                var oldData = JSON.parse(oldRaw);
+                Object.keys(oldData).forEach(function (email) {
+                    var userData = oldData[email];
+                    var userKey = email.toLowerCase();
+                    var progressKey = KEY_PREFIX + userKey + KEY_PROGRESS;
+                    var promptsKey = KEY_PREFIX + userKey + KEY_PROMPTS;
+
+                    if (!localStorage.getItem(progressKey)) {
+                        localStorage.setItem(progressKey, JSON.stringify({
+                            completed: userData.completed || {},
+                            practiceScores: userData.practiceScores || {},
+                            submissions: userData.submissions || []
+                        }));
+                    }
+                    if (!localStorage.getItem(promptsKey) && userData.savedPrompts && userData.savedPrompts.length > 0) {
+                        localStorage.setItem(promptsKey, JSON.stringify(userData.savedPrompts));
+                    }
+                });
+                localStorage.removeItem('dc_ai_hub_progress');
+            }
+        } catch (e) {}
+
+        // Migrate from very old single-user format (dc_ai_hub_user)
+        try {
+            var veryOld = localStorage.getItem('dc_ai_hub_user');
+            if (veryOld) {
+                var data = JSON.parse(veryOld);
+                if (data && data.email && data.completed) {
+                    var uk = data.email.toLowerCase();
+                    var pk = KEY_PREFIX + uk + KEY_PROGRESS;
+                    if (!localStorage.getItem(pk)) {
+                        localStorage.setItem(pk, JSON.stringify({
+                            completed: data.completed || {},
+                            practiceScores: data.practiceScores || {},
+                            submissions: []
+                        }));
+                    }
                 }
                 localStorage.removeItem('dc_ai_hub_user');
             }
@@ -142,10 +187,9 @@
     // --- Saved Prompts ---
 
     function savePrompt(promptData) {
-        var progress = getUserProgress();
-        if (!progress) return;
+        var prompts = getSavedPrompts();
         var id = 'sp-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5);
-        progress.savedPrompts.push({
+        prompts.push({
             id: id,
             title: promptData.title || 'Untitled Prompt',
             category: promptData.category || 'General',
@@ -153,20 +197,14 @@
             notes: promptData.notes || '',
             savedAt: new Date().toISOString()
         });
-        saveUserProgress(progress);
+        setSavedPrompts(prompts);
         return id;
     }
 
     function removeSavedPrompt(promptId) {
-        var progress = getUserProgress();
-        if (!progress) return;
-        progress.savedPrompts = progress.savedPrompts.filter(function (p) { return p.id !== promptId; });
-        saveUserProgress(progress);
-    }
-
-    function getSavedPrompts() {
-        var progress = getUserProgress();
-        return progress ? progress.savedPrompts : [];
+        var prompts = getSavedPrompts();
+        prompts = prompts.filter(function (p) { return p.id !== promptId; });
+        setSavedPrompts(prompts);
     }
 
     // --- Submissions ---
@@ -191,14 +229,7 @@
         toggles.forEach(function (el) {
             var moduleId = el.getAttribute('data-module-complete');
             if (!user) {
-                el.innerHTML =
-                    '<button class="completion-toggle completion-signin" title="Sign in to track progress">' +
-                        '<span class="completion-icon">&#x25CB;</span>' +
-                        '<span>Sign in to track</span>' +
-                    '</button>';
-                el.querySelector('.completion-signin').addEventListener('click', function () {
-                    if (window.DCAuth) DCAuth.showSignInModal(function () { updateAllProgressUI(); });
-                });
+                el.innerHTML = '';
                 return;
             }
 
@@ -228,15 +259,7 @@
 
         var user = window.DCAuth ? DCAuth.getUser() : null;
         if (!user) {
-            container.innerHTML =
-                '<div class="progress-signin-prompt">' +
-                    '<p><strong>Sign in to see your progress across all modules.</strong></p>' +
-                    '<button class="btn btn-primary btn-sm" id="progress-signin-btn">Sign In</button>' +
-                '</div>';
-            var btn = document.getElementById('progress-signin-btn');
-            if (btn) btn.addEventListener('click', function () {
-                if (window.DCAuth) DCAuth.showSignInModal(function () { updateAllProgressUI(); });
-            });
+            container.innerHTML = '';
             return;
         }
 
@@ -273,46 +296,32 @@
         if (!container) return;
 
         var user = window.DCAuth ? DCAuth.getUser() : null;
-        if (user) {
-            var completedCount = getCompletedCount();
-            container.innerHTML =
-                '<div class="auth-banner auth-banner-signed-in">' +
-                    '<div class="auth-user-info">' +
-                        '<span class="auth-avatar">' + escapeHtml(user.name.charAt(0).toUpperCase()) + '</span>' +
-                        '<div class="auth-user-details">' +
-                            '<strong>' + escapeHtml(user.name) + '</strong>' +
-                            '<span class="auth-progress-text">' + completedCount + ' of ' + MODULES.length + ' completed</span>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="auth-actions">' +
-                        '<a href="account.html" class="btn btn-primary btn-sm">My Dashboard</a>' +
-                        '<button class="btn btn-outline btn-sm" id="banner-signout-btn">Sign Out</button>' +
-                    '</div>' +
-                '</div>';
+        if (!user) {
+            container.innerHTML = '';
+            return;
+        }
 
-            var signOutBtn = document.getElementById('banner-signout-btn');
-            if (signOutBtn) {
-                signOutBtn.addEventListener('click', function () {
-                    if (window.DCAuth) DCAuth.signOut();
-                    updateAllProgressUI();
-                });
-            }
-        } else {
-            container.innerHTML =
-                '<div class="auth-banner auth-banner-signed-out">' +
-                    '<div class="auth-prompt">' +
-                        '<strong>Track your learning progress</strong>' +
-                        '<span>Sign in to mark modules complete, save prompts, and track your journey.</span>' +
+        var completedCount = getCompletedCount();
+        container.innerHTML =
+            '<div class="auth-banner auth-banner-signed-in">' +
+                '<div class="auth-user-info">' +
+                    '<span class="auth-avatar">' + escapeHtml(user.name.charAt(0).toUpperCase()) + '</span>' +
+                    '<div class="auth-user-details">' +
+                        '<strong>' + escapeHtml(user.name) + '</strong>' +
+                        '<span class="auth-progress-text">' + completedCount + ' of ' + MODULES.length + ' completed</span>' +
                     '</div>' +
-                    '<button class="btn btn-primary btn-sm" id="banner-signin-btn">Sign In</button>' +
-                '</div>';
+                '</div>' +
+                '<div class="auth-actions">' +
+                    '<a href="account.html" class="btn btn-primary btn-sm">My Dashboard</a>' +
+                    '<button class="btn btn-outline btn-sm" id="banner-signout-btn">Sign Out</button>' +
+                '</div>' +
+            '</div>';
 
-            var signInBtn = document.getElementById('banner-signin-btn');
-            if (signInBtn) {
-                signInBtn.addEventListener('click', function () {
-                    if (window.DCAuth) DCAuth.showSignInModal(function () { updateAllProgressUI(); });
-                });
-            }
+        var signOutBtn = document.getElementById('banner-signout-btn');
+        if (signOutBtn) {
+            signOutBtn.addEventListener('click', function () {
+                if (window.DCAuth) DCAuth.logout();
+            });
         }
     }
 
@@ -346,18 +355,8 @@
     function updateNavAccount() {
         var navAccount = document.getElementById('nav-account');
         if (!navAccount) return;
-        var user = window.DCAuth ? DCAuth.getUser() : null;
-        if (user) {
-            navAccount.textContent = 'Account';
-            navAccount.href = 'account.html';
-        } else {
-            navAccount.textContent = 'Sign In';
-            navAccount.href = '#';
-            navAccount.onclick = function (e) {
-                e.preventDefault();
-                if (window.DCAuth) DCAuth.showSignInModal(function () { updateAllProgressUI(); });
-            };
-        }
+        navAccount.textContent = 'Account';
+        navAccount.href = 'account.html';
     }
 
     // --- Utilities ---
@@ -391,12 +390,6 @@
     // --- Init ---
 
     migrateOldData();
-
-    if (window.DCAuth) {
-        DCAuth.onAuthChange(function () {
-            updateAllProgressUI();
-        });
-    }
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', updateAllProgressUI);
