@@ -339,4 +339,32 @@
         return div.innerHTML;
     }
 
+    // --- Conditional Admin Nav Link ---
+    (function checkAdminNav() {
+        if (!window.DCAuth || !DCAuth.isAuthenticated() || !DCAuth.acquireToken) return;
+        var API_BASE = '<FUNCTION_APP_URL>';
+        var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
+        DCAuth.acquireToken([API_SCOPE]).then(function (resp) {
+            return fetch(API_BASE + '/api/admin/check', {
+                headers: { 'Authorization': 'Bearer ' + resp.accessToken }
+            });
+        }).then(function (res) {
+            return res.ok ? res.json() : null;
+        }).then(function (data) {
+            if (data && data.isAdmin) {
+                var navLinksEl = document.querySelector('.nav-links');
+                var navAccount = document.getElementById('nav-account');
+                if (navLinksEl && navAccount) {
+                    var adminLink = document.createElement('a');
+                    adminLink.href = 'admin.html';
+                    adminLink.className = 'nav-link';
+                    adminLink.textContent = 'Admin';
+                    navLinksEl.insertBefore(adminLink, navAccount);
+                }
+            }
+        }).catch(function () {
+            // Silently ignore — admin check is best-effort
+        });
+    })();
+
 })();

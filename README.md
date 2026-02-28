@@ -196,6 +196,31 @@ var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
 | `AZURE_OPENAI_DEPLOYMENT` | Chat model deployment name (e.g., `gpt-4o`) |
 | `AZURE_OPENAI_API_VERSION` | API version (default: `2024-02-01`) |
 | `ALLOWED_ORIGIN` | Comma-separated allowed CORS origins |
+| `STORAGE_CONNECTION_STRING` | Azure Storage connection string (for Table Storage) |
+| `TELEMETRY_TABLE_NAME` | Table name for telemetry events (default: `telemetry`) |
+| `COMPLETIONS_TABLE_NAME` | Table name for module completions (default: `completions`) |
+| `ADMIN_EMAILS` | Comma-separated admin emails (e.g., `flavia.vacirca@denneen.com`) |
+
+## Analytics & Admin Dashboard
+
+The site tracks usage telemetry (page views, module completions, prompt coach usage) and provides an admin-only dashboard at `/admin.html`.
+
+### Backend Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/telemetry` | POST | Record usage events (page_view, module_open, module_complete, prompt_coach_used) |
+| `/api/user/progress` | GET | Get completions for the authenticated user |
+| `/api/admin/check` | GET | Check if the current user is an admin |
+| `/api/admin/summary` | GET | Admin-only: 30-day usage summary with per-user detail |
+
+### Admin Access
+
+Admin access is controlled by the `ADMIN_EMAILS` environment variable. Set this to a comma-separated list of email addresses. Non-admins who visit `/admin.html` are redirected to their account page.
+
+### Storage
+
+Telemetry and completion data is stored in **Azure Table Storage**. Create a Storage Account in Azure and set the `STORAGE_CONNECTION_STRING` environment variable. The tables are created automatically on first write.
 
 ## Project Structure
 
@@ -203,6 +228,7 @@ var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
 ├── index.html                  # Login page (Microsoft sign-in)
 ├── auth-callback.html          # MSAL redirect callback handler
 ├── account.html                # User dashboard (progress, saved prompts)
+├── admin.html                  # Admin dashboard (usage analytics)
 ├── suggested-training-flow.html
 ├── training-library.html
 ├── copilot-101.html            # Copilot 101: The Basics
@@ -214,9 +240,10 @@ var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
 ├── js/
 │   ├── auth.js                 # MSAL authentication module
 │   ├── progress.js             # Progress tracking & saved prompts
-│   ├── app.js                  # UI interactions (nav, forms, account)
+│   ├── app.js                  # UI interactions (nav, forms, account, admin nav)
 │   ├── prompt-coach.js         # CRAFT prompt analysis widget (regex-based)
-│   └── promptCoachAgent.js     # AI-powered prompt improvement (calls backend)
+│   ├── promptCoachAgent.js     # AI-powered prompt improvement (calls backend)
+│   └── telemetry.js            # Usage telemetry (page views, completions, etc.)
 ├── css/
 │   └── styles.css              # All styles
 ├── azure-functions/
@@ -226,9 +253,14 @@ var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
 │       ├── local.settings.example.json
 │       └── src/
 │           ├── shared/
-│           │   └── validateToken.js    # Entra JWT validation
+│           │   ├── validateToken.js    # Entra JWT validation
+│           │   └── tableStorage.js     # Azure Table Storage helpers
 │           └── functions/
-│               └── prompt-coach.js     # POST /api/prompt-coach
+│               ├── prompt-coach.js     # POST /api/prompt-coach
+│               ├── telemetry.js        # POST /api/telemetry
+│               ├── user-progress.js    # GET /api/user/progress
+│               ├── admin-check.js      # GET /api/admin/check
+│               └── admin-summary.js    # GET /api/admin/summary
 └── README.md
 ```
 

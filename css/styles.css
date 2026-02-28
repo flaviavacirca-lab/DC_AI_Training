@@ -2722,6 +2722,94 @@ body.login-page {
 }
 
 /* ============================================
+   Admin Dashboard
+   ============================================ */
+
+.admin-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+}
+
+.admin-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-card-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 0.35rem;
+}
+
+.admin-card-label {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    font-weight: 500;
+}
+
+.admin-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    font-size: 0.9rem;
+}
+
+.admin-table thead {
+    background: var(--navy);
+    color: var(--white);
+}
+
+.admin-table th {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.admin-table td {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+}
+
+.admin-table tbody tr:hover {
+    background: var(--gray-50);
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .admin-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .admin-table {
+        font-size: 0.8rem;
+    }
+    .admin-table th,
+    .admin-table td {
+        padding: 0.6rem 0.75rem;
+    }
+}
+
+/* ============================================
    Flow Steps (Training Flow Page)
    ============================================ */
 

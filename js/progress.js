@@ -142,6 +142,11 @@
         if (!progress.completed[moduleId]) {
             progress.completed[moduleId] = new Date().toISOString();
             saveUserProgress(progress);
+            // Send telemetry
+            var mod = MODULES.find(function (m) { return m.id === moduleId; });
+            if (window.DCTelemetry) {
+                DCTelemetry.trackModuleComplete(moduleId, mod ? mod.title : '');
+            }
         }
     }
 

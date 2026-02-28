@@ -210,6 +210,7 @@
                 return;
             }
             showLoading();
+            if (window.DCTelemetry) DCTelemetry.trackPromptCoachUsed('analyze');
             callAPI(currentPrompt).then(function (data) {
                 if (data.type === 'clarifying_questions') {
                     showClarifyingQuestions(data.questions);
@@ -232,6 +233,7 @@
             });
             agentPanel.querySelector('.agent-clarify').hidden = true;
             showLoading();
+            if (window.DCTelemetry) DCTelemetry.trackPromptCoachUsed('clarify');
             callAPI(currentPrompt, answers).then(function (data) {
                 if (data.type === 'final') {
                     showFinalResult(data);
