@@ -13,8 +13,8 @@
     // -------------------------------------------------------
     // Configuration — replace after Entra ID App Registration
     // -------------------------------------------------------
-    var TENANT_ID = '<TENANT_ID>';
-    var CLIENT_ID = '<CLIENT_ID>';
+    var TENANT_ID = 'c331761b-b83b-43ce-b317-ad61d9f70b12';
+    var CLIENT_ID = '969e9ca8-a9c9-4d8b-8280-48329e53bf2a';
     var DENNEEN_DOMAIN = 'denneen.com';
 
     // Derive redirect URIs dynamically (works on localhost & GitHub Pages)
