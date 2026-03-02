@@ -66,7 +66,14 @@
     // --- Login (MSAL redirect) ---
 
     function login() {
-        if (!msalInstance) return;
+        if (!msalInstance) {
+            var errorEl = document.getElementById('auth-error');
+            if (errorEl) {
+                errorEl.textContent = 'Authentication library failed to load. Please refresh the page or contact your administrator.';
+                errorEl.hidden = false;
+            }
+            return;
+        }
         msalInstance.loginRedirect(loginRequest);
     }
 
