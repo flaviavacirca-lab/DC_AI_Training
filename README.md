@@ -249,8 +249,7 @@ Telemetry and completion data is stored in **Azure Table Storage**. Create a Sto
 │   ├── auth.js                 # MSAL authentication module
 │   ├── progress.js             # Progress tracking & saved prompts
 │   ├── app.js                  # UI interactions (nav, forms, account, admin nav)
-│   ├── prompt-coach.js         # CRAFT prompt analysis widget (regex-based)
-│   ├── promptCoachAgent.js     # AI-powered prompt improvement (calls backend)
+│   ├── promptCoach.js          # Prompt Coach — guided builder + draft improver (client-side)
 │   └── telemetry.js            # Usage telemetry (page views, completions, etc.)
 ├── css/
 │   └── styles.css              # All styles
