@@ -178,12 +178,20 @@ func azure functionapp publish dc-ai-hub-api
 
 ### Step 6: Update the frontend code
 
-Open `js/promptCoachAgent.js` and replace the placeholders:
+**a) Set API URLs.** Replace the `<FUNCTION_APP_URL>` placeholder in these files with the deployed Function App URL (e.g., `https://dc-ai-hub-api.azurewebsites.net`):
+
+- `js/promptCoachAgent.js` — `API_URL`
+- `js/telemetry.js` — `API_URL`
+- `js/app.js` — `API_BASE` (admin nav check)
+- `admin.html` — `API_BASE` (inline script)
+
+**b) Set API scopes.** Open `js/auth.js` and change `API_SCOPES` from `['User.Read']` to the real API scope:
 
 ```javascript
-var API_URL = 'https://dc-ai-hub-api.azurewebsites.net/api/prompt-coach';
-var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
+var API_SCOPES = ['api://<API_CLIENT_ID>/DcAiHub.Access'];
 ```
+
+> **Note:** The site ships with `['User.Read']` as a temporary scope so that token acquisition works without errors before the API app registration is created. Once you expose an API scope (Step 2 above) and grant the SPA permission (Step 3), switch to the real scope.
 
 ### Environment Variables Reference
 

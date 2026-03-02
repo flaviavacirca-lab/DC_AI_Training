@@ -4,8 +4,9 @@
 
    Sends events to POST /api/telemetry.
    NEVER sends raw prompt text.
+   Gracefully no-ops when backend is not deployed.
 
-   Depends on: auth.js (DCAuth.acquireToken)
+   Depends on: auth.js (DCAuth.getApiAccessToken)
    ============================================ */
 
 (function () {
@@ -15,21 +16,28 @@
     // Configuration — update after deploying the Azure Function
     // -------------------------------------------------------
     var API_URL = '<FUNCTION_APP_URL>/api/telemetry';
-    var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
+
+    // Check if backend is configured (not still a placeholder)
+    function isBackendConfigured() {
+        return API_URL.indexOf('<') === -1 && API_URL.indexOf('>') === -1;
+    }
 
     // Debounce duplicate page_view events
     var lastPageView = '';
 
     function send(eventType, data) {
-        if (!window.DCAuth || !DCAuth.acquireToken || !DCAuth.isAuthenticated()) return;
+        // Skip entirely if backend URL is a placeholder
+        if (!isBackendConfigured()) return;
+        if (!window.DCAuth || !DCAuth.getApiAccessToken || !DCAuth.isAuthenticated()) return;
 
-        DCAuth.acquireToken([API_SCOPE]).then(function (response) {
+        DCAuth.getApiAccessToken().then(function (token) {
+            if (!token) return; // Redirect in progress or no token
             var body = { eventType: eventType, data: data || {} };
             fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + response.accessToken
+                    'Authorization': 'Bearer ' + token
                 },
                 body: JSON.stringify(body)
             }).catch(function () {

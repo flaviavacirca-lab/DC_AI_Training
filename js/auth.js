@@ -17,6 +17,12 @@
     var CLIENT_ID = '969e9ca8-a9c9-4d8b-8280-48329e53bf2a';
     var DENNEEN_DOMAIN = 'denneen.com';
 
+    // API scope for backend calls.
+    // Change to ['api://<API_CLIENT_ID>/DcAiHub.Access'] after creating the
+    // API app registration (see README → "Expose an API scope").
+    // Until then, 'User.Read' lets acquireTokenSilent succeed without errors.
+    var API_SCOPES = ['User.Read'];
+
     // Derive redirect URIs dynamically (works on localhost & GitHub Pages)
     var basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
     var REDIRECT_URI = window.location.origin + basePath + 'auth-callback.html';
@@ -46,6 +52,8 @@
     };
 
     var msalInstance = null;
+    var redirectHandled = null; // Promise from handleRedirectPromise
+    var interactionInProgress = false;
 
     // --- Initialize MSAL ---
 
@@ -61,6 +69,26 @@
             console.error('MSAL initialization failed:', e);
             return null;
         }
+    }
+
+    // --- Handle redirect promise on every page ---
+    // Must be called once on load so MSAL can complete any pending
+    // acquireTokenRedirect or loginRedirect that returned to this page.
+
+    function initRedirectHandling() {
+        if (!msalInstance) {
+            redirectHandled = Promise.resolve(null);
+            return;
+        }
+        redirectHandled = msalInstance.handleRedirectPromise().then(function (response) {
+            if (response && response.account) {
+                msalInstance.setActiveAccount(response.account);
+            }
+            return response;
+        }).catch(function (err) {
+            console.error('MSAL redirect handling error:', err);
+            return null;
+        });
     }
 
     // --- Login (MSAL redirect) ---
@@ -123,7 +151,7 @@
         return id.endsWith('@' + DENNEEN_DOMAIN);
     }
 
-    // --- Handle MSAL redirect response (auth-callback.html) ---
+    // --- Handle MSAL redirect response (auth-callback.html only) ---
 
     function handleRedirectResponse() {
         if (!msalInstance) return Promise.reject(new Error('MSAL not initialized'));
@@ -160,16 +188,100 @@
         return false;
     }
 
-    // --- Acquire access token for API calls ---
+    // --- Get API access token (primary token helper) ---
+    // Uses acquireTokenSilent first, falls back to acquireTokenRedirect.
+    // NEVER uses popups. Returns Promise<string|null>.
+    // null means a redirect was initiated — callers should stop and wait.
+
+    function getApiAccessToken() {
+        if (!msalInstance) return Promise.resolve(null);
+
+        // Wait for any pending redirect to complete first
+        var waitFor = redirectHandled || Promise.resolve(null);
+
+        return waitFor.then(function () {
+            // Get account
+            var account = msalInstance.getActiveAccount();
+            if (!account) {
+                var accounts = msalInstance.getAllAccounts();
+                if (accounts.length > 0) {
+                    account = accounts[0];
+                    msalInstance.setActiveAccount(account);
+                }
+            }
+            if (!account) {
+                // Not logged in — cannot acquire token
+                return null;
+            }
+
+            return msalInstance.acquireTokenSilent({
+                scopes: API_SCOPES,
+                account: account
+            }).then(function (response) {
+                debugLog('Token acquired silently', { scopes: API_SCOPES });
+                return response.accessToken;
+            }).catch(function (err) {
+                debugLog('Silent token failed', { error: err.errorCode || err.message });
+
+                // Guard: don't start a second interactive request
+                if (interactionInProgress) {
+                    debugLog('Interaction already in progress — skipping');
+                    return null;
+                }
+
+                // If interaction is required (consent, MFA, expired session)
+                if (err instanceof msal.InteractionRequiredAuthError ||
+                    (err.errorCode && (
+                        err.errorCode === 'consent_required' ||
+                        err.errorCode === 'login_required' ||
+                        err.errorCode === 'interaction_required'
+                    ))) {
+                    interactionInProgress = true;
+                    sessionStorage.setItem(INTENDED_URL_KEY, window.location.href);
+                    msalInstance.acquireTokenRedirect({
+                        scopes: API_SCOPES,
+                        account: account
+                    });
+                    return null; // Redirect initiated — caller should stop
+                }
+
+                // Other error — don't break the page
+                console.error('Token acquisition failed:', err);
+                return null;
+            });
+        });
+    }
+
+    // --- Legacy acquireToken (kept for backward compat, uses redirect fallback) ---
 
     function acquireToken(scopes) {
         if (!msalInstance) return Promise.reject(new Error('MSAL not initialized'));
         var accounts = msalInstance.getAllAccounts();
         if (accounts.length === 0) return Promise.reject(new Error('Not authenticated'));
-        var request = { scopes: scopes, account: accounts[0] };
-        return msalInstance.acquireTokenSilent(request).catch(function (err) {
-            // Silent failed (e.g. token expired) — try popup
-            return msalInstance.acquireTokenPopup(request);
+
+        var waitFor = redirectHandled || Promise.resolve(null);
+        return waitFor.then(function () {
+            var request = { scopes: scopes, account: accounts[0] };
+            return msalInstance.acquireTokenSilent(request).catch(function (err) {
+                // Guard: don't start a second interactive request
+                if (interactionInProgress) {
+                    return Promise.reject(new Error('Interaction already in progress'));
+                }
+
+                if (err instanceof msal.InteractionRequiredAuthError ||
+                    (err.errorCode && (
+                        err.errorCode === 'consent_required' ||
+                        err.errorCode === 'login_required' ||
+                        err.errorCode === 'interaction_required'
+                    ))) {
+                    interactionInProgress = true;
+                    sessionStorage.setItem(INTENDED_URL_KEY, window.location.href);
+                    msalInstance.acquireTokenRedirect({ scopes: scopes, account: accounts[0] });
+                    return Promise.reject(new Error('Redirect initiated for consent'));
+                }
+
+                return Promise.reject(err);
+            });
         });
     }
 
@@ -199,14 +311,51 @@
         requireAuth();
     }
 
+    // --- Debug logging (temporary — remove after confirming auth works) ---
+
+    var DEBUG = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    var debugLogs = [];
+
+    function debugLog(msg, data) {
+        var entry = { time: new Date().toISOString(), msg: msg };
+        if (data) entry.data = data;
+        debugLogs.push(entry);
+        if (DEBUG) console.log('[DCAuth]', msg, data || '');
+    }
+
+    function getDebugInfo() {
+        var user = getUser();
+        return {
+            activeAccount: user ? user.email : '(none)',
+            apiScopes: API_SCOPES,
+            interactionInProgress: interactionInProgress,
+            msalInitialized: !!msalInstance,
+            logs: debugLogs
+        };
+    }
+
     // --- Cleanup legacy local-auth storage ---
 
     try { localStorage.removeItem('dc_ai_hub_auth'); } catch (e) {}
 
-    // --- Auto-initialize and gate ---
+    // --- Auto-initialize ---
 
     initAuth();
+
+    // Handle redirect promise on all pages except auth-callback
+    // (auth-callback has its own handleRedirectResponse logic)
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (currentPage !== 'auth-callback.html') {
+        initRedirectHandling();
+    }
+
     gateSite();
+
+    debugLog('Auth initialized', {
+        page: currentPage,
+        authenticated: isAuthenticated(),
+        account: getUser() ? getUser().email : '(none)'
+    });
 
     // --- Public API ---
 
@@ -217,9 +366,12 @@
         isAuthenticated: isAuthenticated,
         requireAuth: requireAuth,
         acquireToken: acquireToken,
+        getApiAccessToken: getApiAccessToken,
         handleRedirectResponse: handleRedirectResponse,
         getAuthError: getAuthError,
-        TENANT_ID: TENANT_ID
+        getDebugInfo: getDebugInfo,
+        TENANT_ID: TENANT_ID,
+        API_SCOPES: API_SCOPES
     };
 
 })();

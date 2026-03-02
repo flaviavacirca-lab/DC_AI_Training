@@ -341,14 +341,17 @@
 
     // --- Conditional Admin Nav Link ---
     (function checkAdminNav() {
-        if (!window.DCAuth || !DCAuth.isAuthenticated() || !DCAuth.acquireToken) return;
         var API_BASE = '<FUNCTION_APP_URL>';
-        var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
-        DCAuth.acquireToken([API_SCOPE]).then(function (resp) {
+        // Skip if backend URL is a placeholder or auth not ready
+        if (API_BASE.indexOf('<') !== -1) return;
+        if (!window.DCAuth || !DCAuth.isAuthenticated() || !DCAuth.getApiAccessToken) return;
+        DCAuth.getApiAccessToken().then(function (token) {
+            if (!token) return; // Redirect in progress
             return fetch(API_BASE + '/api/admin/check', {
-                headers: { 'Authorization': 'Bearer ' + resp.accessToken }
+                headers: { 'Authorization': 'Bearer ' + token }
             });
         }).then(function (res) {
+            if (!res) return null;
             return res.ok ? res.json() : null;
         }).then(function (data) {
             if (data && data.isAdmin) {

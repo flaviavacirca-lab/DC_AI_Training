@@ -4,7 +4,7 @@
    Calls the Azure Function backend for AI-powered
    prompt improvement. Acquires Entra token via MSAL.
 
-   Depends on: auth.js (DCAuth.acquireToken)
+   Depends on: auth.js (DCAuth.getApiAccessToken)
    ============================================ */
 
 (function () {
@@ -14,16 +14,23 @@
     // Configuration — replace after deploying the Azure Function
     // -------------------------------------------------------
     var API_URL = '<FUNCTION_APP_URL>/api/prompt-coach';
-    var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
+
+    // Check if backend is configured (not still a placeholder)
+    function isBackendConfigured() {
+        return API_URL.indexOf('<') === -1 && API_URL.indexOf('>') === -1;
+    }
 
     // --- Acquire bearer token ---
 
     function getAccessToken() {
-        if (!window.DCAuth || !DCAuth.acquireToken) {
+        if (!window.DCAuth || !DCAuth.getApiAccessToken) {
             return Promise.reject(new Error('Auth not available'));
         }
-        return DCAuth.acquireToken([API_SCOPE]).then(function (response) {
-            return response.accessToken;
+        return DCAuth.getApiAccessToken().then(function (token) {
+            if (!token) {
+                throw new Error('Finishing sign-in\u2026 please try again after the page reloads.');
+            }
+            return token;
         });
     }
 
@@ -70,6 +77,14 @@
         aiBtn.type = 'button';
         aiBtn.className = 'btn btn-accent coach-ai-btn';
         aiBtn.textContent = 'AI Improve';
+
+        // If backend is not configured, disable the button with a tooltip
+        if (!isBackendConfigured()) {
+            aiBtn.disabled = true;
+            aiBtn.title = 'AI backend not configured yet. See README for setup.';
+            aiBtn.style.opacity = '0.5';
+        }
+
         actionsDiv.insertBefore(aiBtn, analyzeBtn.nextSibling);
 
         // Create agent results panel
@@ -112,6 +127,7 @@
 
         // State
         var currentPrompt = '';
+        var isBusy = false;
 
         // --- Show/hide helpers ---
 
@@ -129,6 +145,7 @@
             agentPanel.querySelector('.agent-loading').hidden = true;
             aiBtn.disabled = false;
             aiBtn.textContent = 'AI Improve';
+            isBusy = false;
         }
 
         function showError(msg) {
@@ -204,11 +221,13 @@
         // --- Event handlers ---
 
         aiBtn.addEventListener('click', function () {
+            if (isBusy || !isBackendConfigured()) return;
             currentPrompt = promptInput.value.trim();
             if (!currentPrompt) {
                 promptInput.focus();
                 return;
             }
+            isBusy = true;
             showLoading();
             if (window.DCTelemetry) DCTelemetry.trackPromptCoachUsed('analyze');
             callAPI(currentPrompt).then(function (data) {
@@ -226,11 +245,13 @@
 
         // Submit clarifying answers
         agentPanel.querySelector('.agent-clarify-submit').addEventListener('click', function () {
+            if (isBusy) return;
             var inputs = agentPanel.querySelectorAll('.agent-answer-input');
             var answers = [];
             inputs.forEach(function (input) {
                 answers.push(input.value.trim() || '(no answer)');
             });
+            isBusy = true;
             agentPanel.querySelector('.agent-clarify').hidden = true;
             showLoading();
             if (window.DCTelemetry) DCTelemetry.trackPromptCoachUsed('clarify');

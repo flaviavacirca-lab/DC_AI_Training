@@ -115,12 +115,19 @@
         'use strict';
 
         var API_BASE = '<FUNCTION_APP_URL>';
-        var API_SCOPE = 'api://<API_CLIENT_ID>/access_as_user';
+
+        // Guard: if backend URL is a placeholder, show message
+        if (API_BASE.indexOf('<') !== -1) {
+            document.getElementById('admin-loading').innerHTML =
+                '<p style="color:var(--gray-500)">Admin dashboard requires the Azure Function backend to be deployed. See README for setup.</p>';
+            return;
+        }
 
         function fetchAPI(path) {
-            return DCAuth.acquireToken([API_SCOPE]).then(function (resp) {
+            return DCAuth.getApiAccessToken().then(function (token) {
+                if (!token) throw new Error('auth_redirect');
                 return fetch(API_BASE + path, {
-                    headers: { 'Authorization': 'Bearer ' + resp.accessToken }
+                    headers: { 'Authorization': 'Bearer ' + token }
                 });
             }).then(function (res) {
                 if (res.status === 403) throw new Error('not_admin');
@@ -207,6 +214,9 @@
         }).catch(function (err) {
             if (err.message === 'not_admin') {
                 window.location.replace('account.html');
+            } else if (err.message === 'auth_redirect') {
+                document.getElementById('admin-loading').innerHTML =
+                    '<p style="color:var(--gray-500)">Finishing sign-in\u2026 please wait.</p>';
             } else {
                 document.getElementById('admin-loading').innerHTML =
                     '<p style="color:var(--red)">Failed to load analytics. Make sure the API is deployed and you are an admin.</p>';
