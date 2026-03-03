@@ -15,12 +15,11 @@
             </a>
         </div>
         <div class="nav-links">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="quick-wins.html" class="nav-link active">Quick Wins</a>
-            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
+            <a href="suggested-training-flow.html" class="nav-link">Training Flow</a>
+            <a href="training-library.html" class="nav-link">Training Library</a>
+            <a href="quick-wins.html" class="nav-link nav-link-quickwins active">Quick Wins</a>
             <a href="prompt-library.html" class="nav-link">Prompt Library</a>
-            <a href="learning-path.html" class="nav-link">Learning Path</a>
-            <a href="live-trainings.html" class="nav-link">Trainings</a>
+            <a href="live-trainings.html" class="nav-link">Live Trainings</a>
             <a href="resources.html" class="nav-link">Resources</a>
             <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
         </div>
@@ -85,15 +84,60 @@ Focus on actionable insights, not just descriptive statistics.
                     <p class="try-it-note">For large datasets, use Copilot in Excel. For summarized data, Copilot chat works well. Always validate statistical claims.</p>
                 </div>
 
-                <div class="page-completion">
-                    <div data-module-complete="qw-data-summary"></div>
+                <h2 class="section-title">Quick Workflow</h2>
+                <div class="workflow-steps" style="margin-bottom: 2rem;">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Prepare Your Data</h3>
+                            <p>Organize your data into a clear format — table, bullet points, or key metrics. Tell Copilot what the data represents, who collected it, and what question it's supposed to answer.</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Generate the Interpretation</h3>
+                            <p>Paste data + the template into Copilot. Review the "so what" statements — do they connect data to business implications your client cares about?</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Challenge the Findings</h3>
+                            <p>Ask: <em>"What alternative explanations exist for these findings?"</em> or <em>"A skeptical board member would ask ___. How would we respond?"</em> This stress-tests the interpretation.</p>
+                        </div>
+                    </div>
                 </div>
+
+                <h2 class="section-title">Practice</h2>
+                <div class="card-grid" style="margin-bottom: 2rem;">
+                    <div class="card">
+                        <h3>Reinterpret Existing Data</h3>
+                        <p>Take survey results or data tables from a recent engagement. Run the template prompt and compare Copilot's "so what" statements to the ones in your deliverable.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Find the Counter-Narrative</h3>
+                        <p>After getting an interpretation, ask: <em>"What would someone who disagrees with this conclusion argue? What data would they point to?"</em> This builds more robust analysis.</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Common Mistakes</h2>
+                <div class="mistakes-grid" style="margin-bottom: 2rem;">
+                    <div class="mistake-card">
+                        <div class="mistake-bad">&#x2717; Pasting raw data without explaining what it represents</div>
+                        <div class="mistake-good">&#x2713; Tell Copilot: what the data is, who provided it, and what question it answers</div>
+                        <p>Without context, Copilot generates generic observations. With context, it generates "so what" insights relevant to your engagement.</p>
+                    </div>
+                    <div class="mistake-card">
+                        <div class="mistake-bad">&#x2717; Treating correlation as causation in AI-generated insights</div>
+                        <div class="mistake-good">&#x2713; Always ask "why" before accepting a causal claim from Copilot</div>
+                        <p>Copilot may say "X drives Y" when the data only shows correlation. A client will push back on unsupported causal claims.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section class="section section-alt">
-            <p style="text-align: center;"><a href="quick-wins.html">&larr; Back to Quick Wins</a> &nbsp;&middot;&nbsp; <a href="copilot-for-consulting.html#data">Full Data Interpretation Module &rarr;</a></p>
-        </section>
     </main>
 
     <footer>
@@ -108,5 +152,7 @@ Focus on actionable insights, not just descriptive statistics.
     <script src="js/progress.js"></script>
     <script src="js/app.js"></script>
     <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
 </body>
 </html>

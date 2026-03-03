@@ -15,12 +15,11 @@
             </a>
         </div>
         <div class="nav-links">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="quick-wins.html" class="nav-link active">Quick Wins</a>
-            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
+            <a href="suggested-training-flow.html" class="nav-link">Training Flow</a>
+            <a href="training-library.html" class="nav-link">Training Library</a>
+            <a href="quick-wins.html" class="nav-link nav-link-quickwins active">Quick Wins</a>
             <a href="prompt-library.html" class="nav-link">Prompt Library</a>
-            <a href="learning-path.html" class="nav-link">Learning Path</a>
-            <a href="live-trainings.html" class="nav-link">Trainings</a>
+            <a href="live-trainings.html" class="nav-link">Live Trainings</a>
             <a href="resources.html" class="nav-link">Resources</a>
             <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
         </div>
@@ -88,15 +87,60 @@ For each slide, provide:
                     <p class="try-it-note">Use the output as a starting point. The headlines are usually the most valuable part &mdash; they force a clear storyline.</p>
                 </div>
 
-                <div class="page-completion">
-                    <div data-module-complete="qw-deck-drafts"></div>
+                <h2 class="section-title">Quick Workflow</h2>
+                <div class="workflow-steps" style="margin-bottom: 2rem;">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Define the Story Arc</h3>
+                            <p>Before prompting, write down: the audience (who), the goal (what decision or action), and 3-5 key points you need to make. This prevents generic slide-by-slide filler.</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Generate the Storyline</h3>
+                            <p>Use the template prompt above. Review the output — check that Copilot's slide flow follows a logical "situation → analysis → so what → recommendation" structure.</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Refine Headlines</h3>
+                            <p>Ask Copilot to improve specific slides: <em>"Rewrite slide 3's headline as an action statement that conveys the key finding"</em> or <em>"Add a chart suggestion for the market sizing slide."</em></p>
+                        </div>
+                    </div>
                 </div>
+
+                <h2 class="section-title">Practice</h2>
+                <div class="card-grid" style="margin-bottom: 2rem;">
+                    <div class="card">
+                        <h3>Rebuild a Recent Deck</h3>
+                        <p>Take a deck you created last month. Feed the key findings into Copilot using the template. Compare the AI-generated storyline to what you actually built. What's different?</p>
+                    </div>
+                    <div class="card">
+                        <h3>Action Headlines Challenge</h3>
+                        <p>Take 5 descriptive slide titles from an existing deck (e.g., "Market Overview") and ask Copilot: <em>"Rewrite these as action headlines that tell the reader the key takeaway."</em></p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Common Mistakes</h2>
+                <div class="mistakes-grid" style="margin-bottom: 2rem;">
+                    <div class="mistake-card">
+                        <div class="mistake-bad">&#x2717; Using the AI storyline as your final deck structure</div>
+                        <div class="mistake-good">&#x2713; Treat it as a first draft — rearrange, cut, and add your own insight</div>
+                        <p>Copilot generates a reasonable structure but can't know your client's priorities or political dynamics. Always reshape the story.</p>
+                    </div>
+                    <div class="mistake-card">
+                        <div class="mistake-bad">&#x2717; Asking for "a presentation about X" without specifying the audience</div>
+                        <div class="mistake-good">&#x2713; Include audience role, decision to be made, and presentation length</div>
+                        <p>A board presentation and a team working session need completely different structures, depth, and tone.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section class="section section-alt">
-            <p style="text-align: center;"><a href="quick-wins.html">&larr; Back to Quick Wins</a> &nbsp;&middot;&nbsp; <a href="copilot-for-consulting.html#deck">Full Deck Drafting Module &rarr;</a></p>
-        </section>
     </main>
 
     <footer>
@@ -111,5 +155,7 @@ For each slide, provide:
     <script src="js/progress.js"></script>
     <script src="js/app.js"></script>
     <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
 </body>
 </html>

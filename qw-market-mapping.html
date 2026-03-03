@@ -15,12 +15,11 @@
             </a>
         </div>
         <div class="nav-links">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="quick-wins.html" class="nav-link active">Quick Wins</a>
-            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
+            <a href="suggested-training-flow.html" class="nav-link">Training Flow</a>
+            <a href="training-library.html" class="nav-link">Training Library</a>
+            <a href="quick-wins.html" class="nav-link nav-link-quickwins active">Quick Wins</a>
             <a href="prompt-library.html" class="nav-link">Prompt Library</a>
-            <a href="learning-path.html" class="nav-link">Learning Path</a>
-            <a href="live-trainings.html" class="nav-link">Trainings</a>
+            <a href="live-trainings.html" class="nav-link">Live Trainings</a>
             <a href="resources.html" class="nav-link">Resources</a>
             <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
         </div>
@@ -83,15 +82,60 @@ Format as a table I can paste into a deck.</pre>
                     <p class="try-it-note">The 2x2 framework is especially useful for the "competitive landscape" slide. Verify company details against primary sources.</p>
                 </div>
 
-                <div class="page-completion">
-                    <div data-module-complete="qw-market-mapping"></div>
+                <h2 class="section-title">Quick Workflow</h2>
+                <div class="workflow-steps" style="margin-bottom: 2rem;">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Define the Map Dimensions</h3>
+                            <p>Decide what you're mapping: competitors, market segments, or strategic options. Choose 2 meaningful axes (not just "big vs. small" — think about what actually differentiates players).</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Generate the Landscape</h3>
+                            <p>Use the template prompt above. Copilot will suggest players and positioning. Review critically — does the placement match your understanding of the market?</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Generate Hypotheses</h3>
+                            <p>Follow up: <em>"Based on this competitive map, what are 5 testable hypotheses about where the market is heading?"</em> Use these as a starting point for your engagement's hypothesis set.</p>
+                        </div>
+                    </div>
                 </div>
+
+                <h2 class="section-title">Practice</h2>
+                <div class="card-grid" style="margin-bottom: 2rem;">
+                    <div class="card">
+                        <h3>Map Your Client's Market</h3>
+                        <p>Run the template for a client's competitive landscape. Then ask Copilot to suggest the best 2×2 axes and place each competitor. Does the visual tell a clear story?</p>
+                    </div>
+                    <div class="card">
+                        <h3>Hypothesis Generation Sprint</h3>
+                        <p>After generating a map, ask Copilot for 10 hypotheses. Rate each: testable (yes/no), interesting (1-5), evidence available (easy/hard). Pick the top 3 for your engagement.</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Common Mistakes</h2>
+                <div class="mistakes-grid" style="margin-bottom: 2rem;">
+                    <div class="mistake-card">
+                        <div class="mistake-bad">&#x2717; Using generic axes like "price vs. quality"</div>
+                        <div class="mistake-good">&#x2713; Choose axes that reflect real strategic tensions in the market</div>
+                        <p>Good axes reveal insight. Examples: "product-led vs. services-led", "enterprise vs. mid-market", "platform breadth vs. point solution".</p>
+                    </div>
+                    <div class="mistake-card">
+                        <div class="mistake-bad">&#x2717; Treating the AI's positioning as definitive</div>
+                        <div class="mistake-good">&#x2713; Validate placement against your primary research and client knowledge</div>
+                        <p>Copilot may misplace companies it has less data on. Cross-reference with your engagement team's knowledge.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section class="section section-alt">
-            <p style="text-align: center;"><a href="quick-wins.html">&larr; Back to Quick Wins</a> &nbsp;&middot;&nbsp; <a href="copilot-for-consulting.html#mapping">Full Market Mapping Module &rarr;</a></p>
-        </section>
     </main>
 
     <footer>
@@ -106,5 +150,7 @@ Format as a table I can paste into a deck.</pre>
     <script src="js/progress.js"></script>
     <script src="js/app.js"></script>
     <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
 </body>
 </html>

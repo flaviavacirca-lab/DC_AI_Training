@@ -15,12 +15,11 @@
             </a>
         </div>
         <div class="nav-links">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="quick-wins.html" class="nav-link active">Quick Wins</a>
-            <a href="copilot-for-consulting.html" class="nav-link">Consulting</a>
+            <a href="suggested-training-flow.html" class="nav-link">Training Flow</a>
+            <a href="training-library.html" class="nav-link">Training Library</a>
+            <a href="quick-wins.html" class="nav-link nav-link-quickwins active">Quick Wins</a>
             <a href="prompt-library.html" class="nav-link">Prompt Library</a>
-            <a href="learning-path.html" class="nav-link">Learning Path</a>
-            <a href="live-trainings.html" class="nav-link">Trainings</a>
+            <a href="live-trainings.html" class="nav-link">Live Trainings</a>
             <a href="resources.html" class="nav-link">Resources</a>
             <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
         </div>
@@ -83,15 +82,60 @@ Format as a structured brief I can share with my team.</pre>
                     <p class="try-it-note">Replace the bracketed sections with your specific engagement details. Use Copilot in web mode for broad research.</p>
                 </div>
 
-                <div class="page-completion">
-                    <div data-module-complete="qw-market-research"></div>
+                <h2 class="section-title">Quick Workflow</h2>
+                <div class="workflow-steps" style="margin-bottom: 2rem;">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Define Your Scope</h3>
+                            <p>Before prompting, write down: the industry, geography, buyer type, and 3 key questions you need answered. This prevents vague, unfocused results.</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Run the Template Prompt</h3>
+                            <p>Paste the template above into Copilot (Web mode). Review the output — check that the market segments and companies match your understanding of the space.</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Refine and Verify</h3>
+                            <p>Ask follow-up questions: <em>"Break down the TAM estimate by segment"</em> or <em>"Which of these growth drivers has the strongest evidence?"</em> Always verify specific numbers against primary sources.</p>
+                        </div>
+                    </div>
                 </div>
+
+                <h2 class="section-title">Practice</h2>
+                <div class="card-grid" style="margin-bottom: 2rem;">
+                    <div class="card">
+                        <h3>Your Current Engagement</h3>
+                        <p>Use the template prompt for the industry your team is currently working in. Compare Copilot's output to what you already know — did it miss anything? Did it surface something new?</p>
+                    </div>
+                    <div class="card">
+                        <h3>Speed Run</h3>
+                        <p>Set a 10-minute timer. Go from zero to a complete market brief using only Copilot. How close is it to what you'd produce manually in 2 hours?</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Common Mistakes</h2>
+                <div class="mistakes-grid" style="margin-bottom: 2rem;">
+                    <div class="mistake-card">
+                        <div class="mistake-bad">&#x2717; Accepting revenue and market size numbers without checking</div>
+                        <div class="mistake-good">&#x2713; Cross-reference with Pitchbook, Crunchbase, or public filings</div>
+                        <p>Copilot estimates can be off by 2-3x for private companies. Always verify before putting numbers in a deck.</p>
+                    </div>
+                    <div class="mistake-card">
+                        <div class="mistake-bad">&#x2717; Using Work mode for public market data</div>
+                        <div class="mistake-good">&#x2713; Switch to Web mode when researching external markets</div>
+                        <p>Work mode searches your internal M365 files. For market research, you need Web mode to access public internet data.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section class="section section-alt">
-            <p style="text-align: center;"><a href="quick-wins.html">&larr; Back to Quick Wins</a> &nbsp;&middot;&nbsp; <a href="copilot-for-consulting.html#research">Full Research Module &rarr;</a></p>
-        </section>
     </main>
 
     <footer>
@@ -106,5 +150,7 @@ Format as a structured brief I can share with my team.</pre>
     <script src="js/progress.js"></script>
     <script src="js/app.js"></script>
     <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
 </body>
 </html>
