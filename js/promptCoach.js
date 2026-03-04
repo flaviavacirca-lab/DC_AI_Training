@@ -383,103 +383,206 @@
     //  PROMPT GENERATION ENGINE
     // ==========================================================
 
+    // ==========================================================
+    //  VARIATION ENGINE — slight phrasing differences each time
+    // ==========================================================
+
+    var _variationSeed = Date.now();
+    function pick(arr) {
+        _variationSeed = (_variationSeed * 9301 + 49297) % 233280;
+        return arr[_variationSeed % arr.length];
+    }
+
+    var ROLE_OPENERS = [
+        'Act as ',
+        'You are ',
+        'Take the role of ',
+        'I need you to act as '
+    ];
+
+    var CONTEXT_INTROS = [
+        'I\'m working on a consulting engagement',
+        'I\'m preparing materials for a client project',
+        'I\'m supporting a strategy engagement',
+        'I\'m putting together deliverables for a consulting project'
+    ];
+
+    var INCLUDE_PHRASES = [
+        'Please include',
+        'Make sure to cover',
+        'Include the following',
+        'Be sure to address'
+    ];
+
+    var FORMAT_PHRASES = [
+        'Present the output as',
+        'Format your response as',
+        'Structure the response as',
+        'Deliver this as'
+    ];
+
+    var CONSTRAINT_INTROS = [
+        'Keep in mind',
+        'Important guidelines',
+        'Please note',
+        'A few constraints'
+    ];
+
+    var QC_PHRASES = [
+        'Before finalizing, double-check for',
+        'Before you finish, review for',
+        'As a final step, verify',
+        'Before wrapping up, check for'
+    ];
+
     function generatePrompt(goalId, answers) {
         var goal = GOALS.find(function (g) { return g.id === goalId; });
         if (!goal) return '';
 
-        var sections = [];
+        var parts = [];
 
-        // ROLE
-        sections.push('ROLE: Act as ' + goal.roleHint + '.');
-
-        // OBJECTIVE
-        var objectiveParts = [goal.label];
-        if (answers.context) objectiveParts.push(answers.context);
-        sections.push('OBJECTIVE: ' + objectiveParts.join(' \u2014 '));
-
-        // CONTEXT
-        var contextLines = [];
-        if (answers.audience) contextLines.push('Audience: ' + answers.audience);
-        if (answers.industry) contextLines.push('Industry/Market: ' + answers.industry);
-        if (answers.geography) contextLines.push('Geography: ' + answers.geography);
-        if (answers.timeHorizon) contextLines.push('Time horizon: ' + answers.timeHorizon);
-        if (answers.interviewCount) contextLines.push('Number of sources: ' + answers.interviewCount);
-        if (answers.emailTone) contextLines.push('Relationship/Tone: ' + answers.emailTone);
-        if (answers.surveyRespondent) contextLines.push('Target respondent: ' + answers.surveyRespondent);
-        if (answers.scopeDepth) contextLines.push('Depth: ' + answers.scopeDepth);
-        if (contextLines.length > 0) {
-            sections.push('CONTEXT:\n' + contextLines.map(function (l) { return '  - ' + l; }).join('\n'));
+        // --- Opening: role + context in natural language ---
+        var opener = pick(ROLE_OPENERS) + goal.roleHint + '.';
+        var ctxIntro = pick(CONTEXT_INTROS);
+        if (answers.context) {
+            opener += ' ' + ctxIntro + ' \u2014 ' + answers.context + '.';
+        } else if (answers.industry) {
+            opener += ' ' + ctxIntro + ' focused on ' + answers.industry + '.';
         }
+        parts.push(opener);
 
-        // INPUTS
-        if (answers.inputs) {
-            var inputNote = answers.inputs;
-            if (inputNote.indexOf('Nothing yet') !== -1) {
-                inputNote = 'Start from scratch \u2014 use publicly available information.';
-            } else {
-                inputNote = 'I will provide: ' + inputNote + '.';
-            }
-            sections.push('INPUTS: ' + inputNote);
-        }
-
-        // TASK
-        var taskLines = [];
+        // --- Task description in natural prose ---
+        var taskParts = [];
         if (goalId === 'research') {
-            taskLines.push('Conduct ' + (answers.scopeDepth || 'standard') + ' research on ' + (answers.industry || 'the specified market') + '.');
-            taskLines.push('Include: key players, market size/dynamics, trends, and risks.');
-            if (answers.geography) taskLines.push('Focus on: ' + answers.geography + '.');
+            var market = answers.industry || 'the target market';
+            var depth = answers.scopeDepth ? answers.scopeDepth.toLowerCase() : 'standard';
+            taskParts.push(pick([
+                'I need a ' + depth + ' research overview of ' + market + '.',
+                'Please conduct a ' + depth + ' analysis of ' + market + '.',
+                'Help me build a ' + depth + ' fact base on ' + market + '.'
+            ]));
+            if (answers.geography) taskParts.push(pick(['Focus on ' + answers.geography + '.', 'Scope this to ' + answers.geography + '.']));
+            if (answers.timeHorizon) taskParts.push(pick(['Time horizon: ' + answers.timeHorizon + '.', 'Looking at the ' + answers.timeHorizon.toLowerCase() + ' outlook.']));
         } else if (goalId === 'phase0') {
-            taskLines.push('Synthesize the provided interview notes/transcripts.');
+            var count = answers.interviewCount ? answers.interviewCount + ' interviews' : 'the interviews';
             var focus = answers.interviewFocus || 'recurring themes';
-            taskLines.push('Prioritize: ' + focus + '.');
-            taskLines.push('Tag insights to specific interviewees where possible.');
+            taskParts.push(pick([
+                'I need you to synthesize ' + count + ' and surface the key insights.',
+                'Please analyze ' + count + ' and pull out the most important findings.',
+                'Help me distill ' + count + ' into a structured synthesis.'
+            ]));
+            taskParts.push(pick(['Prioritize ' + focus + '.', 'Focus especially on ' + focus + '.']));
+            taskParts.push('Where possible, tag insights to the specific interviewee who raised them.');
         } else if (goalId === 'deck') {
-            taskLines.push('Create a slide outline' + (answers.slideCount ? ' (' + answers.slideCount + ')' : '') + '.');
-            if (answers.storyline) taskLines.push('Storyline arc: ' + answers.storyline + '.');
-            taskLines.push('For each slide: provide a headline (insight-driven "so what"), 3\u20134 bullets, and a suggested visual.');
+            var slides = answers.slideCount ? ' (' + answers.slideCount + ')' : '';
+            taskParts.push(pick([
+                'I need a slide outline' + slides + ' for a strategy presentation.',
+                'Help me draft a deck outline' + slides + '.',
+                'Please create a structured slide outline' + slides + ' for this presentation.'
+            ]));
+            if (answers.storyline) taskParts.push('The arc should follow: ' + answers.storyline + '.');
+            taskParts.push(pick([
+                'For each slide, provide an insight-driven headline, 3\u20134 supporting bullets, and a suggested visual or chart.',
+                'Each slide should have a "so what" headline, 3\u20134 key bullets, and a recommended visual type.'
+            ]));
         } else if (goalId === 'email') {
-            taskLines.push('Draft a professional email.');
-            if (answers.emailCTA) taskLines.push('Call to action: ' + answers.emailCTA + '.');
+            taskParts.push(pick([
+                'I need to draft a professional email.',
+                'Help me write a polished client email.',
+                'Please draft an email for me.'
+            ]));
+            if (answers.emailTone) taskParts.push('The tone should be: ' + answers.emailTone.toLowerCase() + '.');
+            if (answers.emailCTA) taskParts.push('The main ask is: ' + answers.emailCTA + '.');
         } else if (goalId === 'mapping') {
-            taskLines.push('Create a market map / competitive landscape.');
-            if (answers.mapDimensions) taskLines.push('Dimensions: ' + answers.mapDimensions + '.');
-            if (answers.industry) taskLines.push('Market: ' + answers.industry + '.');
+            taskParts.push(pick([
+                'I need a market map and competitive landscape.',
+                'Help me build a competitive landscape visualization.',
+                'Please create a structured market map.'
+            ]));
+            if (answers.mapDimensions) taskParts.push('Map players along these dimensions: ' + answers.mapDimensions + '.');
+            if (answers.industry) taskParts.push('The market is ' + answers.industry + '.');
         } else if (goalId === 'survey') {
-            taskLines.push('Design a survey questionnaire.');
-            if (answers.surveyObjective) taskLines.push('Objective: ' + answers.surveyObjective + '.');
-            if (answers.surveyRespondent) taskLines.push('Target respondent: ' + answers.surveyRespondent + '.');
+            taskParts.push(pick([
+                'I need help designing a survey questionnaire.',
+                'Please draft a survey for this research objective.',
+                'Help me build a structured questionnaire.'
+            ]));
+            if (answers.surveyObjective) taskParts.push('The objective is: ' + answers.surveyObjective + '.');
+            if (answers.surveyRespondent) taskParts.push('Target respondents are ' + answers.surveyRespondent + '.');
         } else {
-            taskLines.push('Complete the requested task using the context provided.');
+            if (answers.context) {
+                taskParts.push('Here\u2019s what I need help with: ' + answers.context + '.');
+            } else {
+                taskParts.push('Please help me with the following task.');
+            }
         }
-        sections.push('TASK:\n' + taskLines.map(function (l) { return '  ' + l; }).join('\n'));
+        parts.push(taskParts.join(' '));
 
-        // OUTPUT FORMAT
+        // --- Inputs ---
+        if (answers.inputs) {
+            if (answers.inputs.indexOf('Nothing yet') !== -1) {
+                parts.push(pick([
+                    'Use publicly available information to build this from scratch.',
+                    'I don\u2019t have specific documents to share \u2014 please work from public sources.',
+                    'Start from scratch using publicly available data and sources.'
+                ]));
+            } else {
+                parts.push(pick([
+                    'I will paste ' + answers.inputs.toLowerCase() + ' for you to work from.',
+                    'I\u2019ll provide ' + answers.inputs.toLowerCase() + ' as input.',
+                    'Below I\u2019ll share ' + answers.inputs.toLowerCase() + ' for reference.'
+                ]));
+            }
+        }
+
+        // --- Include list (goal-specific) ---
+        var includeItems = [];
+        if (goalId === 'research') {
+            includeItems = ['Key players and their market positions', 'Market size and growth dynamics', 'Major trends shaping the industry', 'Risks and potential disruptions'];
+        } else if (goalId === 'phase0') {
+            includeItems = ['Recurring themes across interviews', 'Points of agreement and disagreement', 'Direct quotes that support key findings', 'Testable hypotheses emerging from the data'];
+        } else if (goalId === 'mapping') {
+            includeItems = ['Major players positioned on the map', 'Underserved areas or white space opportunities', 'Key differentiators between players', 'Hypotheses about market dynamics'];
+        }
+        if (includeItems.length > 0) {
+            parts.push('\n' + pick(INCLUDE_PHRASES) + ':\n' + includeItems.map(function (i) { return '\u2022 ' + i; }).join('\n'));
+        }
+
+        // --- Audience ---
+        if (answers.audience) {
+            parts.push(pick([
+                'The audience is ' + answers.audience.toLowerCase() + ', so calibrate the depth and tone accordingly.',
+                'This is for ' + answers.audience.toLowerCase() + ' \u2014 keep the language and detail level appropriate.',
+                'Tailor the output for ' + answers.audience.toLowerCase() + '.'
+            ]));
+        }
+
+        // --- Format ---
         if (answers.outputFormat) {
-            sections.push('OUTPUT FORMAT: ' + answers.outputFormat + '.');
+            parts.push(pick(FORMAT_PHRASES) + ' ' + answers.outputFormat.toLowerCase() + '.');
         }
 
-        // CONSTRAINTS
+        // --- Constraints (woven into natural language) ---
         var constraints = (goal.defaultConstraints || []).slice();
-        // Auto-add constraints based on audience
         if (answers.audience && /client|executive|VP|partner|board/i.test(answers.audience)) {
             if (constraints.indexOf('Professional tone \u2014 no internal slang') === -1) {
-                constraints.push('Professional tone \u2014 no internal slang');
+                constraints.push('Use a professional tone \u2014 avoid internal jargon');
             }
             if (constraints.indexOf('Be concise') === -1) {
-                constraints.push('Be concise');
+                constraints.push('Keep it concise and scannable');
             }
         }
         if (constraints.length > 0) {
-            sections.push('CONSTRAINTS:\n' + constraints.map(function (c) { return '  - ' + c; }).join('\n'));
+            parts.push(pick(CONSTRAINT_INTROS) + ': ' + constraints.join('. ') + '.');
         }
 
-        // QUALITY CHECKS
+        // --- Quality checks ---
         var qc = (goal.defaultQualityChecks || []).slice();
         if (qc.length > 0) {
-            sections.push('QUALITY CHECK:\n' + qc.map(function (c) { return '  - ' + c; }).join('\n'));
+            parts.push(pick(QC_PHRASES) + ': ' + qc.join(', ') + '.');
         }
 
-        return sections.join('\n\n');
+        return parts.join('\n\n');
     }
 
     // ==========================================================
@@ -559,15 +662,15 @@
         var parts = [];
         var changes = [];
 
-        // Add role if missing
+        // Add role if missing — woven naturally at the start
         if (!diagnostics.find(function (d) { return d.id === 'role'; }).found) {
-            parts.push('Act as ' + goal.roleHint + '.');
+            parts.push(pick(ROLE_OPENERS) + goal.roleHint + '.');
             changes.push('Added a consulting-specific role to set the right perspective.');
         }
 
         // Add context if missing
         if (!diagnostics.find(function (d) { return d.id === 'context'; }).found) {
-            var ctxLine = 'I\'m working on a consulting engagement';
+            var ctxLine = pick(CONTEXT_INTROS);
             if (answers.context) ctxLine += ' \u2014 ' + answers.context;
             ctxLine += '.';
             parts.push(ctxLine);
@@ -582,14 +685,18 @@
         if (!diagnostics.find(function (d) { return d.id === 'format'; }).found) {
             var fmt = answers.outputFormat || 'a structured outline with clear sections and bullet points';
             parts.push('');
-            parts.push('Present your response as ' + fmt + '.');
+            parts.push(pick(FORMAT_PHRASES) + ' ' + fmt.toLowerCase() + '.');
             changes.push('Specified output format so Copilot structures the response correctly.');
         }
 
         // Add audience if missing
         if (!diagnostics.find(function (d) { return d.id === 'audience'; }).found) {
             var aud = answers.audience || 'a senior business executive';
-            parts.push('The audience is ' + aud + '.');
+            parts.push(pick([
+                'The audience is ' + aud + ', so calibrate depth and tone accordingly.',
+                'This will be read by ' + aud + ' \u2014 keep it appropriate for that level.',
+                'Tailor the language and detail for ' + aud + '.'
+            ]));
             changes.push('Added audience to calibrate tone and depth.');
         }
 
@@ -597,7 +704,7 @@
         if (!diagnostics.find(function (d) { return d.id === 'constraints'; }).found) {
             var cons = goal.defaultConstraints.slice(0, 2);
             if (cons.length > 0) {
-                parts.push(cons.join('. ') + '.');
+                parts.push(pick(CONSTRAINT_INTROS) + ': ' + cons.join('. ') + '.');
                 changes.push('Added constraints (' + cons.join(', ').toLowerCase() + ').');
             }
         }
@@ -605,7 +712,7 @@
         // Add quality checks for certain goals
         if (goal.defaultQualityChecks.length > 0) {
             parts.push('');
-            parts.push('Before finalizing, check for: ' + goal.defaultQualityChecks.join(', ') + '.');
+            parts.push(pick(QC_PHRASES) + ': ' + goal.defaultQualityChecks.join(', ') + '.');
             changes.push('Added quality checks to catch gaps and risks.');
         }
 

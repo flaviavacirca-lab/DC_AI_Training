@@ -14,9 +14,27 @@
         menuBtn.addEventListener('click', function () {
             navLinks.classList.toggle('open');
         });
-        navLinks.querySelectorAll('.nav-link').forEach(function (link) {
+        navLinks.querySelectorAll('.nav-link:not(.nav-dropdown-toggle)').forEach(function (link) {
             link.addEventListener('click', function () {
                 navLinks.classList.remove('open');
+            });
+        });
+    }
+
+    // --- Trainings Dropdown (mobile click) ---
+    var dropdown = document.querySelector('.nav-dropdown');
+    var dropdownToggle = document.querySelector('.nav-dropdown-toggle');
+    if (dropdown && dropdownToggle) {
+        dropdownToggle.addEventListener('click', function (e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdown.classList.toggle('open');
+            }
+        });
+        dropdown.querySelectorAll('.nav-dropdown-item').forEach(function (item) {
+            item.addEventListener('click', function () {
+                if (navLinks) navLinks.classList.remove('open');
+                dropdown.classList.remove('open');
             });
         });
     }
