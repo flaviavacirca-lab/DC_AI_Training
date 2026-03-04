@@ -3797,3 +3797,149 @@ a.flow-step-link:hover {
         padding: 2rem 1.5rem;
     }
 }
+
+
+/* ============================================
+   Prompt Coach — Diff Toggle
+   ============================================ */
+
+.pc-diff-toggle-wrap {
+    margin: 1rem 0 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pc-diff-toggle {
+    position: relative;
+    width: 40px;
+    height: 22px;
+    background: var(--gray-300);
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    padding: 0;
+}
+
+.pc-diff-toggle.active {
+    background: var(--blue);
+}
+
+.pc-diff-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+.pc-diff-toggle.active::after {
+    transform: translateX(18px);
+}
+
+.pc-diff-toggle-label {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+.pc-diff-panel {
+    display: none;
+    margin-top: 0.75rem;
+}
+
+.pc-diff-panel.visible {
+    display: block;
+}
+
+.pc-diff-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .pc-diff-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pc-diff-col-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--gray-500);
+    margin-bottom: 0.35rem;
+}
+
+.pc-diff-block {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.pc-diff-line-added {
+    background: rgba(46, 160, 67, 0.15);
+    border-left: 3px solid #2ea043;
+    padding-left: 0.4rem;
+    margin: 0 -0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.pc-diff-line-changed {
+    background: rgba(200, 166, 86, 0.15);
+    border-left: 3px solid var(--gold);
+    padding-left: 0.4rem;
+    margin: 0 -0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.pc-key-edits {
+    margin-top: 0.75rem;
+}
+
+.pc-key-edits-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.35rem;
+}
+
+.pc-key-edits ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pc-key-edits li {
+    font-size: 0.82rem;
+    color: var(--gray-600);
+    padding: 0.2rem 0 0.2rem 1.2rem;
+    position: relative;
+}
+
+.pc-key-edits li::before {
+    content: '\270E';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+}

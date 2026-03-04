@@ -1043,7 +1043,54 @@
             improveResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
+        // --- Simple line-based diff helper ---
+        function computeLineDiff(original, improved) {
+            var origLines = original.split('\n');
+            var impLines = improved.split('\n');
+            var result = [];
+            var maxLen = Math.max(origLines.length, impLines.length);
+            for (var i = 0; i < maxLen; i++) {
+                var oLine = i < origLines.length ? origLines[i] : '';
+                var iLine = i < impLines.length ? impLines[i] : '';
+                if (i >= origLines.length) {
+                    result.push({ text: iLine, type: 'added' });
+                } else if (oLine.trim() !== iLine.trim()) {
+                    result.push({ text: iLine, type: 'changed' });
+                } else {
+                    result.push({ text: iLine, type: 'same' });
+                }
+            }
+            return result;
+        }
+
+        function classifyEdits(changes) {
+            var edits = [];
+            var patterns = [
+                { rx: /role|perspective|persona|act as/i, label: 'Added role framing' },
+                { rx: /context|background|situation/i, label: 'Added context' },
+                { rx: /task|objective|goal|purpose|clarif/i, label: 'Clarified task' },
+                { rx: /format|structure|bullet|table|outline/i, label: 'Specified output format' },
+                { rx: /constraint|avoid|do not|limit|boundary/i, label: 'Added constraints' },
+                { rx: /audience|reader|stakeholder/i, label: 'Targeted audience' },
+                { rx: /tone|style|voice|professional/i, label: 'Refined tone' },
+                { rx: /example|instance|illustration/i, label: 'Added examples' }
+            ];
+            if (!changes || !changes.length) return edits;
+            var seen = {};
+            changes.forEach(function (c) {
+                patterns.forEach(function (p) {
+                    if (!seen[p.label] && p.rx.test(c)) {
+                        edits.push(p.label);
+                        seen[p.label] = true;
+                    }
+                });
+            });
+            if (edits.length === 0) edits.push('General improvement');
+            return edits;
+        }
+
         function showImproveResult(result) {
+            var originalText = draftTextarea.value.trim();
             var html =
                 '<div class="pc-diagnostic">' +
                     '<p class="pc-step-label">Improved Prompt</p>' +
@@ -1053,6 +1100,45 @@
                         '<button class="btn btn-outline pc-save-improved-btn">Save to Account</button>' +
                     '</div>' +
                 '</div>';
+
+            // Diff toggle
+            html += '<div class="pc-diff-toggle-wrap">' +
+                '<button class="pc-diff-toggle" aria-label="Toggle diff view"></button>' +
+                '<span class="pc-diff-toggle-label">Show changes</span>' +
+            '</div>';
+
+            // Diff panel (hidden by default)
+            var diffLines = computeLineDiff(originalText, result.improvedPrompt);
+            var improvedDiffHtml = diffLines.map(function (dl) {
+                if (dl.type === 'added') {
+                    return '<div class="pc-diff-line-added">+ ' + esc(dl.text) + '</div>';
+                } else if (dl.type === 'changed') {
+                    return '<div class="pc-diff-line-changed">~ ' + esc(dl.text) + '</div>';
+                } else {
+                    return '<div>  ' + esc(dl.text) + '</div>';
+                }
+            }).join('');
+
+            html += '<div class="pc-diff-panel">' +
+                '<div class="pc-diff-columns">' +
+                    '<div>' +
+                        '<div class="pc-diff-col-label">Original</div>' +
+                        '<div class="pc-diff-block">' + esc(originalText) + '</div>' +
+                    '</div>' +
+                    '<div>' +
+                        '<div class="pc-diff-col-label">Improved</div>' +
+                        '<div class="pc-diff-block">' + improvedDiffHtml + '</div>' +
+                    '</div>' +
+                '</div>';
+
+            // Key edits made
+            var keyEdits = classifyEdits(result.changes);
+            html += '<div class="pc-key-edits">' +
+                '<p class="pc-key-edits-label">Key edits made</p>' +
+                '<ul>' + keyEdits.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') + '</ul>' +
+            '</div>';
+
+            html += '</div>'; // close pc-diff-panel
 
             if (result.changes && result.changes.length > 0) {
                 html += '<div class="pc-changes">' +
@@ -1071,6 +1157,18 @@
             html += '<div style="margin-top:1rem"><button class="btn btn-outline pc-improve-reset-btn">Analyze Another</button></div>';
 
             improveResults.innerHTML = html;
+
+            // Toggle diff
+            var diffToggle = improveResults.querySelector('.pc-diff-toggle');
+            var diffPanel = improveResults.querySelector('.pc-diff-panel');
+            diffToggle.addEventListener('click', function () {
+                var isActive = diffToggle.classList.toggle('active');
+                if (isActive) {
+                    diffPanel.classList.add('visible');
+                } else {
+                    diffPanel.classList.remove('visible');
+                }
+            });
 
             // Copy
             improveResults.querySelector('.pc-copy-improved-btn').addEventListener('click', function () {
