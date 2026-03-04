@@ -34,6 +34,8 @@
             <p>Master the art of communicating with Microsoft Copilot to get high-quality, actionable outputs every time.</p>
         </section>
 
+        <div id="auth-banner"></div>
+
         <section class="section">
             <div class="module-objectives">
                 <h3>What you'll learn</h3>
@@ -220,6 +222,19 @@ Include the following for each competitor:
 Present as a formatted table. Include [number] competitors.
 Focus on the [geographic] market.</pre>
                         </div>
+                        <div class="prompt-template">
+                            <p class="prompt-label">Example:</p>
+                            <pre class="prompt-code">Act as a strategy consultant. Create a competitive analysis of the North American
+enterprise cybersecurity market.
+Include the following for each competitor:
+- Company overview (1-2 sentences)
+- Key strengths and weaknesses
+- Market positioning (enterprise vs. mid-market, product breadth vs. specialization)
+- Recent strategic moves (acquisitions, product launches, partnerships)
+
+Present as a formatted table. Include 8 competitors, mixing established leaders
+and fast-growing challengers. Focus on the U.S. and Canadian markets.</pre>
+                        </div>
                     </div>
                 </div>
 
@@ -237,6 +252,15 @@ Analyze this and tell me:
 2. Are there any outliers or anomalies?
 3. What story does this data tell for [audience]?
 Present your analysis as [format].</pre>
+                        </div>
+                        <div class="prompt-template">
+                            <p class="prompt-label">Example:</p>
+                            <pre class="prompt-code">I have quarterly revenue data for 6 product lines over the last 3 years.
+Analyze this and tell me:
+1. What are the top 3 trends across product lines?
+2. Are there any outliers or anomalies (e.g., sudden drops or spikes)?
+3. What story does this data tell for a CFO preparing for a board meeting?
+Present your analysis as 5 bullet points with a recommended chart type for each insight.</pre>
                         </div>
                     </div>
                 </div>
@@ -257,6 +281,19 @@ For each hypothesis, provide:
 - Supporting logic
 - How we could test/validate it
 - Potential data sources</pre>
+                        </div>
+                        <div class="prompt-template">
+                            <p class="prompt-label">Example:</p>
+                            <pre class="prompt-code">I'm working on a strategy engagement for a $300M specialty retailer
+experiencing declining foot traffic.
+The core question is: Why are same-store visits down 15% year-over-year
+despite stable brand awareness?
+Generate 5 hypotheses for why foot traffic is declining.
+For each hypothesis, provide:
+- The hypothesis statement
+- Supporting logic (1-2 sentences)
+- How we could test/validate it
+- Potential data sources (internal and external)</pre>
                         </div>
                     </div>
                 </div>
@@ -302,6 +339,36 @@ For each hypothesis, provide:
             </div>
         </section>
 
+        <!-- Practice Exercises -->
+        <section class="section">
+            <h2 class="section-title">Practice: Try It Yourself</h2>
+            <p class="section-desc">Spend 10 minutes on one of these exercises to put the CRAFT framework into practice.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Exercise 1: Transform a Weak Prompt</h3>
+                    <p>Start with this vague prompt: <em>&ldquo;Help me with a market overview.&rdquo;</em></p>
+                    <p>Rewrite it using the CRAFT framework &mdash; add Context, Role, Action, Format, and Tone. Compare the outputs side by side.</p>
+                    <p><strong>Goal:</strong> See how each CRAFT element improves the result.</p>
+                </div>
+                <div class="card">
+                    <h3>Exercise 2: Iterate Three Times</h3>
+                    <p>Pick any consulting task (email, slide outline, analysis). Write your best CRAFT prompt and send it. Then refine the output three times:</p>
+                    <ol>
+                        <li>Adjust the tone or format</li>
+                        <li>Ask Copilot to add specifics or examples</li>
+                        <li>Ask it to shorten or restructure for your audience</li>
+                    </ol>
+                    <p><strong>Goal:</strong> Practice the iteration habit &mdash; first output is a draft, not a deliverable.</p>
+                </div>
+                <div class="card">
+                    <h3>Exercise 3: Use the Prompt Coach</h3>
+                    <p>Open the <a href="#prompt-coach">Prompt Coach</a> above and build a prompt for a real task you have this week. Use the guided builder to structure your prompt, then test it in Copilot.</p>
+                    <p><strong>Goal:</strong> Walk away with one production-ready prompt you can reuse.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Cheat Sheet -->
         <section class="section section-alt">
             <h2 class="section-title">Quick Reference: Power Phrases</h2>
@@ -339,6 +406,35 @@ For each hypothesis, provide:
                     <code>"First, outline your approach. Then execute."</code>
                     <span>Forces structured thinking</span>
                 </div>
+            </div>
+
+            <div class="module-completion" data-module-complete="prompt-engineering"></div>
+        </section>
+
+        <!-- What's Next -->
+        <section class="section">
+            <h2 class="section-title">What's Next?</h2>
+            <p class="section-desc">Now that you can write effective prompts, apply your skills in these modules.</p>
+
+            <div class="card-grid">
+                <a href="copilot-102.html" class="card card-link">
+                    <div class="card-icon">&#x1F916;</div>
+                    <h3>Copilot 102: Using Agents</h3>
+                    <p>Learn how to use specialized Copilot agents that come with built-in prompting for research, writing, and data analysis.</p>
+                    <span class="card-cta">Explore Agents &rarr;</span>
+                </a>
+                <a href="competitive-analysis.html" class="card card-link">
+                    <div class="card-icon">&#x1F50D;</div>
+                    <h3>Competitive Analysis</h3>
+                    <p>Put your prompting skills to work with a full competitive analysis workflow using the Researcher agent.</p>
+                    <span class="card-cta">Competitive Analysis &rarr;</span>
+                </a>
+                <a href="copilot-transcripts.html" class="card card-link">
+                    <div class="card-icon">&#x1F399;</div>
+                    <h3>Using Copilot Transcripts</h3>
+                    <p>Apply prompt engineering to meeting transcripts &mdash; extract action items, draft follow-ups, and identify themes.</p>
+                    <span class="card-cta">Meeting Transcripts &rarr;</span>
+                </a>
             </div>
         </section>
     </main>
