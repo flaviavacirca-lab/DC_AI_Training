@@ -131,15 +131,15 @@
                         <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--gray-600);">This works through the <strong>Microsoft Graph</strong>, which allows Copilot to reason over your work environment.</p>
                         <div class="callout callout-info" style="margin-top: 1rem;">
                             <h4>Web Grounding in Work Mode</h4>
-                            <p>When you use Work mode, Copilot's primary grounding source is always your Microsoft 365 data. However, Copilot can <strong>optionally supplement</strong> its answers with public web information &mdash; this is called <strong>web grounding</strong>.</p>
-                            <p style="margin-top: 0.5rem;"><strong>How it works:</strong> If the web search plugin is enabled (controlled by your tenant admin or your personal Copilot settings), Copilot may pull in publicly available information from the Bing index alongside your work data. This happens automatically when Copilot determines that web context would improve the response.</p>
+                            <p>When you use Work mode, Copilot's primary grounding source is always your Microsoft 365 data. However, Copilot also <strong>automatically supplements</strong> its answers with public web information &mdash; this is called <strong>web grounding</strong>.</p>
+                            <p style="margin-top: 0.5rem;"><strong>How it works:</strong> The web search plugin is <strong>enabled by default for all Denneen users</strong>. This means Copilot may automatically pull in publicly available information from the Bing index alongside your work data when it determines that web context would improve the response.</p>
                             <p style="margin-top: 0.5rem;"><strong>What this means in practice:</strong></p>
                             <ul style="margin-top: 0.25rem;">
                                 <li>You ask Copilot to draft a competitive analysis using an internal SharePoint document &mdash; it may also pull in recent public news about the competitor to enrich the output</li>
                                 <li>You ask Copilot to summarize a client email thread &mdash; it stays entirely within your M365 data because no web context is needed</li>
                                 <li>You ask Copilot about an industry trend referencing your internal notes &mdash; it may blend your notes with current public data</li>
                             </ul>
-                            <p style="margin-top: 0.5rem;"><strong>Key point:</strong> Your work data always remains the <strong>primary context</strong>. Web grounding only adds supplementary public information &mdash; it never replaces or deprioritizes your organizational data. If web search is disabled by your admin, Work mode uses M365 data exclusively.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Key point:</strong> Your work data always remains the <strong>primary context</strong>. Web grounding only adds supplementary public information &mdash; it never replaces or deprioritizes your organizational data.</p>
                         </div>
                         <h4 style="margin-top: 1rem;">Best for:</h4>
                         <ul class="feature-list">
@@ -159,6 +159,11 @@
                     <div class="mode-card">
                         <p><strong>Primary source: Public information from the internet.</strong></p>
                         <p>In this mode, Copilot generates answers using web content indexed by Bing and general knowledge. It <strong>does not</strong> access your Microsoft 365 files, emails, or internal company content.</p>
+                        <div class="callout callout-info" style="margin-top: 1rem;">
+                            <h4>When to Use Web Mode</h4>
+                            <p>The main reason to switch to Web mode is when you are <strong>researching something and you do not want Copilot to use your existing work data</strong> to answer the question. For example, if you are looking for external sources, fresh perspectives, or publicly available information that goes beyond what you already have in your files, emails, and documents &mdash; Web mode ensures Copilot draws only from the public internet.</p>
+                            <p style="margin-top: 0.5rem;">This is especially useful when you want to discover new information rather than resurface what you already know, such as exploring a new market, benchmarking against industry standards, or finding third-party research you haven't encountered before.</p>
+                        </div>
                         <h4 style="margin-top: 1rem;">Best for:</h4>
                         <ul class="feature-list">
                             <li>Industry research</li>
@@ -166,7 +171,12 @@
                             <li>Market exploration</li>
                             <li>Public company comparisons</li>
                             <li>Brainstorming ideas</li>
+                            <li>Finding sources outside of what you already have</li>
                         </ul>
+                        <div class="callout callout-info" style="margin-top: 1rem;">
+                            <h4>Still Private &amp; Protected</h4>
+                            <p>Even in Web mode, your conversation with Copilot remains <strong>private and protected</strong> within your Microsoft 365 environment. Your prompts and responses are not shared publicly, are not used to train AI models, and are subject to the same enterprise data protection policies as Work mode. The difference is only in the <em>source</em> of information Copilot uses to answer &mdash; not in the security of the conversation itself.</p>
+                        </div>
                         <div class="callout" style="margin-top: 1rem;">
                             <h4>Reminder</h4>
                             <p>When using Web mode, follow the <strong>Denneen AI Policy</strong> for what's appropriate to share. Do not paste confidential client data into a Web-mode prompt.</p>
