@@ -101,47 +101,63 @@
 
         <!-- Web vs Work -->
         <section class="section">
-            <h2 class="section-title">The Web/Work Toggle: What It Does</h2>
-            <p class="section-desc">Inside the M365 Copilot app on your laptop, look at the top of the chat interface. You'll see a toggle that switches between <strong>Web</strong> and <strong>Work</strong>. This toggle changes what Copilot is allowed to reference when it responds.</p>
+            <h2 class="section-title">The Web / Work Toggle: What It Actually Does</h2>
+            <p class="section-desc">Inside the Microsoft 365 Copilot app, you will see a toggle at the top of the chat interface labeled <strong>Work</strong> and <strong>Web</strong>. This toggle changes what Copilot primarily uses to answer your question. Think of it as choosing the main source of information Copilot should rely on.</p>
 
             <div class="framework-grid">
                 <div class="framework-item">
-                    <div class="framework-letter" style="background: var(--navy);">A</div>
+                    <div class="framework-letter" style="background: var(--navy);">&#x1F4BB;</div>
                     <div class="framework-body">
-                        <h3>Where you are</h3>
-                        <p>Open the <strong>M365 Copilot app</strong> on your laptop. In the chat window, look at the top bar — you'll see a <strong>Web/Work toggle</strong>. This is the same app everyone at Denneen uses. You are not opening a web browser; you're using the desktop Copilot application.</p>
+                        <h3>Where You Are</h3>
+                        <p>Open the <strong>M365 Copilot app</strong> on your laptop. At the top of the chat window you will see a toggle labeled: <strong>Work | Web</strong>. This is the standard interface used across the firm. You are not opening a browser &mdash; this is Copilot inside the Microsoft 365 environment.</p>
                     </div>
                 </div>
             </div>
 
             <div class="two-column" style="margin-top: 2rem;">
                 <div>
-                    <h4 class="column-header column-header-good">Work Mode (toggle set to "Work")</h4>
+                    <h4 class="column-header column-header-good">Work Mode</h4>
                     <div class="mode-card">
-                        <p><strong>What Copilot can reference:</strong> Your organization's M365 data — SharePoint files, OneDrive documents, Outlook emails, Teams chats, calendar events, and meeting transcripts (where enabled).</p>
-                        <h4>Best for:</h4>
+                        <p><strong>Primary source: Your Microsoft 365 data.</strong></p>
+                        <p>Copilot can access information you already have permission to see, including:</p>
                         <ul class="feature-list">
-                            <li>Tasks involving internal documents and client materials stored in M365</li>
-                            <li>Summarizing email threads, Teams conversations, or meeting notes</li>
-                            <li>Drafting content based on existing files in SharePoint or OneDrive</li>
-                            <li>Finding information buried across your emails and channels</li>
+                            <li>SharePoint documents</li>
+                            <li>OneDrive files</li>
+                            <li>Outlook emails</li>
+                            <li>Teams chats</li>
+                            <li>Calendar events</li>
+                            <li>Meeting transcripts (when available)</li>
+                        </ul>
+                        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--gray-600);">This works through the <strong>Microsoft Graph</strong>, which allows Copilot to reason over your work environment.</p>
+                        <div class="callout callout-info" style="margin-top: 1rem;">
+                            <h4>Web Grounding in Work Mode</h4>
+                            <p>If web grounding is enabled by your organization or settings, Copilot may also use public web information to supplement answers, but your work data remains the primary context.</p>
+                        </div>
+                        <h4 style="margin-top: 1rem;">Best for:</h4>
+                        <ul class="feature-list">
+                            <li>Working with internal files</li>
+                            <li>Drafting emails using existing documents</li>
+                            <li>Summarizing meetings or message threads</li>
+                            <li>Finding information across your work environment</li>
                         </ul>
                         <div class="callout callout-info" style="margin-top: 1rem;">
                             <h4>Think of it as...</h4>
-                            <p>A colleague who has access to everything you have access to in M365 — your emails, files, meetings — and can pull from them instantly.</p>
+                            <p>A colleague who can instantly read through your emails, files, meetings, and chats and help you work with them.</p>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h4 class="column-header column-header-caution">Web Mode (toggle set to "Web")</h4>
+                    <h4 class="column-header column-header-caution">Web Mode</h4>
                     <div class="mode-card">
-                        <p><strong>What Copilot can reference:</strong> General web knowledge and public sources. It cannot see your M365 data — no emails, no SharePoint, no Teams.</p>
-                        <h4>Best for:</h4>
+                        <p><strong>Primary source: Public information from the internet.</strong></p>
+                        <p>In this mode, Copilot generates answers using web content indexed by Bing and general knowledge. It <strong>does not</strong> access your Microsoft 365 files, emails, or internal company content.</p>
+                        <h4 style="margin-top: 1rem;">Best for:</h4>
                         <ul class="feature-list">
-                            <li>Broad market exploration and public competitor research</li>
-                            <li>Learning about a new industry, framework, or concept</li>
-                            <li>Generating ideas or brainstorming before working with internal files</li>
-                            <li>Quick definitions, comparisons, or public data lookups</li>
+                            <li>Industry research</li>
+                            <li>Learning new frameworks or concepts</li>
+                            <li>Market exploration</li>
+                            <li>Public company comparisons</li>
+                            <li>Brainstorming ideas</li>
                         </ul>
                         <div class="callout" style="margin-top: 1rem;">
                             <h4>Reminder</h4>
@@ -151,6 +167,35 @@
                 </div>
             </div>
 
+            <!-- Quick Comparison -->
+            <div style="margin-top: 2rem;">
+                <h3 style="text-align: center; margin-bottom: 1rem; color: var(--navy);">Quick Comparison</h3>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: var(--navy); color: #fff;">
+                                <th style="padding: 0.75rem 1rem; text-align: left;">Mode</th>
+                                <th style="padding: 0.75rem 1rem; text-align: left;">Primary Information Source</th>
+                                <th style="padding: 0.75rem 1rem; text-align: center;">Can Access Your Work Files</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: var(--gray-100);">
+                                <td style="padding: 0.75rem 1rem; font-weight: 600;">Work</td>
+                                <td style="padding: 0.75rem 1rem;">M365 data (SharePoint, Outlook, Teams, OneDrive)</td>
+                                <td style="padding: 0.75rem 1rem; text-align: center; color: #2ea043; font-weight: 600;">Yes</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.75rem 1rem; font-weight: 600;">Web</td>
+                                <td style="padding: 0.75rem 1rem;">Public internet content</td>
+                                <td style="padding: 0.75rem 1rem; text-align: center; color: #cf222e; font-weight: 600;">No</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--gray-500); text-align: center;">Work mode may also include web grounding if web search is enabled, but it always prioritizes your work context.</p>
+            </div>
+
             <!-- Concrete examples -->
             <div class="two-column" style="margin-top: 2rem;">
                 <div>
@@ -158,8 +203,8 @@
                     <div class="mode-card">
                         <ul class="feature-list">
                             <li><strong>"Draft an email based on the strategy deck in SharePoint."</strong> &rarr; Copilot pulls the deck from your SharePoint and drafts the email.</li>
-                            <li><strong>"Summarize the last 5 emails from [client name]."</strong> &rarr; Copilot reads your Outlook and creates the summary.</li>
-                            <li><strong>"What action items came out of Tuesday's team sync?"</strong> &rarr; Copilot checks the meeting transcript and Teams chat.</li>
+                            <li><strong>"Summarize the last five emails from [client name]."</strong> &rarr; Copilot reads your Outlook and creates the summary.</li>
+                            <li><strong>"What action items came out of Tuesday's project meeting?"</strong> &rarr; Copilot checks the meeting transcript and Teams chat.</li>
                         </ul>
                     </div>
                 </div>
@@ -167,9 +212,9 @@
                     <h4 class="column-header column-header-caution">Web Mode Examples</h4>
                     <div class="mode-card">
                         <ul class="feature-list">
-                            <li><strong>"Summarize public market trends for the pet food industry."</strong> &rarr; Copilot searches public sources and gives you an overview.</li>
-                            <li><strong>"What is the MECE framework and how do consultants use it?"</strong> &rarr; Copilot explains based on general knowledge.</li>
-                            <li><strong>"Compare the revenue of Chewy vs. Petco from their latest public filings."</strong> &rarr; Copilot pulls from publicly available data.</li>
+                            <li><strong>"Summarize recent public trends in the pet food industry."</strong> &rarr; Copilot searches public sources and gives you an overview.</li>
+                            <li><strong>"What is the MECE framework and how is it used in consulting?"</strong> &rarr; Copilot explains based on general knowledge.</li>
+                            <li><strong>"Compare Chewy and Petco using recent public financial data."</strong> &rarr; Copilot pulls from publicly available data.</li>
                         </ul>
                     </div>
                 </div>
@@ -179,9 +224,9 @@
             <div class="callout callout-info" style="margin-top: 2rem;">
                 <h4>Rule of Thumb</h4>
                 <ul>
-                    <li><strong>Firm or client materials?</strong> &rarr; Use <strong>Work</strong></li>
-                    <li><strong>Public or general research?</strong> &rarr; Use <strong>Web</strong></li>
-                    <li><strong>Not sure?</strong> &rarr; Default to <strong>Work</strong> and check the Denneen AI Policy</li>
+                    <li><strong>Working with internal files or client materials stored in M365?</strong> &rarr; Use <strong>Work</strong></li>
+                    <li><strong>Doing market research or learning about a new concept?</strong> &rarr; Use <strong>Web</strong></li>
+                    <li><strong>Not sure?</strong> &rarr; Start in <strong>Work</strong> mode and follow the Denneen AI policy for data sharing.</li>
                 </ul>
             </div>
 
