@@ -43,6 +43,17 @@
             align-items: center;
             gap: 0.3rem;
         }
+        .time-estimate {
+            display: inline-block;
+            background: var(--blue);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
         .compliance-list {
             list-style: none;
             padding: 0;
@@ -55,9 +66,32 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            cursor: pointer;
+            user-select: none;
         }
         .compliance-list li:last-child {
             border-bottom: none;
+        }
+        .compliance-list li:hover {
+            background: var(--gray-100);
+        }
+        .compliance-list li.checked {
+            color: var(--gray-400);
+            text-decoration: line-through;
+        }
+        .compliance-list li.checked .compliance-check {
+            background: var(--blue);
+            border-color: var(--blue);
+        }
+        .compliance-list li.checked .compliance-check::after {
+            content: '\2713';
+            color: #fff;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
         }
         .compliance-check {
             width: 18px;
@@ -65,6 +99,7 @@
             border: 2px solid var(--gray-400);
             border-radius: 3px;
             flex-shrink: 0;
+            transition: all 0.15s ease;
         }
         .section-divider {
             text-align: center;
@@ -89,6 +124,9 @@
             font-size: 0.9rem;
             letter-spacing: 1px;
             text-transform: uppercase;
+        }
+        .section-divider-white span {
+            background: var(--white);
         }
         .troubleshoot-item {
             background: var(--white);
@@ -118,6 +156,77 @@
             color: var(--navy);
             margin-bottom: 0.35rem;
             font-size: 0.9rem;
+        }
+        /* Process Flow */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+            margin: 1.5rem 0;
+        }
+        .flow-step {
+            background: var(--white);
+            border: 2px solid var(--blue);
+            border-radius: var(--radius);
+            padding: 0.75rem 1.25rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--navy);
+            min-width: 140px;
+        }
+        .flow-arrow {
+            color: var(--blue);
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 0 0.25rem;
+            flex-shrink: 0;
+        }
+        @media (max-width: 768px) {
+            .process-flow {
+                flex-direction: column;
+                gap: 0;
+            }
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+        /* Role table */
+        .role-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+        .role-table thead tr {
+            background: var(--navy);
+            color: #fff;
+        }
+        .role-table th,
+        .role-table td {
+            padding: 0.65rem 1rem;
+            text-align: left;
+        }
+        .role-table tbody tr:nth-child(even) {
+            background: var(--gray-100);
+        }
+        .role-table tbody tr:nth-child(odd) {
+            background: var(--white);
+        }
+        /* Final checklist */
+        .final-checklist {
+            background: var(--white);
+            border: 2px solid var(--navy);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+        .final-checklist h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            text-align: center;
         }
     </style>
 </head>
@@ -176,7 +285,55 @@
                     <li>Avoid missing information</li>
                     <li>Accelerate Phase 0 synthesis and scoping</li>
                 </ul>
-                <p style="margin-top: 0.75rem; font-weight: 600;">This is a process change, not optional "AI experimentation."</p>
+                <p style="margin-top: 0.75rem; font-weight: 600;">This is a process change, not optional &ldquo;AI experimentation.&rdquo;</p>
+            </div>
+        </section>
+
+        <!-- ===== WHY THIS PROCESS EXISTS ===== -->
+        <section class="section section-alt">
+            <h2 class="section-title">Why Phase Zero Breaks Without This Process</h2>
+            <div class="two-column">
+                <div>
+                    <h4 class="column-header column-header-caution">The Problem</h4>
+                    <div class="mode-card">
+                        <p>Phase 0 work often fails because:</p>
+                        <ul class="feature-list">
+                            <li>Insights get scattered across notebooks, transcripts, and individual notes with no consistent structure</li>
+                            <li>Synthesis takes too long because every consultant formats and organizes their notes differently</li>
+                            <li>Phase 1 scope decisions end up relying on incomplete information because there is no systematic way to verify coverage</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="column-header column-header-good">How This Process Solves It</h4>
+                    <div class="mode-card">
+                        <p>This Copilot-enabled process addresses each issue directly:</p>
+                        <ul class="feature-list">
+                            <li><strong>Structured interview capture</strong> &mdash; every interview produces the same outputs in the same format, stored in the same location</li>
+                            <li><strong>Rapid synthesis across interviews</strong> &mdash; standardized theme tables allow cross-interview analysis in minutes, not days</li>
+                            <li><strong>Evidence-backed foundation for Phase 1</strong> &mdash; defensible data inventory and gap analysis ensure scope decisions are grounded in what the data actually shows</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROCESS FLOW DIAGRAM ===== -->
+        <section class="section">
+            <h2 class="section-title">Interview-to-Synthesis Process Flow</h2>
+            <p class="section-desc">Each Phase 0 interview follows this structured path from capture to Phase 1 readiness.</p>
+            <div class="process-flow">
+                <div class="flow-step">Interview</div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">Transcript</div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">Copilot Summary</div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">Theme Tagging</div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">Cross-Interview Synthesis</div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">Phase 1 Hypotheses</div>
             </div>
         </section>
 
@@ -210,6 +367,44 @@
                 </ul>
             </div>
 
+            <!-- Role Ownership Table -->
+            <div class="content-block" style="margin-top: 1.5rem;">
+                <h3>Role Ownership</h3>
+                <p>Each step in the interview process has a clear owner.</p>
+                <div style="overflow-x: auto;">
+                    <table class="role-table">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>Owner</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Interview guide upload</td>
+                                <td>Workstream Lead</td>
+                            </tr>
+                            <tr>
+                                <td>Recording</td>
+                                <td>Interviewer</td>
+                            </tr>
+                            <tr>
+                                <td>Summary generation</td>
+                                <td>Interview notetaker</td>
+                            </tr>
+                            <tr>
+                                <td>Theme tagging</td>
+                                <td>Analyst / Consultant</td>
+                            </tr>
+                            <tr>
+                                <td>Theme synthesis</td>
+                                <td>Consultant / Workstream Lead</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- Folder Structure -->
             <div class="content-block" style="margin-top: 1.5rem;">
                 <h3>Required Folder Structure</h3>
@@ -225,11 +420,12 @@
                 </div>
             </div>
 
-            <!-- Step 1 -->
+            <!-- Step-by-Step Process -->
             <h3 style="margin-top: 2.5rem; color: var(--navy); font-size: 1.15rem;">Step-by-Step Process</h3>
 
+            <!-- Step 1 -->
             <div class="step-box" style="margin-top: 1rem;">
-                <h3>Step 1: Upload the Approved Interview Guide</h3>
+                <h3>Step 1: Upload the Approved Interview Guide <span class="time-estimate">~5 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Project Lead</span>
                     <span><strong>File upload:</strong> Yes</span>
@@ -247,7 +443,7 @@
 
             <!-- Step 2 -->
             <div class="step-box">
-                <h3>Step 2: Record and Transcribe Every Interview</h3>
+                <h3>Step 2: Record and Transcribe Every Interview <span class="time-estimate">~5 min post-interview</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Interviewer</span>
                     <span><strong>File upload:</strong> Yes (manual)</span>
@@ -271,7 +467,7 @@
 
             <!-- Step 3 -->
             <div class="step-box">
-                <h3>Step 3 (Optional): Create a Copilot Notebook — Leads Only</h3>
+                <h3>Step 3 (Optional): Create a Copilot Notebook — Leads Only <span class="time-estimate">~5 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Phase 0 Lead</span>
                     <span><strong>File upload:</strong> Yes (add sources)</span>
@@ -296,7 +492,7 @@
 
             <!-- Step 4 -->
             <div class="step-box">
-                <h3>Step 4: Generate the Interview Summary (Required)</h3>
+                <h3>Step 4: Generate the Interview Summary (Required) <span class="time-estimate">~3&ndash;5 min per interview</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Interview owner</span>
                     <span><strong>Where:</strong> Copilot Chat (or Notebook if used)</span>
@@ -317,6 +513,7 @@ Create a 1-page Phase 0 interview summary with:
 4. Documents or analyses referenced by the interviewee
 5. Any tensions or contradictions with prior interviews (if evident)
 
+Use evidence only and cite the document or transcript location for each finding.
 Do not infer. Use only what was stated.</div>
                 </div>
 
@@ -333,7 +530,7 @@ Do not infer. Use only what was stated.</div>
 
             <!-- Step 5 -->
             <div class="step-box">
-                <h3>Step 5: Tag Interview Themes (Standardized Table)</h3>
+                <h3>Step 5: Tag Interview Themes (Standardized Table) <span class="time-estimate">~3&ndash;5 min per interview</span></h3>
                 <div class="step-meta">
                     <span><strong>Where:</strong> Copilot Chat</span>
                     <span><strong>File upload:</strong> Yes (summary + transcript)</span>
@@ -357,7 +554,8 @@ Return the output ONLY as a table with the following columns:
 Rules:
 - Do not add, remove, rename, or reorder columns
 - Do not include commentary outside the table
-- Every takeaway must include a quote and timestamp</div>
+- Every takeaway must include a quote and timestamp
+- Use evidence only and cite the transcript location for each finding</div>
                 </div>
 
                 <div class="save-instructions">
@@ -370,24 +568,66 @@ Rules:
                 </div>
             </div>
 
+            <!-- Step 6: Cross-Interview Synthesis -->
+            <div class="step-box">
+                <h3>Step 6: Cross-Interview Theme Synthesis <span class="time-estimate">~10&ndash;15 min</span></h3>
+                <div class="step-meta">
+                    <span><strong>Who:</strong> Consultant / Workstream Lead</span>
+                    <span><strong>Where:</strong> Copilot Chat or Notebook</span>
+                    <span><strong>File upload:</strong> Yes (all summaries + theme log)</span>
+                </div>
+                <p>This step identifies recurring patterns, points of agreement, and contradictions across all completed interviews. It is the bridge between individual interview outputs and Phase 1 hypothesis development.</p>
+                <p style="margin-top: 0.75rem;"><strong>Prompt:</strong></p>
+                <div class="prompt-template">
+                    <div class="prompt-code">Using ONLY the following files:
+- All interview summaries in /04_Interview_Summaries
+- Interview_Theme_Log.xlsx
+
+Identify:
+1. Recurring themes across interviews (themes raised by 2+ interviewees)
+2. Areas of agreement across stakeholders
+3. Areas of contradiction or tension between stakeholders
+4. Strategic risks mentioned by multiple interviewees
+5. Topics requiring validation in Phase 1
+
+Return a structured list of themes. For each theme, include:
+- Theme name
+- Which interviewees raised it
+- Supporting evidence (quotes or references)
+
+Use evidence only and cite the document or transcript location for each finding.
+Do not infer beyond what was stated in the interviews.</div>
+                </div>
+
+                <div class="save-instructions">
+                    <h4>Saving instructions</h4>
+                    <ol>
+                        <li>Copy the output</li>
+                        <li>Paste into a Word document</li>
+                        <li>Save as: <code>/05_Interview_Theme_Log/Cross_Interview_Synthesis.docx</code></li>
+                    </ol>
+                </div>
+            </div>
+
             <!-- Compliance Checklist -->
             <div class="callout callout-info" style="margin-top: 2rem;">
                 <h4>Management Interview Compliance Checklist</h4>
-                <ul class="compliance-list">
+                <ul class="compliance-list" data-checklist="interviews">
                     <li><span class="compliance-check"></span> Interview guide uploaded</li>
                     <li><span class="compliance-check"></span> Recording ON</li>
                     <li><span class="compliance-check"></span> Transcript uploaded</li>
                     <li><span class="compliance-check"></span> Copilot summary created</li>
                     <li><span class="compliance-check"></span> Summary saved as Word doc</li>
                     <li><span class="compliance-check"></span> Theme table completed</li>
+                    <li><span class="compliance-check"></span> Cross-interview synthesis completed</li>
                 </ul>
-                <p style="margin-top: 0.75rem; font-weight: 600; color: var(--red);">If any box is unchecked, the interview is not complete.</p>
+                <p style="margin-top: 0.75rem; font-weight: 600; color: var(--red);">If any box is unchecked, the interview process is not complete.</p>
             </div>
         </section>
 
         <!-- ===== SECTION 2: DATA REVIEW ===== -->
         <section class="section">
-            <div class="section-divider">
+            <div class="section-divider section-divider-white">
                 <span>Section 2</span>
             </div>
             <h2 class="section-title">Phase Zero — Data Review</h2>
@@ -410,7 +650,7 @@ Rules:
                 <ul class="feature-list">
                     <li>SharePoint</li>
                     <li>Copilot Chat</li>
-                    <li>Copilot Notebook (required for scale)</li>
+                    <li>Copilot Notebook (always recommended)</li>
                 </ul>
             </div>
 
@@ -425,11 +665,12 @@ Rules:
   /10_RYG_Assessment</div>
             </div>
 
-            <!-- Step 1 -->
+            <!-- Step-by-Step Process -->
             <h3 style="margin-top: 2.5rem; color: var(--navy); font-size: 1.15rem;">Step-by-Step Process</h3>
 
+            <!-- Step 1 -->
             <div class="step-box" style="margin-top: 1rem;">
-                <h3>Step 1: Finalize the Phase 0 Data Request List</h3>
+                <h3>Step 1: Finalize the Phase 0 Data Request List <span class="time-estimate">~10 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Project Lead</span>
                     <span><strong>File upload:</strong> Yes</span>
@@ -441,7 +682,7 @@ Rules:
 
             <!-- Step 2 -->
             <div class="step-box">
-                <h3>Step 2: Upload ALL Received Data</h3>
+                <h3>Step 2: Upload ALL Received Data <span class="time-estimate">~5&ndash;15 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Project team</span>
                     <span><strong>File upload:</strong> Yes</span>
@@ -455,7 +696,7 @@ Rules:
 
             <!-- Step 3 -->
             <div class="step-box">
-                <h3>Step 3: Batch Document Analysis (Required for 20+ Documents)</h3>
+                <h3>Step 3: Batch Document Analysis (Required for 20+ Documents) <span class="time-estimate">~10&ndash;20 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Method:</strong> Copilot Notebook</span>
                 </div>
@@ -486,6 +727,8 @@ For EACH document:
 5. Note the time period covered
 6. Assign initial confidence (High / Medium / Low)
 
+Use evidence only and cite the document location for each finding.
+
 Outputs required:
 A. A clearly separated summary section for each document
 B. A consolidated table suitable for Excel export</div>
@@ -504,7 +747,7 @@ B. A consolidated table suitable for Excel export</div>
 
             <!-- Step 4 -->
             <div class="step-box">
-                <h3>Step 4: Build the Data Inventory Table</h3>
+                <h3>Step 4: Build the Data Inventory Table <span class="time-estimate">~5 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Where:</strong> Copilot Chat or Notebook</span>
                     <span><strong>File upload:</strong> Yes (master summary)</span>
@@ -519,6 +762,7 @@ Create a table with columns:
 4. Time Period Covered
 5. Confidence Level
 
+Use evidence only and cite the document location for each entry.
 Return ONLY the table.</div>
                 </div>
 
@@ -534,7 +778,7 @@ Return ONLY the table.</div>
 
             <!-- Step 5 -->
             <div class="step-box">
-                <h3>Step 5: Red / Yellow / Green Assessment</h3>
+                <h3>Step 5: Red / Yellow / Green Assessment <span class="time-estimate">~5&ndash;10 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Where:</strong> Copilot Chat or Notebook</span>
                     <span><strong>File upload:</strong> Yes (Data Request List + Data Inventory)</span>
@@ -551,6 +795,7 @@ For each data request item:
 3. Explain the rating
 4. Identify what work would close gaps
 
+Use evidence only and cite the document location for each rating.
 Do not assume missing data.
 Do not infer beyond evidence.</div>
                 </div>
@@ -561,23 +806,74 @@ Do not infer beyond evidence.</div>
                 </div>
             </div>
 
+            <!-- Step 6: Data Gap Identification -->
+            <div class="step-box">
+                <h3>Step 6: Phase 1 Data Gap Identification <span class="time-estimate">~5&ndash;10 min</span></h3>
+                <div class="step-meta">
+                    <span><strong>Where:</strong> Copilot Chat or Notebook</span>
+                    <span><strong>File upload:</strong> Yes (Data Request List + Data Inventory + RYG Assessment)</span>
+                </div>
+                <p>This step identifies missing information that must be addressed in Phase 1. It translates R/Y/G ratings into actionable workstream recommendations.</p>
+                <p style="margin-top: 0.75rem;"><strong>Prompt:</strong></p>
+                <div class="prompt-template">
+                    <div class="prompt-code">Using ONLY:
+- Phase_0_Data_Request_List.xlsx
+- Data_Inventory.xlsx
+- RYG_Assessment.xlsx
+
+Identify:
+1. All remaining Red data request items — what is completely missing and why
+2. All remaining Yellow data request items — what is partially covered and what is still needed
+3. For each Red and Yellow item, the specific analysis or data collection required to resolve it
+4. Recommended Phase 1 workstreams based on the gaps identified
+
+Use evidence only and cite the document location for each finding.
+Do not assume data exists if it was not found in the inventory.
+Return as a structured table.</div>
+                </div>
+
+                <div class="save-instructions">
+                    <h4>Save as</h4>
+                    <p><code>/10_RYG_Assessment/Phase_1_Data_Gaps.xlsx</code></p>
+                </div>
+            </div>
+
             <!-- Compliance Checklist -->
             <div class="callout callout-info" style="margin-top: 2rem;">
                 <h4>Data Review Compliance Checklist</h4>
-                <ul class="compliance-list">
+                <ul class="compliance-list" data-checklist="data-review">
                     <li><span class="compliance-check"></span> Data request list uploaded</li>
                     <li><span class="compliance-check"></span> All files uploaded</li>
                     <li><span class="compliance-check"></span> Notebook created</li>
                     <li><span class="compliance-check"></span> Master summary created</li>
                     <li><span class="compliance-check"></span> Data inventory exported to Excel</li>
                     <li><span class="compliance-check"></span> R/Y/G assessment completed</li>
+                    <li><span class="compliance-check"></span> Phase 1 data gaps identified</li>
                 </ul>
                 <p style="margin-top: 0.75rem; font-weight: 600; color: var(--red);">If any box is unchecked, the data review is not complete.</p>
             </div>
         </section>
 
-        <!-- ===== TROUBLESHOOTING ===== -->
+        <!-- ===== PHASE ZERO COMPLETE WHEN ===== -->
         <section class="section section-alt">
+            <h2 class="section-title">Phase Zero Is Complete When</h2>
+            <p class="section-desc">Use this checklist to confirm all Phase 0 deliverables are finalized before proceeding to Phase 1.</p>
+
+            <div class="final-checklist">
+                <ul class="compliance-list" data-checklist="final">
+                    <li><span class="compliance-check"></span> All interviews summarized</li>
+                    <li><span class="compliance-check"></span> Interview theme log completed</li>
+                    <li><span class="compliance-check"></span> Cross-interview synthesis completed</li>
+                    <li><span class="compliance-check"></span> All documents reviewed</li>
+                    <li><span class="compliance-check"></span> Data inventory created</li>
+                    <li><span class="compliance-check"></span> R/Y/G assessment finalized</li>
+                    <li><span class="compliance-check"></span> Data gaps identified</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== TROUBLESHOOTING ===== -->
+        <section class="section">
             <h2 class="section-title">If Copilot Doesn't Give You the Output You Expected</h2>
             <p class="section-desc">This happens. Do not abandon the process. Use these fixes.</p>
 
@@ -614,5 +910,13 @@ Do not infer beyond evidence.</div>
     <script src="js/telemetry.js"></script>
     <script src="js/moduleNav.js"></script>
     <script src="js/feedback.js"></script>
+    <script>
+        // Interactive compliance checklists
+        document.querySelectorAll('.compliance-list li').forEach(function(item) {
+            item.addEventListener('click', function() {
+                this.classList.toggle('checked');
+            });
+        });
+    </script>
 </body>
 </html>
