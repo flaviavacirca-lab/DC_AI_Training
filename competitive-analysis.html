@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitive Analysis with Copilot Researcher &mdash; Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <div class="nav-dropdown">
+                <a href="suggested-training-flow.html" class="nav-link nav-dropdown-toggle active">Trainings <span class="nav-dropdown-arrow">&#x25BE;</span></a>
+                <div class="nav-dropdown-menu">
+                    <a href="suggested-training-flow.html" class="nav-dropdown-item">Suggested Flow</a>
+                    <a href="training-library.html" class="nav-dropdown-item">Training Library</a>
+                    <a href="quick-wins.html" class="nav-dropdown-item">Quick Wins</a>
+                    <a href="live-trainings.html" class="nav-dropdown-item">Live Trainings</a>
+                </div>
+            </div>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="phase-zero.html" class="nav-link">Phase Zero</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Competitive Analysis with Copilot Researcher</h1>
+            <p>Build a structured competitor profile in 15 minutes using Microsoft 365 Copilot&rsquo;s Researcher agent &mdash; no browser tabs, no manual Googling, just prompts and refinement.</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <section class="section">
+            <div class="module-objectives">
+                <h3>What you'll learn</h3>
+                <ul>
+                    <li>How to use Copilot's Researcher agent to build competitive profiles</li>
+                    <li>A 5-step workflow from identifying competitors to synthesizing deliverables</li>
+                    <li>How to validate AI-generated competitive data before sharing with clients</li>
+                    <li>When to use competitive analysis vs. other research workflows</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- A) When to use this -->
+        <section class="section section-alt">
+            <h2 class="section-title">When to Use This</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Starting a new engagement</h3>
+                    <p>You need a quick landscape scan of 3&ndash;8 competitors before your first client meeting or internal kickoff.</p>
+                </div>
+                <div class="card">
+                    <h3>Preparing a Phase 0 deck</h3>
+                    <p>You need competitor snapshots &mdash; revenue, positioning, recent moves &mdash; to populate an industry overview slide.</p>
+                </div>
+                <div class="card">
+                    <h3>Building a strategy recommendation</h3>
+                    <p>You need to understand competitive dynamics (white space, differentiation, threats) to inform strategic options.</p>
+                </div>
+                <div class="card">
+                    <h3>Responding to a client question</h3>
+                    <p>&ldquo;What are our competitors doing in [area]?&rdquo; &mdash; you need a defensible answer quickly.</p>
+                </div>
+            </div>
+            <div class="content-block callout">
+                <h4>Not the right module?</h4>
+                <p>If you need to <strong>size a market</strong> (TAM/SAM/SOM, growth rates), see the <a href="qw-market-research.html">Market Research Quick Win</a>. If you need to <strong>synthesize interview transcripts</strong>, see <a href="qw-interview-synthesis.html">Interview Synthesis</a>.</p>
+            </div>
+        </section>
+
+        <!-- B) What you'll get -->
+        <section class="section section-alt">
+            <h2 class="section-title">What You&rsquo;ll Get</h2>
+            <p class="section-desc">By the end of this 15-minute workflow, you will have:</p>
+            <div class="tips-grid">
+                <div class="tip">
+                    <div class="tip-number">1</div>
+                    <h4>Competitor Profile Table</h4>
+                    <p>A structured table with HQ, revenue, employees, key products, target segments, and competitive advantages for each player.</p>
+                </div>
+                <div class="tip">
+                    <div class="tip-number">2</div>
+                    <h4>Strategic Positioning Map</h4>
+                    <p>A recommended 2&times;2 positioning framework with suggested axes and where each competitor falls.</p>
+                </div>
+                <div class="tip">
+                    <div class="tip-number">3</div>
+                    <h4>Recent Moves &amp; Signals</h4>
+                    <p>A summary of acquisitions, product launches, partnerships, and leadership changes from the last 12 months.</p>
+                </div>
+                <div class="tip">
+                    <div class="tip-number">4</div>
+                    <h4>White Space Analysis</h4>
+                    <p>Identified gaps, underserved segments, and opportunities where no competitor is dominant.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- C) Tools + setup -->
+        <section class="section">
+            <h2 class="section-title">Tools &amp; Setup</h2>
+            <div class="two-column">
+                <div class="column">
+                    <h3 class="column-header">What You Need</h3>
+                    <ul class="check-list">
+                        <li><strong>Microsoft 365 Copilot</strong> &mdash; open via m365.cloud.microsoft/chat or the Copilot button in any M365 app</li>
+                        <li><strong>Web mode enabled</strong> &mdash; toggle to &ldquo;Web&rdquo; (not &ldquo;Work&rdquo;) so Copilot searches the public internet</li>
+                        <li><strong>Researcher agent</strong> &mdash; type <code>@Researcher</code> in the Copilot chat to invoke it (or use the agent picker)</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3 class="column-header">Before You Start</h3>
+                    <ul class="check-list">
+                        <li>Know which <strong>industry or market segment</strong> you&rsquo;re researching</li>
+                        <li>Have a rough list of <strong>3&ndash;8 competitors</strong> (or let Copilot help you identify them)</li>
+                        <li>Know your <strong>client&rsquo;s positioning</strong> so you can frame the analysis from their perspective</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-block callout">
+                <h4>Why Researcher?</h4>
+                <p>The <code>@Researcher</code> agent is built for deep web research. Unlike standard Copilot chat, it follows multi-step search paths, cross-references sources, and produces longer, more structured outputs. It&rsquo;s ideal for competitive intelligence gathering.</p>
+            </div>
+        </section>
+
+        <!-- D) Step-by-step workflow -->
+        <section class="section section-alt">
+            <h2 class="section-title">Step-by-Step Workflow</h2>
+            <p class="section-desc">Follow these 5 steps in a single Copilot session. Total time: 10&ndash;20 minutes.</p>
+
+            <div class="workflow-steps">
+                <!-- Step 1 -->
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Identify the Competitive Set</h3>
+                        <p>Start with a broad scan to make sure you&rsquo;re not missing key players. If you already have your competitor list, skip to Step 2.</p>
+                        <div class="prompt-template">
+                            <p class="prompt-label">Copy &amp; paste this prompt:</p>
+                            <pre class="prompt-code">@Researcher
+
+I'm a strategy consultant researching the [INDUSTRY/SEGMENT] market
+in [GEOGRAPHY].
+
+Identify the top 8-10 competitors in this space. For each, provide:
+- Company name and HQ location
+- Estimated annual revenue (or revenue range)
+- Primary products/services in this segment
+- Target customer segment
+
+Include both established leaders and notable challengers or disruptors.
+Present as a numbered list. Flag any companies where the data is
+estimated vs. confirmed from public filings.</pre>
+                        </div>
+                        <p><strong>What to look for:</strong> Scan the list for any missing players you know about. If Copilot missed one, reply: <em>&ldquo;Also include [Company X] &mdash; they recently entered this market via [acquisition/product launch].&rdquo;</em></p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Build the Competitor Profile Table</h3>
+                        <p>Now go deeper on each competitor. This is the core deliverable most consulting decks need.</p>
+                        <div class="prompt-template">
+                            <p class="prompt-label">Copy &amp; paste this prompt:</p>
+                            <pre class="prompt-code">Now create a detailed competitor comparison table for these companies:
+[LIST YOUR 5-8 COMPETITORS]
+
+Columns:
+| Company | HQ | Est. Revenue ($M) | Employees | Key Products/Services | Target Segment | Competitive Advantage | Recent Strategic Move (last 12 months) |
+
+Requirements:
+- Use the most recent publicly available data
+- For private companies, provide revenue estimates with a range
+- Flag any data points that are estimates vs. confirmed
+- Sort by estimated revenue (largest first)
+- After the table, list your sources</pre>
+                        </div>
+                        <p><strong>What to look for:</strong> Check that revenue figures pass a basic sanity test. If a number looks off, ask: <em>&ldquo;[Company X] revenue seems high/low &mdash; double-check against their latest annual report or press releases.&rdquo;</em></p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Map Strategic Positioning</h3>
+                        <p>Create a 2&times;2 framework the team can put directly into a slide.</p>
+                        <div class="prompt-template">
+                            <p class="prompt-label">Copy &amp; paste this prompt:</p>
+                            <pre class="prompt-code">Based on the competitive data above, suggest a 2x2 positioning map
+for this market.
+
+Requirements:
+1. Recommend the two best axes (explain why you chose them)
+2. Place each competitor in a quadrant with a one-line rationale
+3. Identify which quadrant represents the most attractive
+   strategic position and why
+4. Call out any "white space" quadrants where no competitor
+   is strongly positioned
+
+Format as a text-based 2x2 grid I can recreate in PowerPoint,
+plus the rationale below.</pre>
+                        </div>
+                        <p><strong>What to look for:</strong> The suggested axes should be meaningful differentiators, not just &ldquo;big vs. small.&rdquo; Good axes examples: breadth vs. depth, enterprise vs. SMB, product-led vs. services-led, geographic focus vs. global.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Analyze Recent Moves &amp; Signals</h3>
+                        <p>This is the &ldquo;so what&rdquo; layer &mdash; what competitors are actually <em>doing</em> matters more than their static profile.</p>
+                        <div class="prompt-template">
+                            <p class="prompt-label">Copy &amp; paste this prompt:</p>
+                            <pre class="prompt-code">For each of the competitors listed above, research their strategic
+moves over the last 12 months:
+
+For each company, find:
+- Acquisitions or divestitures
+- New product launches or major feature releases
+- Key partnerships or alliances
+- Leadership changes (CEO, CTO, board)
+- Funding rounds or IPO activity
+- Geographic expansion
+
+Then provide:
+1. A summary table: Company | Move | Date | Significance
+2. Three "signal" insights: what do these moves collectively
+   tell us about where this market is heading?
+3. Any moves that directly threaten or create opportunity
+   for [CLIENT NAME / your client's positioning]</pre>
+                        </div>
+                        <p><strong>What to look for:</strong> Copilot may miss very recent news (last 1&ndash;2 weeks). If you know of a recent move, add it: <em>&ldquo;Also note that [Company X] just announced [move] on [date]. Factor this into your analysis.&rdquo;</em></p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="workflow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Synthesize &amp; Create the Deliverable</h3>
+                        <p>Pull everything together into a client-ready format.</p>
+                        <div class="prompt-template">
+                            <p class="prompt-label">Copy &amp; paste this prompt:</p>
+                            <pre class="prompt-code">Synthesize all the competitive analysis above into a structured
+briefing for a consulting engagement.
+
+Create:
+1. Executive Summary (3-4 sentences: market overview, key dynamics,
+   biggest competitive threats/opportunities)
+2. Competitive Landscape Overview (1 paragraph)
+3. The competitor comparison table (cleaned up)
+4. The 2x2 positioning map with rationale
+5. Top 5 strategic implications for [CLIENT CONTEXT]:
+   - What does this mean for their competitive position?
+   - Where are the biggest threats?
+   - Where is the white space opportunity?
+6. Recommended next steps for deeper analysis
+
+Use an analytical, consulting tone. Lead with "so what" insights,
+not just data. Format with clear headers I can paste into a slide
+deck outline.</pre>
+                        </div>
+                        <p><strong>What to look for:</strong> The &ldquo;strategic implications&rdquo; section is where you add the most value. Use Copilot&rsquo;s draft as a starting point, then add your own client-specific context and judgment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- E) Competitor Profile Template -->
+        <section class="section">
+            <h2 class="section-title">Competitor Profile Template</h2>
+            <p class="section-desc">Use this template as a starting point for individual deep-dive profiles. Copy the prompt below to generate a profile for any single competitor.</p>
+
+            <div class="prompt-template">
+                <p class="prompt-label">Single Competitor Deep-Dive Prompt:</p>
+                <pre class="prompt-code">@Researcher
+
+Create a comprehensive competitor profile for [COMPANY NAME]
+in the context of the [INDUSTRY/SEGMENT] market.
+
+## Company Overview
+- Full name, HQ, founding year, public/private status
+- CEO and key leadership
+- Mission/vision statement (if publicly stated)
+- Estimated revenue, employee count, growth trajectory
+
+## Products & Services
+- Core offerings in this segment
+- Pricing model (subscription, per-seat, usage-based, etc.)
+- Key differentiators vs. alternatives
+- Technology platform or approach
+
+## Market Position
+- Target customer segments (size, industry, geography)
+- Estimated market share in [specific segment]
+- Key wins or reference customers (publicly known)
+- Channel strategy (direct, partners, self-serve)
+
+## Strategy & Direction
+- Recent strategic moves (last 12 months)
+- Stated growth priorities (from earnings calls, press)
+- Investment areas (R&D, geographic expansion, M&A)
+- Potential vulnerabilities or challenges
+
+## Competitive Assessment
+- Top 3 strengths vs. [CLIENT or other competitors]
+- Top 3 weaknesses or gaps
+- Threat level to [CLIENT]: High / Medium / Low (with rationale)
+
+Flag all estimates. Cite sources where possible.</pre>
+            </div>
+        </section>
+
+        <!-- F) Worked Example -->
+        <section class="section section-alt">
+            <h2 class="section-title">Worked Example: B2B SaaS Customer Success Platforms</h2>
+            <p class="section-desc">Here&rsquo;s what a real workflow looks like, from first prompt to final output. Follow along or adapt the prompts for your own industry.</p>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Step 1: Identifying the Competitive Set</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p><strong>Prompt sent:</strong></p>
+                        <pre class="prompt-code">@Researcher
+I'm researching the B2B customer success software market in North America.
+Identify the top 8-10 competitors. For each: company name, HQ, estimated
+revenue, primary product, target segment. Include leaders and challengers.</pre>
+                        <p><strong>What Copilot returned:</strong> A list of 10 companies including Gainsight, Totango, ChurnZero, Planhat, Vitally, and others with estimated revenues ranging from $15M to $200M+.</p>
+                        <p><strong>What we did next:</strong> Added ClientSuccess and Catalyst (two players we knew from the client&rsquo;s RFP process) by replying: <em>&ldquo;Also include ClientSuccess and Catalyst. They were in our client&rsquo;s final evaluation.&rdquo;</em></p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Step 2: Building the Profile Table</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p><strong>What Copilot produced:</strong> A 12-column table for 8 competitors. Three revenue figures were flagged as estimates.</p>
+                        <p><strong>Follow-up refinement:</strong></p>
+                        <pre class="prompt-code">Gainsight's revenue looks low. They raised $200M+ in funding and claim
+1,000+ enterprise customers. Re-check and also add their recent Staircase AI
+acquisition to the strategic moves column.</pre>
+                        <p><strong>Lesson:</strong> Copilot corrected the estimate and added the acquisition. Always sanity-check the biggest players &mdash; that&rsquo;s where errors are most visible to clients.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Step 3: The Positioning Map</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p><strong>What Copilot suggested:</strong> Axes of &ldquo;Enterprise vs. SMB focus&rdquo; (x-axis) and &ldquo;Platform breadth vs. Point solution&rdquo; (y-axis).</p>
+                        <p><strong>Why this worked:</strong> These axes captured the real strategic tension in this market &mdash; some vendors are building all-in-one platforms while others specialize. The enterprise/SMB axis revealed different go-to-market strategies.</p>
+                        <p><strong>What we changed:</strong> Relabeled the x-axis from &ldquo;Enterprise vs. SMB&rdquo; to &ldquo;Upmarket Enterprise vs. Mid-Market&rdquo; to match how the client thinks about their market.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Step 5: The Final Deliverable</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p><strong>Total time:</strong> 18 minutes from first prompt to final synthesis.</p>
+                        <p><strong>What went into the client deck:</strong></p>
+                        <ul>
+                            <li>Competitive landscape overview slide (from the exec summary)</li>
+                            <li>Competitor comparison table (reformatted in PowerPoint)</li>
+                            <li>2&times;2 positioning map (recreated as a visual)</li>
+                            <li>Strategic implications slide with 5 &ldquo;so what&rdquo; bullets</li>
+                        </ul>
+                        <p><strong>What we added manually:</strong> Client-specific context (their positioning on the 2&times;2), our proprietary interview data, and a recommendation on which competitors to watch most closely. The AI did 70% of the research &mdash; we added the 30% of judgment and client context.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- G) Practice exercises -->
+        <section class="section">
+            <h2 class="section-title">Practice Exercises</h2>
+            <p class="section-desc">Try these on your own. Each takes 10&ndash;15 minutes. Use the workflow above and adapt the prompts.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Exercise 1: Your Current Engagement</h3>
+                    <p>Pick the client you&rsquo;re working with right now. Run the full 5-step workflow for their competitive landscape. Compare the result to whatever competitive slides already exist in the engagement folder.</p>
+                    <p><strong>Goal:</strong> Find at least 2 competitors or data points the existing deck is missing.</p>
+                </div>
+                <div class="card">
+                    <h3>Exercise 2: Adjacent Market Scan</h3>
+                    <p>A client asks: &ldquo;Who would compete with us if we entered [adjacent market]?&rdquo; Use Steps 1&ndash;3 to produce a competitive scan of the adjacent market and a positioning map showing where the client would likely land.</p>
+                    <p><strong>Goal:</strong> Produce a 1-page briefing in under 15 minutes.</p>
+                </div>
+                <div class="card">
+                    <h3>Exercise 3: Disruption Watch</h3>
+                    <p>Use the &ldquo;Recent Moves &amp; Signals&rdquo; prompt (Step 4) for an industry you follow. Then ask Copilot: <em>&ldquo;Which of these moves signals a potential disruption to the current market structure? Why?&rdquo;</em></p>
+                    <p><strong>Goal:</strong> Identify one non-obvious insight about where the market is heading.</p>
+                </div>
+                <div class="card">
+                    <h3>Exercise 4: Single Deep-Dive</h3>
+                    <p>Pick one competitor and use the Competitor Profile Template (Section E above). Then challenge Copilot: <em>&ldquo;What are the 3 biggest risks to this company&rsquo;s market position over the next 2 years?&rdquo;</em></p>
+                    <p><strong>Goal:</strong> Produce a profile you&rsquo;d be comfortable sharing with a client.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- H) Common mistakes + fixes -->
+        <section class="section section-alt">
+            <h2 class="section-title">Common Mistakes &amp; Fixes</h2>
+
+            <div class="two-column">
+                <div class="column">
+                    <h3 class="column-header column-header-caution">The Mistake</h3>
+                    <ul class="x-list">
+                        <li><strong>Trusting revenue numbers without checking.</strong> Copilot estimates revenue for private companies and sometimes gets it wrong by 2&ndash;3x.</li>
+                        <li><strong>Forgetting to use Web mode.</strong> In &ldquo;Work&rdquo; mode, Copilot searches your internal files, not the internet. You&rsquo;ll get irrelevant results.</li>
+                        <li><strong>Asking for everything in one prompt.</strong> A single prompt like &ldquo;give me a full competitive analysis&rdquo; produces shallow, generic output.</li>
+                        <li><strong>Not specifying the geography or segment.</strong> &ldquo;Competitors in SaaS&rdquo; is too broad. Copilot needs a specific market definition.</li>
+                        <li><strong>Skipping the refinement step.</strong> The first output is a draft, not a deliverable. Always review, challenge, and ask follow-ups.</li>
+                        <li><strong>Putting AI-generated numbers in a deck without verification.</strong> A client will check. If Copilot says &ldquo;$500M revenue&rdquo; and the real number is $200M, your credibility is damaged.</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3 class="column-header column-header-good">The Fix</h3>
+                    <ul class="check-list">
+                        <li><strong>Cross-reference big numbers.</strong> For public companies, check investor relations pages. For private companies, use Pitchbook, Crunchbase, or note &ldquo;estimated&rdquo; explicitly.</li>
+                        <li><strong>Check the toggle before you start.</strong> The Web/Work toggle is at the top of the Copilot chat. Web = public internet. Work = your M365 files.</li>
+                        <li><strong>Use the 5-step workflow.</strong> Break the analysis into discrete prompts. Each step builds on the last and produces better output.</li>
+                        <li><strong>Define scope upfront.</strong> &ldquo;B2B customer success software in North America for mid-market companies&rdquo; gives Copilot a clear target.</li>
+                        <li><strong>Budget 5 minutes for refinement.</strong> After each step, ask 1&ndash;2 follow-up questions. This is where the quality jumps.</li>
+                        <li><strong>Label everything.</strong> Mark estimates as &ldquo;~$XXM (est.)&rdquo; in your deliverable. Clients respect transparency about data confidence.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- I) Next steps -->
+        <section class="section">
+            <h2 class="section-title">Next Steps</h2>
+            <p class="section-desc">Now that you&rsquo;ve built a competitive analysis with Copilot, here&rsquo;s where to go next.</p>
+
+            <div class="card-grid">
+                <a href="prompt-training.html" class="card card-link">
+                    <h3>Improve Your Prompts</h3>
+                    <p>Learn the CRAFT framework to write even more effective prompts for research, synthesis, and deliverables.</p>
+                    <span class="card-cta">Prompt Engineering &rarr;</span>
+                </a>
+                <a href="qw-deck-drafts.html" class="card card-link">
+                    <h3>Turn Analysis into Slides</h3>
+                    <p>Use the Deck Drafting quick win to convert your competitive analysis into a slide-by-slide storyline.</p>
+                    <span class="card-cta">Deck Drafting &rarr;</span>
+                </a>
+                <a href="copilot-102.html" class="card card-link">
+                    <h3>Explore More Agents</h3>
+                    <p>Researcher is just one agent. Learn about others for data analysis, writing, and project management.</p>
+                    <span class="card-cta">Copilot 102 &rarr;</span>
+                </a>
+                <a href="prompt-library.html" class="card card-link">
+                    <h3>Browse the Prompt Library</h3>
+                    <p>Find ready-to-use prompts for other consulting workflows &mdash; interviews, market sizing, client emails, and more.</p>
+                    <span class="card-cta">Prompt Library &rarr;</span>
+                </a>
+            </div>
+
+            <div class="content-block callout">
+                <h4>The Consultant&rsquo;s Rule</h4>
+                <p>Use Copilot to go from 0 to 70% faster. Then apply your expertise, client context, and judgment to get from 70% to 100%. The AI accelerates your research &mdash; it doesn&rsquo;t replace your analysis.</p>
+            </div>
+
+            <div class="module-completion" data-module-complete="competitive-analysis"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company &mdash; Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/vendor/msal-browser.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
+</body>
+</html>

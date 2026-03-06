@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Library — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <div class="nav-dropdown">
+                <a href="suggested-training-flow.html" class="nav-link nav-dropdown-toggle">Trainings <span class="nav-dropdown-arrow">&#x25BE;</span></a>
+                <div class="nav-dropdown-menu">
+                    <a href="suggested-training-flow.html" class="nav-dropdown-item">Suggested Flow</a>
+                    <a href="training-library.html" class="nav-dropdown-item">Training Library</a>
+                    <a href="quick-wins.html" class="nav-dropdown-item">Quick Wins</a>
+                    <a href="live-trainings.html" class="nav-dropdown-item">Live Trainings</a>
+                </div>
+            </div>
+            <a href="prompt-library.html" class="nav-link active">Prompt Library</a>
+            <a href="phase-zero.html" class="nav-link">Phase Zero</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Prompt Library</h1>
+            <p>Ready-to-use prompt templates for common consulting tasks. Search, filter, and save the ones you use most.</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <!-- Prompt Coach -->
+        <section class="section">
+            <p class="section-desc" style="margin-bottom: 1.25rem;">Not sure how to phrase it? Build a prompt from scratch or drop your draft here and we'll tighten it up.</p>
+
+            <div class="pc-coach-mount"></div>
+        </section>
+
+        <section class="section section-alt">
+            <!-- Search -->
+            <div class="prompt-search-bar">
+                <input type="text" id="prompt-search" placeholder="Search prompts..." aria-label="Search prompts">
+            </div>
+
+            <!-- Filter Chips -->
+            <div class="filter-chips">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="research">Research</button>
+                <button class="filter-btn" data-filter="synthesis">Synthesis</button>
+                <button class="filter-btn" data-filter="editing">Editing</button>
+                <button class="filter-btn" data-filter="brainstorming">Brainstorming</button>
+                <button class="filter-btn" data-filter="data">Data</button>
+                <button class="filter-btn" data-filter="communication">Communication</button>
+            </div>
+
+            <!-- Prompt Cards -->
+            <div class="prompt-cards-grid">
+
+                <!-- Research -->
+                <div class="prompt-card" data-category="research">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Market Sizing Brief</span>
+                        <span class="prompt-card-cat">Research</span>
+                    </div>
+                    <p class="prompt-card-situation">You need a quick TAM/SAM estimate and industry overview for a new engagement.</p>
+                    <pre class="prompt-template-text">I'm a strategy consultant preparing for a client engagement in [INDUSTRY]. Create a market sizing brief: (1) TAM/SAM estimates with sources, (2) top 10 players by revenue, (3) growth drivers for the next 3-5 years, (4) buyer segments. Format as a structured outline.</pre>
+                    <p class="prompt-card-notes">Works best in Copilot web mode for broad research. Verify numbers against primary sources.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="research">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Competitor Deep Dive</span>
+                        <span class="prompt-card-cat">Research</span>
+                    </div>
+                    <p class="prompt-card-situation">You need detailed intelligence on a specific competitor for a client briefing.</p>
+                    <pre class="prompt-template-text">Act as a competitive intelligence analyst. Create a detailed profile of [COMPANY] including: (1) revenue and growth trajectory, (2) product/service portfolio, (3) key differentiators, (4) recent strategic moves (M&A, partnerships, expansions), (5) known weaknesses or vulnerabilities. Format as a structured briefing document.</pre>
+                    <p class="prompt-card-notes">Cross-reference with annual reports and press releases for accuracy.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="research">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Industry Trend Scanner</span>
+                        <span class="prompt-card-cat">Research</span>
+                    </div>
+                    <p class="prompt-card-situation">You need to identify emerging trends for an industry landscape section of a deck.</p>
+                    <pre class="prompt-template-text">Identify the top 5-7 emerging trends in [INDUSTRY] that a strategy consulting team should monitor. For each: (1) describe the trend in 1-2 sentences, (2) estimate the timeline for impact, (3) note which company types are most affected, (4) flag any risks. Format as a table.</pre>
+                    <p class="prompt-card-notes">Good for kickoff prep and landscape sections. Pair with expert interviews for validation.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Synthesis -->
+                <div class="prompt-card" data-category="synthesis">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Interview Theme Synthesis</span>
+                        <span class="prompt-card-cat">Synthesis</span>
+                    </div>
+                    <p class="prompt-card-situation">You've completed multiple stakeholder interviews and need to find patterns.</p>
+                    <pre class="prompt-template-text">Synthesize these [N] interview notes: (1) identify top 5 recurring themes, (2) note where interviewees disagree, (3) flag 3-5 strong quotes for presentation, (4) suggest 2-3 hypotheses. Tag themes with interviewee names.
+
+[PASTE NOTES]</pre>
+                    <p class="prompt-card-notes">Best with detailed notes. Use Copilot in Word for longer documents.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="synthesis">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Meeting Notes to Action Items</span>
+                        <span class="prompt-card-cat">Synthesis</span>
+                    </div>
+                    <p class="prompt-card-situation">You need to turn messy meeting notes into structured action items.</p>
+                    <pre class="prompt-template-text">Convert these meeting notes into: (1) key decisions made, (2) action items with owner and deadline, (3) open questions for follow-up, (4) a 2-sentence summary of the meeting. Format as a structured list.
+
+[PASTE NOTES]</pre>
+                    <p class="prompt-card-notes">Great for post-meeting follow-ups. Works well in Teams Copilot too.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="synthesis">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Document Summary with So-Whats</span>
+                        <span class="prompt-card-cat">Synthesis</span>
+                    </div>
+                    <p class="prompt-card-situation">You need to distill a long report into key takeaways for a client conversation.</p>
+                    <pre class="prompt-template-text">Summarize this document for a senior consulting team. Include: (1) 3-5 key findings, (2) implications for our client, (3) any data points worth citing in a presentation, (4) recommended next steps. Keep it under 300 words.
+
+[PASTE DOCUMENT TEXT]</pre>
+                    <p class="prompt-card-notes">Use Copilot in Word for documents already in M365.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Editing -->
+                <div class="prompt-card" data-category="editing">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Slide Headline Sharpener</span>
+                        <span class="prompt-card-cat">Editing</span>
+                    </div>
+                    <p class="prompt-card-situation">Your slide headlines are descriptive rather than action-oriented.</p>
+                    <pre class="prompt-template-text">Rewrite these slide headlines to be action-oriented and insight-driven (consulting style). Each headline should communicate the "so what" in one sentence. Current headlines:
+1. [HEADLINE 1]
+2. [HEADLINE 2]
+3. [HEADLINE 3]</pre>
+                    <p class="prompt-card-notes">Great for converting descriptive titles ("Market Overview") to action titles ("Market is consolidating around 3 major players").</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="editing">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Executive Summary Polisher</span>
+                        <span class="prompt-card-cat">Editing</span>
+                    </div>
+                    <p class="prompt-card-situation">You need to tighten an executive summary to be more concise and impactful.</p>
+                    <pre class="prompt-template-text">Rewrite this executive summary to be: (1) under 150 words, (2) structured as situation-complication-resolution, (3) written for a C-suite audience, (4) free of jargon. Preserve all key conclusions.
+
+[PASTE TEXT]</pre>
+                    <p class="prompt-card-notes">The situation-complication-resolution structure works well for consulting deliverables.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Brainstorming -->
+                <div class="prompt-card" data-category="brainstorming">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Hypothesis Generator</span>
+                        <span class="prompt-card-cat">Brainstorming</span>
+                    </div>
+                    <p class="prompt-card-situation">You're early in an engagement and need testable hypotheses to structure your workstreams.</p>
+                    <pre class="prompt-template-text">We're advising a [CLIENT TYPE] on [STRATEGIC QUESTION]. Generate 5-7 testable hypotheses that could explain [OBSERVED CHALLENGE/OPPORTUNITY]. For each: (1) state the hypothesis clearly, (2) describe what data would prove/disprove it, (3) rate confidence (low/medium/high). Group by theme.</pre>
+                    <p class="prompt-card-notes">Use early in engagements to structure workstreams and research priorities.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="brainstorming">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Strategic Options Framework</span>
+                        <span class="prompt-card-cat">Brainstorming</span>
+                    </div>
+                    <p class="prompt-card-situation">You need to present 3&ndash;4 strategic options for a client decision.</p>
+                    <pre class="prompt-template-text">Create 3-4 strategic options for [CLIENT] to address [CHALLENGE]. For each option: (1) name and 1-sentence description, (2) key advantages, (3) key risks, (4) estimated investment level (low/medium/high), (5) time to impact. Include a recommendation with rationale.</pre>
+                    <p class="prompt-card-notes">Good for structuring the "options" slide in strategy decks.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Data -->
+                <div class="prompt-card" data-category="data">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Survey Data Analyzer</span>
+                        <span class="prompt-card-cat">Data</span>
+                    </div>
+                    <p class="prompt-card-situation">You have survey results and need to find the story for a client presentation.</p>
+                    <pre class="prompt-template-text">Analyze this survey data from [N] respondents about [TOPIC]: (1) identify top 3 patterns, (2) segment by [DIMENSION], (3) highlight counterintuitive findings, (4) draft "so what" statements for a client deck. Focus on actionable insights.
+
+[PASTE DATA]</pre>
+                    <p class="prompt-card-notes">Works best when you describe the data structure first. Consider using Copilot in Excel for large datasets.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="data">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Financial Metrics Interpreter</span>
+                        <span class="prompt-card-cat">Data</span>
+                    </div>
+                    <p class="prompt-card-situation">You have financial data and need to extract insights for a PE or corporate client.</p>
+                    <pre class="prompt-template-text">Interpret these financial metrics for a [PE/corporate] client: (1) identify 3 most significant trends, (2) benchmark against industry averages if possible, (3) flag any red flags or opportunities, (4) suggest 2-3 questions to investigate further. Present as a structured analysis.
+
+[PASTE METRICS]</pre>
+                    <p class="prompt-card-notes">Always verify financial figures. Use as a starting point, not a final analysis.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Communication -->
+                <div class="prompt-card" data-category="communication">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Client Progress Update</span>
+                        <span class="prompt-card-cat">Communication</span>
+                    </div>
+                    <p class="prompt-card-situation">You need to send a progress update email to a VP-level client sponsor.</p>
+                    <pre class="prompt-template-text">Draft a concise progress update email to [CLIENT TITLE] at [COMPANY]. Cover: (1) key findings so far — [BRIEF SUMMARY], (2) next steps — [WHAT'S NEXT], (3) open items — [WHAT WE NEED]. Tone: professional but warm. Under 150 words.</pre>
+                    <p class="prompt-card-notes">Keep it short. Senior clients appreciate brevity and clarity.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="communication">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Internal Team Update</span>
+                        <span class="prompt-card-cat">Communication</span>
+                    </div>
+                    <p class="prompt-card-situation">You need to send a team sync email after an internal call.</p>
+                    <pre class="prompt-template-text">Draft a follow-up email after our team sync on [ENGAGEMENT]. Cover: (1) decisions made, (2) action items with owners and deadlines, (3) open questions for next meeting. Tone: concise and collaborative. Under 200 words.</pre>
+                    <p class="prompt-card-notes">Can also use Copilot in Teams to auto-generate from meeting transcripts.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <div class="prompt-card" data-category="communication">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Stakeholder Interview Request</span>
+                        <span class="prompt-card-cat">Communication</span>
+                    </div>
+                    <p class="prompt-card-situation">You need to schedule interviews with client stakeholders and want a professional outreach email.</p>
+                    <pre class="prompt-template-text">Draft an email requesting a 30-minute interview with [STAKEHOLDER ROLE] at [COMPANY]. Context: we're conducting a [PROJECT TYPE] and their perspective on [TOPIC] would be valuable. Include: (1) brief project context, (2) what we'd like to discuss, (3) proposed times, (4) assurance of confidentiality. Tone: respectful and professional.</pre>
+                    <p class="prompt-card-notes">Personalize the opening line for each stakeholder.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Meeting Prep -->
+                <div class="prompt-card" data-category="synthesis">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Meeting Prep Brief</span>
+                        <span class="prompt-card-cat">Synthesis</span>
+                    </div>
+                    <p class="prompt-card-situation">You have a client meeting in an hour and need to get up to speed quickly.</p>
+                    <pre class="prompt-template-text">I have a meeting with [CLIENT/STAKEHOLDER] in one hour about [TOPIC]. Based on this context, prepare a 1-page meeting prep brief: (1) 3-5 key points I should know going in, (2) likely questions they'll ask and suggested responses, (3) 2-3 questions I should ask them, (4) potential risks or sensitive topics to navigate carefully.
+
+[PASTE RELEVANT CONTEXT: prior emails, notes, project background]</pre>
+                    <p class="prompt-card-notes">Use Copilot at Work to pull in recent emails/chats with this contact automatically.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Project Kickoff -->
+                <div class="prompt-card" data-category="brainstorming">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Project Kickoff Structurer</span>
+                        <span class="prompt-card-cat">Brainstorming</span>
+                    </div>
+                    <p class="prompt-card-situation">You're starting a new engagement and need to structure the initial workplan.</p>
+                    <pre class="prompt-template-text">We're kicking off a [PROJECT TYPE] engagement for a [CLIENT TYPE] client. The key question is: [STRATEGIC QUESTION]. Draft an initial workplan: (1) 3-4 workstreams with descriptions, (2) key activities for weeks 1-2, (3) data/information we'll need from the client, (4) potential risks and mitigations. Format as a structured outline suitable for an internal kickoff deck.</pre>
+                    <p class="prompt-card-notes">Refine the workstreams based on actual scope documents and SOW.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+                <!-- Transcript Analysis -->
+                <div class="prompt-card" data-category="synthesis">
+                    <div class="prompt-card-header">
+                        <span class="prompt-card-title">Meeting Transcript Analyzer</span>
+                        <span class="prompt-card-cat">Synthesis</span>
+                    </div>
+                    <p class="prompt-card-situation">You have a Teams meeting transcript and need to extract structured insights from it.</p>
+                    <pre class="prompt-template-text">Analyze this meeting transcript and produce: (1) a 3-sentence executive summary, (2) decisions made (with who made them), (3) action items with owners and deadlines, (4) open questions or unresolved topics, (5) any risks or concerns raised. Flag anything that needs immediate follow-up.
+
+[PASTE TRANSCRIPT]</pre>
+                    <p class="prompt-card-notes">Works best with Copilot in Teams right after a transcribed meeting. See the Copilot Transcripts guide for more.</p>
+                    <button class="save-prompt-btn">Save</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/vendor/msal-browser.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
+    <script src="js/promptCoach.js"></script>
+</body>
+</html>

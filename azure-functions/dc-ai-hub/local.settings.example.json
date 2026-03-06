@@ -1,0 +1,18 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "TENANT_ID": "<TENANT_ID>",
+    "API_CLIENT_ID": "<API_CLIENT_ID>",
+    "AZURE_OPENAI_ENDPOINT": "https://<your-resource>.openai.azure.com",
+    "AZURE_OPENAI_API_KEY": "<your-api-key>",
+    "AZURE_OPENAI_DEPLOYMENT": "<deployment-name>",
+    "AZURE_OPENAI_API_VERSION": "2024-02-01",
+    "ALLOWED_ORIGIN": "https://flaviavacirca-lab.github.io",
+    "STORAGE_CONNECTION_STRING": "<your-storage-connection-string>",
+    "TELEMETRY_TABLE_NAME": "telemetry",
+    "COMPLETIONS_TABLE_NAME": "completions",
+    "ADMIN_EMAILS": "flavia.vacirca@denneen.com"
+  }
+}

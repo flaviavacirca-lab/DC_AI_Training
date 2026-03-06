@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signing in&hellip; &mdash; Denneen AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="login-page">
+    <main class="login-container">
+        <div class="login-card">
+            <div class="login-brand">
+                <span class="brand-mark">D&amp;C</span>
+            </div>
+            <h1>Signing you in&hellip;</h1>
+            <p class="login-subtitle">Please wait while we complete authentication.</p>
+            <div id="auth-error" class="auth-error-banner" hidden></div>
+        </div>
+    </main>
+
+    <script src="js/vendor/msal-browser.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        DCAuth.handleRedirectResponse().catch(function (err) {
+            var errorEl = document.getElementById('auth-error');
+            if (errorEl) {
+                errorEl.textContent = 'Authentication failed. Redirecting to login\u2026';
+                errorEl.hidden = false;
+            }
+            setTimeout(function () {
+                window.location.replace('index.html');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

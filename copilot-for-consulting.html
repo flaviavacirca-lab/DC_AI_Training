@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot for Consulting — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <div class="nav-dropdown">
+                <a href="suggested-training-flow.html" class="nav-link nav-dropdown-toggle active">Trainings <span class="nav-dropdown-arrow">&#x25BE;</span></a>
+                <div class="nav-dropdown-menu">
+                    <a href="suggested-training-flow.html" class="nav-dropdown-item">Suggested Flow</a>
+                    <a href="training-library.html" class="nav-dropdown-item">Training Library</a>
+                    <a href="quick-wins.html" class="nav-dropdown-item">Quick Wins</a>
+                    <a href="live-trainings.html" class="nav-dropdown-item">Live Trainings</a>
+                </div>
+            </div>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="phase-zero.html" class="nav-link">Phase Zero</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Copilot for Consulting</h1>
+            <p>Workflow-based modules organized around how you actually work. Each module includes a scenario, prompt comparisons, and a template you can use immediately.</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <section class="section">
+            <div class="module-objectives">
+                <h3>What you'll learn</h3>
+                <ul>
+                    <li>How to transform weak, generic prompts into structured, actionable ones</li>
+                    <li>Prompt templates for six core consulting workflows: research, interviews, decks, market mapping, data interpretation, and internal ops</li>
+                    <li>The difference between prompts that produce generic output vs. client-ready deliverables</li>
+                    <li>Reusable templates you can adapt immediately for your current engagements</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Module 1: Research & Market Sizing -->
+        <section class="section" id="research">
+            <div class="workflow-module">
+                <h3>Research &amp; Market Sizing</h3>
+                <div class="workflow-module-scenario">You're kicking off a new engagement and need to quickly build a fact base &mdash; market size, key players, industry dynamics. Instead of spending hours assembling data from multiple sources, use Copilot to generate a structured starting point.</div>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "Tell me about the healthcare IT market."
+                            <div class="prompt-comp-output">Output: Generic Wikipedia-style overview with no structure or actionability.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "I'm a strategy consultant preparing for a client engagement in U.S. healthcare IT. Create a market brief that includes: (1) estimated TAM/SAM with data sources, (2) top 10 vendors by revenue, (3) key growth drivers for the next 3&ndash;5 years, (4) buyer segments by organization type. Format as a structured outline with headers."
+                            <div class="prompt-comp-output">Output: Organized brief with sections, specific companies, and a framework you can use in client prep.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">I'm a strategy consultant preparing for a client engagement in [INDUSTRY/MARKET]. Create a market brief that includes:
+1. Estimated TAM/SAM with data sources
+2. Top [N] vendors/players by revenue or market share
+3. Key growth drivers for the next 3-5 years
+4. Buyer segments by [RELEVANT SEGMENTATION]
+Format as a structured outline with headers I can share with my team.</pre>
+                    <p class="try-it-note">Replace the bracketed sections with your specific engagement details.</p>
+                </div>
+
+                <p><a href="competitive-analysis.html">Full competitive analysis training module &rarr;</a></p>
+
+                <div class="module-completion" data-module-complete="cfc-research"></div>
+            </div>
+        </section>
+
+        <!-- Module 2: Interview & Qualitative Synthesis -->
+        <section class="section section-alt" id="interview">
+            <div class="workflow-module">
+                <h3>Interview &amp; Qualitative Synthesis</h3>
+                <div class="workflow-module-scenario">You've completed 6&ndash;10 stakeholder interviews and need to identify patterns, contradictions, and strong quotes for your final presentation. Normally this takes half a day; Copilot can give you a solid first pass in minutes.</div>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "Summarize these interview notes."
+                            <div class="prompt-comp-output">Output: Flat summary that loses the nuance and doesn't identify themes.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "I have notes from 8 stakeholder interviews for a strategy engagement. Synthesize them by: (1) identifying the top 5 recurring themes, (2) noting where interviewees disagree or contradict each other, (3) flagging 3&ndash;5 quotes that are strong for a client presentation, (4) suggesting 2&ndash;3 hypotheses these themes support. Tag each theme with which interviewees mentioned it."
+                            <div class="prompt-comp-output">Output: Structured synthesis with themes, tension points, usable quotes, and hypotheses.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">I have notes from [N] stakeholder interviews for a [TYPE] engagement. Synthesize them by:
+1. Identifying the top 5 recurring themes across interviewees
+2. Noting where interviewees disagree or contradict each other
+3. Flagging 3-5 quotes suitable for a client presentation
+4. Suggesting 2-3 hypotheses these themes support
+Tag each theme with which interviewees mentioned it.
+
+[PASTE INTERVIEW NOTES]</pre>
+                </div>
+
+                <div class="module-completion" data-module-complete="cfc-interview"></div>
+            </div>
+        </section>
+
+        <!-- Module 3: Deck Drafting & Storylining -->
+        <section class="section" id="deck">
+            <div class="workflow-module">
+                <h3>Deck Drafting &amp; Storylining</h3>
+                <div class="workflow-module-scenario">You need to build a 12&ndash;20 slide strategy deck for a client presentation. The blank page is the hardest part. Use Copilot to generate a slide-by-slide storyline with headlines, bullet points, and visual suggestions.</div>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "Help me make a PowerPoint about our findings."
+                            <div class="prompt-comp-output">Output: Generic slide titles with no storyline or consulting structure.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "I'm building a 15-slide strategy deck for a PE-backed consumer brand. The engagement focused on geographic expansion. Draft a slide-by-slide storyline: (1) executive summary, (2) market opportunity by region, (3) competitive landscape, (4) recommended markets, (5) financial projections, (6) implementation roadmap. For each slide: give the headline (action-oriented, 1 sentence), 3&ndash;4 body bullets, and a note on the best visual/chart."
+                            <div class="prompt-comp-output">Output: Full storyline with action titles, structured content, and visual guidance per slide.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">I'm building a [N]-slide strategy deck for [CLIENT TYPE/CONTEXT]. The engagement focused on [TOPIC].
+Draft a slide-by-slide storyline that includes:
+1. Executive summary
+2. [KEY SECTION 1]
+3. [KEY SECTION 2]
+4. Recommendations
+5. Implementation roadmap
+For each slide, provide:
+- Headline (action-oriented, 1 sentence)
+- 3-4 body bullets
+- A note on the best visual or chart to use</pre>
+                </div>
+
+                <div class="module-completion" data-module-complete="cfc-deck"></div>
+            </div>
+        </section>
+
+        <!-- Module 4: Market Mapping & Hypothesis Development -->
+        <section class="section section-alt" id="mapping">
+            <div class="workflow-module">
+                <h3>Market Mapping &amp; Hypothesis Development</h3>
+                <div class="workflow-module-scenario">You need to build a competitive landscape for a client entering a new vertical. You want not just a list of competitors, but a structured map with positioning frameworks and testable hypotheses.</div>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "List competitors in fintech."
+                            <div class="prompt-comp-output">Output: A flat list with no structure, segmentation, or strategic framing.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "I'm mapping the competitive landscape for a client entering B2B fintech payments. Create: (1) 15&ndash;20 key players categorized by segment (processing, infrastructure, embedded finance), (2) for each: estimated revenue range, funding stage, key differentiator, (3) a 2x2 framework for positioning (e.g., scale vs. specialization), (4) 3 hypotheses about where the market is headed. Format as a table."
+                            <div class="prompt-comp-output">Output: Structured competitive map with segmentation, a positioning framework, and forward-looking hypotheses.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">I'm mapping the competitive landscape for a client in [INDUSTRY/VERTICAL]. Create:
+1. [N] key players categorized by segment ([SEGMENTS])
+2. For each: estimated revenue range, funding stage, key differentiator
+3. A 2x2 positioning framework (e.g., [AXIS 1] vs. [AXIS 2])
+4. 3 hypotheses about where the market is headed
+Format as a table I can paste into a deck.</pre>
+                </div>
+
+                <div class="module-completion" data-module-complete="cfc-mapping"></div>
+            </div>
+        </section>
+
+        <!-- Module 5: Data Interpretation Support -->
+        <section class="section" id="data">
+            <div class="workflow-module">
+                <h3>Data Interpretation Support</h3>
+                <div class="workflow-module-scenario">You have survey data, financial metrics, or market data that needs to be turned into insights for a client presentation. You need the "so what" &mdash; not just descriptions of what the numbers say.</div>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "What does this data show?"
+                            <div class="prompt-comp-output">Output: Restates the numbers without interpretation or actionable insight.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "I have survey data from 200 enterprise software buyers. Help me: (1) identify the top 3 statistically notable patterns, (2) segment respondents by role (end user, IT buyer, exec sponsor), (3) highlight counterintuitive findings, (4) draft 2&ndash;3 'so what' statements for a client presentation. Focus on actionable insights, not descriptive statistics."
+                            <div class="prompt-comp-output">Output: Pattern analysis, segmented view, surprises, and presentation-ready "so what" statements.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">I have [DATA TYPE] from [N] respondents/records about [TOPIC]. Help me:
+1. Identify the top 3 statistically notable patterns
+2. Segment by [RELEVANT DIMENSION]
+3. Highlight any counterintuitive findings
+4. Draft 2-3 "so what" statements for a client presentation
+Focus on actionable insights, not descriptive statistics.
+
+[PASTE DATA OR DESCRIBE KEY METRICS]</pre>
+                </div>
+
+                <div class="module-completion" data-module-complete="cfc-data"></div>
+            </div>
+        </section>
+
+        <!-- Module 6: Internal Ops & Email Efficiency -->
+        <section class="section section-alt" id="ops">
+            <div class="workflow-module">
+                <h3>Internal Ops &amp; Email Efficiency</h3>
+                <div class="workflow-module-scenario">Beyond client work, Copilot can speed up internal tasks &mdash; meeting prep, follow-up emails, status updates, and coordination across the team.</div>
+
+                <div class="prompt-comparison">
+                    <div class="prompt-weak">
+                        <div class="prompt-comp-header">Weak Prompt</div>
+                        <div class="prompt-comp-body">
+                            "Write an email about the meeting."
+                            <div class="prompt-comp-output">Output: Vague, overly generic email with no context or structure.</div>
+                        </div>
+                    </div>
+                    <div class="prompt-improved">
+                        <div class="prompt-comp-header">Improved Prompt</div>
+                        <div class="prompt-comp-body">
+                            "Draft a follow-up email after our internal team sync on the [Client] engagement. Cover: (1) 3 decisions made today, (2) action items with owners and deadlines, (3) open questions for next week. Tone should be concise and collaborative. Under 200 words."
+                            <div class="prompt-comp-output">Output: Clean, structured follow-up ready to send with decisions, actions, and next steps.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="try-it-box">
+                    <h4>Try This on Your Next Project</h4>
+                    <pre class="prompt-code">Draft a [EMAIL TYPE] for [AUDIENCE/CONTEXT]. Cover:
+1. [KEY POINT 1]
+2. [KEY POINT 2]
+3. [KEY POINT 3]
+Tone: [concise/formal/collaborative]. Under [N] words.</pre>
+                </div>
+
+                <p><a href="email-agent.html">Full email agent training module &rarr;</a></p>
+
+                <div class="module-completion" data-module-complete="cfc-ops"></div>
+            </div>
+        </section>
+
+        <!-- What's Next -->
+        <section class="section">
+            <h2 class="section-title">What's Next?</h2>
+            <p class="section-desc">Deepen your skills with these related training modules.</p>
+
+            <div class="card-grid">
+                <a href="prompt-training.html" class="card card-link">
+                    <div class="card-icon">&#x1F4AC;</div>
+                    <h3>Prompt Engineering</h3>
+                    <p>Master the CRAFT framework for structuring prompts that consistently produce high-quality outputs.</p>
+                    <span class="card-cta">Learn CRAFT &rarr;</span>
+                </a>
+                <a href="copilot-102.html" class="card card-link">
+                    <div class="card-icon">&#x1F916;</div>
+                    <h3>Copilot 102: Using Agents</h3>
+                    <p>Go beyond prompts &mdash; learn how to use specialized agents for research, writing, data, and project management.</p>
+                    <span class="card-cta">Explore Agents &rarr;</span>
+                </a>
+                <a href="competitive-analysis.html" class="card card-link">
+                    <div class="card-icon">&#x1F50D;</div>
+                    <h3>Competitive Analysis</h3>
+                    <p>See a full end-to-end workflow using the Researcher agent to build competitor profiles in 15 minutes.</p>
+                    <span class="card-cta">Competitive Analysis &rarr;</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/vendor/msal-browser.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
+</body>
+</html>

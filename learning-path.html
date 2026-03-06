@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <div class="nav-dropdown">
+                <a href="suggested-training-flow.html" class="nav-link nav-dropdown-toggle active">Trainings <span class="nav-dropdown-arrow">&#x25BE;</span></a>
+                <div class="nav-dropdown-menu">
+                    <a href="suggested-training-flow.html" class="nav-dropdown-item">Suggested Flow</a>
+                    <a href="training-library.html" class="nav-dropdown-item">Training Library</a>
+                    <a href="quick-wins.html" class="nav-dropdown-item">Quick Wins</a>
+                    <a href="live-trainings.html" class="nav-dropdown-item">Live Trainings</a>
+                </div>
+            </div>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="phase-zero.html" class="nav-link">Phase Zero</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Learning Path</h1>
+            <p>New to Copilot? Follow this path from beginning to end. Already comfortable with the basics? Jump to whichever module fits your needs.</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <section class="section">
+            <div id="progress-cards"></div>
+        </section>
+
+        <section class="section section-alt">
+            <h2 class="section-title">Recommended Order</h2>
+            <p class="section-desc">We suggest starting at the top and working your way down, but feel free to skip what you already know.</p>
+
+            <div class="learning-path">
+                <div class="path-step" data-path-module="copilot-101">
+                    <div class="path-number">1</div>
+                    <div class="path-content">
+                        <a href="copilot-101.html" class="path-link">
+                            <h3>Copilot 101: The Basics</h3>
+                            <p>Start here if you're new. Learn when to use web vs. work, how chat memory works, and how to navigate Copilot across your M365 apps.</p>
+                            <span class="card-cta">Start Here &rarr;</span>
+                        </a>
+                        <span class="path-tag path-tag-start">Start Here</span>
+                    </div>
+                </div>
+                <div class="path-connector"></div>
+                <div class="path-step" data-path-module="prompt-engineering">
+                    <div class="path-number">2</div>
+                    <div class="path-content">
+                        <a href="prompt-training.html" class="path-link">
+                            <h3>Prompt Engineering</h3>
+                            <p>Learn the CRAFT framework for writing effective prompts. Practice with an interactive coach and get instant feedback.</p>
+                            <span class="card-cta">Continue &rarr;</span>
+                        </a>
+                        <span class="path-tag path-tag-core">Core Skill</span>
+                    </div>
+                </div>
+                <div class="path-connector"></div>
+                <div class="path-step" data-path-module="copilot-102">
+                    <div class="path-number">3</div>
+                    <div class="path-content">
+                        <a href="copilot-102.html" class="path-link">
+                            <h3>Copilot 102: Using Agents</h3>
+                            <p>Go beyond basic chat. Learn which pre-built agents are available and how to pick the right one for research, writing, data analysis, and more.</p>
+                            <span class="card-cta">Continue &rarr;</span>
+                        </a>
+                        <span class="path-tag path-tag-core">Level Up</span>
+                    </div>
+                </div>
+                <div class="path-connector path-connector-branch"></div>
+                <div class="path-branch">
+                    <p class="path-branch-label">Choose your focus:</p>
+                    <div class="path-branch-options">
+                        <div class="path-step path-step-branch" data-path-module="competitive-analysis">
+                            <div class="path-number">4a</div>
+                            <div class="path-content">
+                                <a href="competitive-analysis.html" class="path-link">
+                                    <h3>Competitive Analysis with Copilot Researcher</h3>
+                                    <p>Build competitor profiles, positioning maps, and strategic insights using the Researcher agent.</p>
+                                    <span class="card-cta">Go &rarr;</span>
+                                </a>
+                                <span class="path-tag path-tag-applied">Applied</span>
+                            </div>
+                        </div>
+                        <div class="path-step path-step-branch" data-path-module="email-agent">
+                            <div class="path-number">4b</div>
+                            <div class="path-content">
+                                <a href="email-agent.html" class="path-link">
+                                    <h3>Build an Email Agent</h3>
+                                    <p>Build your own custom Copilot agent in Copilot Studio &mdash; a hands-on project to create an email drafting assistant.</p>
+                                    <span class="card-cta">Go &rarr;</span>
+                                </a>
+                                <span class="path-tag path-tag-applied">Hands-On</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Already Done With the Basics?</h2>
+            <p class="section-desc">Try the consulting-specific content:</p>
+            <div class="card-grid">
+                <a href="quick-wins.html" class="card card-link">
+                    <h3>Quick Wins</h3>
+                    <p>Practical before-and-after examples for common consulting tasks.</p>
+                    <span class="card-cta">Browse Quick Wins &rarr;</span>
+                </a>
+                <a href="copilot-for-consulting.html" class="card card-link">
+                    <h3>Copilot for Consulting</h3>
+                    <p>Workflow-based modules for research, synthesis, deck drafting, and more.</p>
+                    <span class="card-cta">View Modules &rarr;</span>
+                </a>
+                <a href="prompt-library.html" class="card card-link">
+                    <h3>Prompt Library</h3>
+                    <p>Copy-paste prompt templates for dozens of common scenarios.</p>
+                    <span class="card-cta">Browse Prompts &rarr;</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/vendor/msal-browser.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
+</body>
+</html>
