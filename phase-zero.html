@@ -294,24 +294,13 @@
             <h2 class="section-title">Why Phase Zero Breaks Without This Process</h2>
             <div class="two-column">
                 <div>
-                    <h4 class="column-header column-header-caution">The Problem</h4>
+                    <h4 class="column-header column-header-good">How This Process Improves Phase 0</h4>
                     <div class="mode-card">
-                        <p>Phase 0 work often fails because:</p>
+                        <p>This Copilot-enabled process improves standardization and decreases time (and $) spent:</p>
                         <ul class="feature-list">
-                            <li>Insights get scattered across notebooks, transcripts, and individual notes with no consistent structure</li>
-                            <li>Synthesis takes too long because every consultant formats and organizes their notes differently</li>
-                            <li>Phase 1 scope decisions end up relying on incomplete information because there is no systematic way to verify coverage</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="column-header column-header-good">How This Process Solves It</h4>
-                    <div class="mode-card">
-                        <p>This Copilot-enabled process addresses each issue directly:</p>
-                        <ul class="feature-list">
-                            <li><strong>Structured interview capture</strong> &mdash; every interview produces the same outputs in the same format, stored in the same location</li>
-                            <li><strong>Rapid synthesis across interviews</strong> &mdash; standardized theme tables allow cross-interview analysis in minutes, not days</li>
-                            <li><strong>Evidence-backed foundation for Phase 1</strong> &mdash; defensible data inventory and gap analysis ensure scope decisions are grounded in what the data actually shows</li>
+                            <li><strong>Structured interview capture</strong>; every interview produces the same outputs in the same format, stored in the same location</li>
+                            <li><strong>Rapid synthesis across interviews</strong>; standardized theme tables allow cross-interview analysis in minutes, not hours</li>
+                            <li><strong>Evidence-backed foundation for Phase 1</strong>; defensible data inventory and gap analysis ensure scope decisions are grounded in what the data actually shows</li>
                         </ul>
                     </div>
                 </div>
@@ -363,7 +352,7 @@
                     <li>Microsoft Teams (recording + transcription)</li>
                     <li>SharePoint</li>
                     <li>Copilot Chat</li>
-                    <li>(Optional, leads only) Copilot Notebook</li>
+                    <li>Copilot Notebook (Optional, but reccomended)</li>
                 </ul>
             </div>
 
@@ -437,6 +426,7 @@
                     <ul>
                         <li>Copilot needs to understand what questions were asked</li>
                         <li>This prevents generic or off-target summaries</li>
+                        <li>This does not limit interview flexibility - each interview being slightly different is not an issue for copilot</li>
                     </ul>
                 </div>
             </div>
@@ -450,12 +440,12 @@
                 </div>
                 <p>At the start of every Teams interview:</p>
                 <ul>
-                    <li>Turn <strong>Recording</strong> ON</li>
-                    <li>Turn <strong>Transcription</strong> ON</li>
+                    <li>Turn <strong>Recording</strong> ON (optional)</li>
+                    <li>Turn <strong>Transcription</strong> ON (required)</li>
                 </ul>
                 <p style="margin-top: 0.75rem;">After the meeting:</p>
                 <ol>
-                    <li>Locate the recording and transcript</li>
+                    <li>Copilot will create a teams chat from the meeting where you can download the transcript (and recording)</li>
                     <li>Upload them manually to:</li>
                 </ol>
 <div class="folder-tree">/02_Interview_Recordings
@@ -467,7 +457,7 @@
 
             <!-- Step 3 -->
             <div class="step-box">
-                <h3>Step 3 (Optional): Create a Copilot Notebook — Leads Only <span class="time-estimate">~5 min</span></h3>
+                <h3>Step 3: Create a Copilot Notebook (optional but highly reccomended) <span class="time-estimate">~5 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Phase 0 Lead</span>
                     <span><strong>File upload:</strong> Yes (add sources)</span>
@@ -482,21 +472,23 @@
                 <div class="callout callout-info" style="margin-top: 0.75rem;">
                     <h4>Why this helps</h4>
                     <ul>
-                        <li>Keeps Copilot focused only on interviews</li>
+                        <li>Copilot will only reference the documents you upload in this Notebook</li>
+                        <li>Copilot will not use sources from other projects or irrelevant documents when answering your prompts</li>
                         <li>Improves cross-interview synthesis</li>
-                        <li>Reduces risk of unrelated context</li>
+                        <li>Can become your "memory" of the interviews</li>
+                        <li>Becomes a great tool to find specific quotes by asking "which interview mentioned leadership oerreach?"</li>
                     </ul>
                 </div>
-                <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--gray-500);"><em>If you are summarizing individual interviews only, you may skip this step.</em></p>
+                <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--gray-500);"><em>If you are not planning on doing cross-interview analysis, you may skip this step.</em></p>
             </div>
 
             <!-- Step 4 -->
             <div class="step-box">
-                <h3>Step 4: Generate the Interview Summary (Required) <span class="time-estimate">~3&ndash;5 min per interview</span></h3>
+                <h3>Step 4: Generate the Interview Summary <span class="time-estimate">~5&ndash;10 min per interview</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Interview owner</span>
-                    <span><strong>Where:</strong> Copilot Chat (or Notebook if used)</span>
-                    <span><strong>File upload:</strong> Yes (explicitly reference files)</span>
+                    <span><strong>Where:</strong> Copilot Notebook (or Chat if Notebook not created)</span>
+                    <span><strong>File upload:</strong> Yes (Interview Guide + Transcript)</span>
                 </div>
                 <p><strong>Prompt</strong> (copy exactly):</p>
                 <div class="prompt-template">
@@ -522,7 +514,7 @@ Do not infer. Use only what was stated.</div>
                     <p>Copilot Chat does not generate downloadable Word files. You must:</p>
                     <ol>
                         <li>Copy the output</li>
-                        <li>Paste into a clean Word document</li>
+                        <li>Paste into a clean Word document (formatting does not matter)</li>
                         <li>Save as: <code>/04_Interview_Summaries/[IntervieweeName]_[Role]_Summary.docx</code></li>
                     </ol>
                 </div>
@@ -530,10 +522,10 @@ Do not infer. Use only what was stated.</div>
 
             <!-- Step 5 -->
             <div class="step-box">
-                <h3>Step 5: Tag Interview Themes (Standardized Table) <span class="time-estimate">~3&ndash;5 min per interview</span></h3>
+                <h3>Step 5: Tag Interview Themes (Standardized Table) <span class="time-estimate">~5 min per interview</span></h3>
                 <div class="step-meta">
-                    <span><strong>Where:</strong> Copilot Chat</span>
-                    <span><strong>File upload:</strong> Yes (summary + transcript)</span>
+                    <span><strong>Where:</strong> Copilot Notebook (or Chat if Notebook not created)</span>
+                    <span><strong>File upload:</strong> Yes (summary + transcript) -> not needed for Notebook</span>
                 </div>
                 <p>This step ensures all interviews produce identical, copy-paste-ready output.</p>
                 <p style="margin-top: 0.75rem;"><strong>Prompt</strong> (structure must not change):</p>
@@ -562,8 +554,12 @@ Rules:
                     <h4>Saving instructions</h4>
                     <ol>
                         <li>Copy the table</li>
-                        <li>Paste into Excel</li>
-                        <li>Save to: <code>/05_Interview_Theme_Log/Interview_Theme_Log.xlsx</code></li>
+                        <li>For the first interview of the projrct:
+                                Create a new excel
+                                Save to: <code>/05_Interview_Theme_Log/Interview_Theme_Log.xlsx</code>
+                                Paste table into Excel</li>
+                        <li>For all subsequent interviews:
+                                Paste table in <code>/05_Interview_Theme_Log/Interview_Theme_Log.xlsx</code></li>
                     </ol>
                 </div>
             </div>
@@ -573,8 +569,8 @@ Rules:
                 <h3>Step 6: Cross-Interview Theme Synthesis <span class="time-estimate">~10&ndash;15 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Who:</strong> Consultant / Workstream Lead</span>
-                    <span><strong>Where:</strong> Copilot Chat or Notebook</span>
-                    <span><strong>File upload:</strong> Yes (all summaries + theme log)</span>
+                    <span><strong>Where:</strong> Copilot Notebook (or Chat if Notebook not created) </span>
+                    <span><strong>File upload:</strong> Yes (all summaries + theme log) -> not needed for Notebook</span>
                 </div>
                 <p>This step identifies recurring patterns, points of agreement, and contradictions across all completed interviews. It is the bridge between individual interview outputs and Phase 1 hypothesis development.</p>
                 <p style="margin-top: 0.75rem;"><strong>Prompt:</strong></p>
@@ -602,9 +598,19 @@ Do not infer beyond what was stated in the interviews.</div>
                 <div class="save-instructions">
                     <h4>Saving instructions</h4>
                     <ol>
-                        <li>Copy the output</li>
-                        <li>Paste into a Word document</li>
+                        <li>Copy the full Copilot output</li>
+                        <li>Paste into a new Word document (formatting does not matter)</li>
                         <li>Save as: <code>/05_Interview_Theme_Log/Cross_Interview_Synthesis.docx</code></li>
+                    </ol>
+                </div>
+                </div>
+
+                <div class="save-instructions">
+                    <h4>Usage instructions</h4>
+                    <ol>
+                        <li>Read the output and ask Copilot follow-up questions on the content</li>
+                        <li>Use copilot chat as a thinking partner, give it your thoughts and hypotheses</li>
+                        <li>Remember copilot does not have your experience and knowledge</code></li>
                     </ol>
                 </div>
             </div>
@@ -621,7 +627,7 @@ Do not infer beyond what was stated in the interviews.</div>
                     <li><span class="compliance-check"></span> Theme table completed</li>
                     <li><span class="compliance-check"></span> Cross-interview synthesis completed</li>
                 </ul>
-                <p style="margin-top: 0.75rem; font-weight: 600; color: var(--red);">If any box is unchecked, the interview process is not complete.</p>
+                <p style="margin-top: 0.75rem; font-weight: 600; color: var(--red);">If any box is unchecked, the Phase 0 interviews are not complete.</p>
             </div>
         </section>
 
@@ -672,12 +678,16 @@ Do not infer beyond what was stated in the interviews.</div>
             <div class="step-box" style="margin-top: 1rem;">
                 <h3>Step 1: Finalize the Phase 0 Data Request List <span class="time-estimate">~10 min</span></h3>
                 <div class="step-meta">
-                    <span><strong>Who:</strong> Project Lead</span>
+                    <span><strong>Who:</strong> Workstream Lead</span>
                     <span><strong>File upload:</strong> Yes</span>
                 </div>
                 <p>Upload to:</p>
 <div class="folder-tree">/06_Data_Request/Phase_0_Data_Request_List.xlsx</div>
                 <p>This list defines what Phase 0 is assessing.</p>
+                <ul>
+                    <li>This is currently done in a slide, often repeated from project to project</li>
+                    <li>Developing this data request to be more detailed will (1) strengthen Copilot outputs, and (2) improve data we receive from the client</li>
+                </ul>
             </div>
 
             <!-- Step 2 -->
@@ -696,11 +706,11 @@ Do not infer beyond what was stated in the interviews.</div>
 
             <!-- Step 3 -->
             <div class="step-box">
-                <h3>Step 3: Batch Document Analysis (Required for 20+ Documents) <span class="time-estimate">~10&ndash;20 min</span></h3>
+                <h3>Step 3: Batch Document Analysis <span class="time-estimate">~10&ndash;20 min</span></h3>
                 <div class="step-meta">
                     <span><strong>Method:</strong> Copilot Notebook</span>
                 </div>
-                <p>Using a Notebook avoids running prompts 80+ times individually.</p>
+                <p>Using a Notebook avoids having to upload all files individually in each chat.</p>
 
                 <h4 style="margin-top: 1.25rem; color: var(--navy);">Step 3A: Create the Data Review Notebook</h4>
                 <p>Notebook name:</p>
@@ -731,15 +741,15 @@ Use evidence only and cite the document location for each finding.
 
 Outputs required:
 A. A clearly separated summary section for each document
-B. A consolidated table suitable for Excel export</div>
+B. A consolidated table suitable for copy/paste export</div>
                 </div>
 
                 <h4 style="margin-top: 1.5rem; color: var(--navy);">Step 3C: Save Outputs</h4>
                 <div class="save-instructions">
                     <h4>Copilot will not auto-generate Word files. You must:</h4>
                     <ol>
-                        <li>Copy all document summaries</li>
-                        <li>Paste into one master Word document</li>
+                        <li>Copy the full Copilot output</li>
+                        <li>Paste into a new Word document (formatting does not matter)</li>
                         <li>Save as: <code>/09_Data_Summaries/Phase_0_Master_Data_Summary.docx</code></li>
                     </ol>
                 </div>
@@ -763,14 +773,14 @@ Create a table with columns:
 5. Confidence Level
 
 Use evidence only and cite the document location for each entry.
-Return ONLY the table.</div>
+Return ONLY the table suitable for copy/paste excel export.</div>
                 </div>
 
                 <div class="save-instructions">
                     <h4>Save instructions</h4>
                     <ol>
                         <li>Copy table</li>
-                        <li>Paste into Excel</li>
+                        <li>Paste into a new Excel file</li>
                         <li>Save as: <code>/08_Data_Inventory/Data_Inventory.xlsx</code></li>
                     </ol>
                 </div>
@@ -801,8 +811,12 @@ Do not infer beyond evidence.</div>
                 </div>
 
                 <div class="save-instructions">
-                    <h4>Save as</h4>
-                    <p><code>/10_RYG_Assessment/RYG_Assessment.xlsx</code></p>
+                    <h4>Save instructions</h4>
+                    <ol>
+                        <li>Copy table</li>
+                        <li>Paste into a new Excel file</li>
+                        <li>Save as: <code>/10_RYG_Assessment/RYG_Assessment.xlsx</code></li>
+                    </ol>
                 </div>
             </div>
 
@@ -833,8 +847,11 @@ Return as a structured table.</div>
                 </div>
 
                 <div class="save-instructions">
-                    <h4>Save as</h4>
-                    <p><code>/10_RYG_Assessment/Phase_1_Data_Gaps.xlsx</code></p>
+                    <h4>Save instructions</h4>
+                    <ol>
+                        <li>Copy table</li>
+                        <li>Paste into a new Sheet in <code>/10_RYG_Assessment/RYG_Assessment.xlsx</code></li>
+                    </ol>
                 </div>
             </div>
 
@@ -880,14 +897,17 @@ Return as a structured table.</div>
             <div class="troubleshoot-item">
                 <h4>Problem: Output is inconsistent</h4>
                 <p>Add to your prompt: <code>"Return ONLY the table. No commentary."</code></p>
+                <p>This is already in most prompts, can be used as a direct follow-up prompt after inconsistent output</p>
             </div>
             <div class="troubleshoot-item">
                 <h4>Problem: Documents were missed</h4>
-                <p>Confirm the entire folder was added to the Notebook. Re-run with: <code>"Confirm all documents were reviewed."</code></p>
+                <p>Confirm the entire folder was added to the Notebook.</p>
+                <p>Re-run with: <code>"Confirm all [# of documents you know to exist in Notebook] documents were reviewed."</code></p>
             </div>
             <div class="troubleshoot-item">
                 <h4>Problem: Output feels shallow</h4>
-                <p>Add to your prompt: <code>"Be exhaustive. This is for client-facing Phase 0 conclusions."</code></p>
+                <p>Add to your prompt or follow up with: <code>"Be exhaustive. This is for client-facing Phase 0 conclusions."</code></p>
+                <p>Follow up with <code>"Add more detail and evidence to [part of response that felt shallow] and return the full [output requested] again"<code></p>
             </div>
             <div class="troubleshoot-item">
                 <h4>Problem: This feels like more work</h4>
