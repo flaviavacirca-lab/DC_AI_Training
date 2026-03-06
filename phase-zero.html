@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase Zero Training — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .folder-tree {
+            background: var(--gray-800);
+            color: #e0e8f0;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.85rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius);
+            line-height: 1.8;
+            overflow-x: auto;
+            white-space: pre;
+            margin: 1rem 0;
+        }
+        .step-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .step-box h3 {
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+        .step-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            margin-bottom: 0.75rem;
+        }
+        .step-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .compliance-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .compliance-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .compliance-list li:last-child {
+            border-bottom: none;
+        }
+        .compliance-check {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--gray-400);
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        .section-divider {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            position: relative;
+        }
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gray-200);
+        }
+        .section-divider span {
+            position: relative;
+            background: var(--gray-50);
+            padding: 0.5rem 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .troubleshoot-item {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .troubleshoot-item h4 {
+            color: var(--red);
+            font-size: 0.9rem;
+            margin-bottom: 0.35rem;
+        }
+        .troubleshoot-item p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .save-instructions {
+            background: var(--gold-light);
+            border-left: 4px solid var(--gold);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1rem 1.25rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .save-instructions h4 {
+            color: var(--navy);
+            margin-bottom: 0.35rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <div class="nav-dropdown">
+                <a href="suggested-training-flow.html" class="nav-link nav-dropdown-toggle">Trainings <span class="nav-dropdown-arrow">&#x25BE;</span></a>
+                <div class="nav-dropdown-menu">
+                    <a href="suggested-training-flow.html" class="nav-dropdown-item">Suggested Flow</a>
+                    <a href="training-library.html" class="nav-dropdown-item">Training Library</a>
+                    <a href="quick-wins.html" class="nav-dropdown-item">Quick Wins</a>
+                    <a href="live-trainings.html" class="nav-dropdown-item">Live Trainings</a>
+                </div>
+            </div>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="phase-zero.html" class="nav-link active">Phase Zero</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Phase Zero Training</h1>
+            <p>Management Interviews &amp; Data Review — Copilot-Enabled Standard</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <!-- Introduction -->
+        <section class="section">
+            <div class="module-objectives">
+                <h3>What this training covers</h3>
+                <p style="margin-bottom: 0.75rem;">This training defines the <strong>required, standard way</strong> to use Microsoft Copilot during Phase 0 for:</p>
+                <ol>
+                    <li>Management Interviews</li>
+                    <li>Data Review</li>
+                </ol>
+            </div>
+
+            <div class="callout callout-info" style="margin-top: 1.5rem;">
+                <h4>Objective</h4>
+                <ul>
+                    <li>Reduce manual effort</li>
+                    <li>Improve consistency and defensibility</li>
+                    <li>Avoid missing information</li>
+                    <li>Accelerate Phase 0 synthesis and scoping</li>
+                </ul>
+                <p style="margin-top: 0.75rem; font-weight: 600;">This is a process change, not optional "AI experimentation."</p>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 1: MANAGEMENT INTERVIEWS ===== -->
+        <section class="section section-alt">
+            <div class="section-divider">
+                <span>Section 1</span>
+            </div>
+            <h2 class="section-title">Phase Zero — Management Interviews</h2>
+
+            <!-- Purpose -->
+            <div class="content-block">
+                <h3>Purpose</h3>
+                <p>Management interviews are a core input into Phase 0 findings and Phase 1 scope decisions. This process ensures interviews are:</p>
+                <ul>
+                    <li>Captured consistently</li>
+                    <li>Summarized quickly</li>
+                    <li>Defensible with evidence</li>
+                    <li>Easy to synthesize across stakeholders</li>
+                </ul>
+            </div>
+
+            <!-- Tools -->
+            <div class="content-block" style="margin-top: 1.5rem;">
+                <h3>Tools Used (Copilot-Only)</h3>
+                <ul class="feature-list">
+                    <li>Microsoft Teams (recording + transcription)</li>
+                    <li>SharePoint</li>
+                    <li>Copilot Chat</li>
+                    <li>(Optional, leads only) Copilot Notebook</li>
+                </ul>
+            </div>
+
+            <!-- Folder Structure -->
+            <div class="content-block" style="margin-top: 1.5rem;">
+                <h3>Required Folder Structure</h3>
+                <p>Create this structure <strong>before interviews begin</strong>.</p>
+<div class="folder-tree">/Phase_0
+  /01_Interview_Materials
+  /02_Interview_Recordings
+  /03_Interview_Transcripts
+  /04_Interview_Summaries
+  /05_Interview_Theme_Log</div>
+                <div class="callout" style="margin-top: 0.5rem;">
+                    <p>Copilot will only work well if files are stored consistently. Create this folder structure once and use it for every engagement.</p>
+                </div>
+            </div>
+
+            <!-- Step 1 -->
+            <h3 style="margin-top: 2.5rem; color: var(--navy); font-size: 1.15rem;">Step-by-Step Process</h3>
+
+            <div class="step-box" style="margin-top: 1rem;">
+                <h3>Step 1: Upload the Approved Interview Guide</h3>
+                <div class="step-meta">
+                    <span><strong>Who:</strong> Project Lead</span>
+                    <span><strong>File upload:</strong> Yes</span>
+                </div>
+                <p>Upload the final interview guide to:</p>
+<div class="folder-tree">/01_Interview_Materials/Approved_Interview_Guide.docx</div>
+                <div class="callout callout-info">
+                    <h4>Why this matters</h4>
+                    <ul>
+                        <li>Copilot needs to understand what questions were asked</li>
+                        <li>This prevents generic or off-target summaries</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-box">
+                <h3>Step 2: Record and Transcribe Every Interview</h3>
+                <div class="step-meta">
+                    <span><strong>Who:</strong> Interviewer</span>
+                    <span><strong>File upload:</strong> Yes (manual)</span>
+                </div>
+                <p>At the start of every Teams interview:</p>
+                <ul>
+                    <li>Turn <strong>Recording</strong> ON</li>
+                    <li>Turn <strong>Transcription</strong> ON</li>
+                </ul>
+                <p style="margin-top: 0.75rem;">After the meeting:</p>
+                <ol>
+                    <li>Locate the recording and transcript</li>
+                    <li>Upload them manually to:</li>
+                </ol>
+<div class="folder-tree">/02_Interview_Recordings
+/03_Interview_Transcripts</div>
+                <div class="callout">
+                    <p><strong>Important:</strong> Teams does not reliably auto-save to your project folder. Manual upload is required.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-box">
+                <h3>Step 3 (Optional): Create a Copilot Notebook — Leads Only</h3>
+                <div class="step-meta">
+                    <span><strong>Who:</strong> Phase 0 Lead</span>
+                    <span><strong>File upload:</strong> Yes (add sources)</span>
+                </div>
+                <p>Notebook name:</p>
+<div class="folder-tree">Phase_0_Management_Interviews_[ClientName]</div>
+                <p>Add only:</p>
+                <ul>
+                    <li>Approved interview guide</li>
+                    <li>All interview transcripts</li>
+                </ul>
+                <div class="callout callout-info" style="margin-top: 0.75rem;">
+                    <h4>Why this helps</h4>
+                    <ul>
+                        <li>Keeps Copilot focused only on interviews</li>
+                        <li>Improves cross-interview synthesis</li>
+                        <li>Reduces risk of unrelated context</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--gray-500);"><em>If you are summarizing individual interviews only, you may skip this step.</em></p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-box">
+                <h3>Step 4: Generate the Interview Summary (Required)</h3>
+                <div class="step-meta">
+                    <span><strong>Who:</strong> Interview owner</span>
+                    <span><strong>Where:</strong> Copilot Chat (or Notebook if used)</span>
+                    <span><strong>File upload:</strong> Yes (explicitly reference files)</span>
+                </div>
+                <p><strong>Prompt</strong> (copy exactly):</p>
+                <div class="prompt-template">
+                    <div class="prompt-code">Use ONLY the following documents:
+- Approved_Interview_Guide.docx
+- [IntervieweeName]_Transcript.docx
+
+Do not use emails, chats, or other files.
+
+Create a 1-page Phase 0 interview summary with:
+1. Top 5 takeaways
+2. Key quotes with timestamps
+3. Explicit knowledge or data gaps mentioned
+4. Documents or analyses referenced by the interviewee
+5. Any tensions or contradictions with prior interviews (if evident)
+
+Do not infer. Use only what was stated.</div>
+                </div>
+
+                <div class="save-instructions">
+                    <h4>Saving the output</h4>
+                    <p>Copilot Chat does not generate downloadable Word files. You must:</p>
+                    <ol>
+                        <li>Copy the output</li>
+                        <li>Paste into a clean Word document</li>
+                        <li>Save as: <code>/04_Interview_Summaries/[IntervieweeName]_[Role]_Summary.docx</code></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-box">
+                <h3>Step 5: Tag Interview Themes (Standardized Table)</h3>
+                <div class="step-meta">
+                    <span><strong>Where:</strong> Copilot Chat</span>
+                    <span><strong>File upload:</strong> Yes (summary + transcript)</span>
+                </div>
+                <p>This step ensures all interviews produce identical, copy-paste-ready output.</p>
+                <p style="margin-top: 0.75rem;"><strong>Prompt</strong> (structure must not change):</p>
+                <div class="prompt-template">
+                    <div class="prompt-code">Using ONLY:
+- [IntervieweeName]_Summary.docx
+- [IntervieweeName]_Transcript.docx
+
+Return the output ONLY as a table with the following columns:
+1. Interviewee Name
+2. Interviewee Role
+3. Takeaway ID (T1, T2, T3…)
+4. Takeaway Summary
+5. Theme Category (Market, Customer, Competitive, Business Performance, Strategy / Decision-Making, Risks / Watchouts)
+6. Supporting Quote (verbatim)
+7. Timestamp (MM:SS)
+
+Rules:
+- Do not add, remove, rename, or reorder columns
+- Do not include commentary outside the table
+- Every takeaway must include a quote and timestamp</div>
+                </div>
+
+                <div class="save-instructions">
+                    <h4>Saving instructions</h4>
+                    <ol>
+                        <li>Copy the table</li>
+                        <li>Paste into Excel</li>
+                        <li>Save to: <code>/05_Interview_Theme_Log/Interview_Theme_Log.xlsx</code></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Compliance Checklist -->
+            <div class="callout callout-info" style="margin-top: 2rem;">
+                <h4>Management Interview Compliance Checklist</h4>
+                <ul class="compliance-list">
+                    <li><span class="compliance-check"></span> Interview guide uploaded</li>
+                    <li><span class="compliance-check"></span> Recording ON</li>
+                    <li><span class="compliance-check"></span> Transcript uploaded</li>
+                    <li><span class="compliance-check"></span> Copilot summary created</li>
+                    <li><span class="compliance-check"></span> Summary saved as Word doc</li>
+                    <li><span class="compliance-check"></span> Theme table completed</li>
+                </ul>
+                <p style="margin-top: 0.75rem; font-weight: 600; color: var(--red);">If any box is unchecked, the interview is not complete.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 2: DATA REVIEW ===== -->
+        <section class="section">
+            <div class="section-divider">
+                <span>Section 2</span>
+            </div>
+            <h2 class="section-title">Phase Zero — Data Review</h2>
+
+            <!-- Purpose -->
+            <div class="content-block">
+                <h3>Purpose</h3>
+                <p>Phase 0 data review determines:</p>
+                <ul>
+                    <li>What information exists today</li>
+                    <li>What gaps remain</li>
+                    <li>What work is required in Phase 1</li>
+                </ul>
+                <p style="margin-top: 0.75rem;">This process ensures no documents are missed and all conclusions are defensible.</p>
+            </div>
+
+            <!-- Tools -->
+            <div class="content-block" style="margin-top: 1.5rem;">
+                <h3>Tools Used (Copilot-Only)</h3>
+                <ul class="feature-list">
+                    <li>SharePoint</li>
+                    <li>Copilot Chat</li>
+                    <li>Copilot Notebook (required for scale)</li>
+                </ul>
+            </div>
+
+            <!-- Folder Structure -->
+            <div class="content-block" style="margin-top: 1.5rem;">
+                <h3>Required Folder Structure</h3>
+<div class="folder-tree">/Phase_0
+  /06_Data_Request
+  /07_Data_Received
+  /08_Data_Inventory
+  /09_Data_Summaries
+  /10_RYG_Assessment</div>
+            </div>
+
+            <!-- Step 1 -->
+            <h3 style="margin-top: 2.5rem; color: var(--navy); font-size: 1.15rem;">Step-by-Step Process</h3>
+
+            <div class="step-box" style="margin-top: 1rem;">
+                <h3>Step 1: Finalize the Phase 0 Data Request List</h3>
+                <div class="step-meta">
+                    <span><strong>Who:</strong> Project Lead</span>
+                    <span><strong>File upload:</strong> Yes</span>
+                </div>
+                <p>Upload to:</p>
+<div class="folder-tree">/06_Data_Request/Phase_0_Data_Request_List.xlsx</div>
+                <p>This list defines what Phase 0 is assessing.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-box">
+                <h3>Step 2: Upload ALL Received Data</h3>
+                <div class="step-meta">
+                    <span><strong>Who:</strong> Project team</span>
+                    <span><strong>File upload:</strong> Yes</span>
+                </div>
+                <p>Upload everything the client sends to:</p>
+<div class="folder-tree">/07_Data_Received</div>
+                <div class="callout">
+                    <p><strong>Do not pre-filter.</strong> Upload all received documents regardless of perceived relevance.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-box">
+                <h3>Step 3: Batch Document Analysis (Required for 20+ Documents)</h3>
+                <div class="step-meta">
+                    <span><strong>Method:</strong> Copilot Notebook</span>
+                </div>
+                <p>Using a Notebook avoids running prompts 80+ times individually.</p>
+
+                <h4 style="margin-top: 1.25rem; color: var(--navy);">Step 3A: Create the Data Review Notebook</h4>
+                <p>Notebook name:</p>
+<div class="folder-tree">Phase_0_Data_Review_[ClientName]</div>
+                <p>Add only these sources:</p>
+                <ul>
+                    <li><code>Phase_0_Data_Request_List.xlsx</code></li>
+                    <li>Entire folder <code>/07_Data_Received</code></li>
+                </ul>
+
+                <h4 style="margin-top: 1.5rem; color: var(--navy);">Step 3B: Master Document Analysis Prompt</h4>
+                <div class="prompt-template">
+                    <div class="prompt-code">You are supporting Phase 0 strategy readiness.
+
+Using ONLY:
+- Phase_0_Data_Request_List.xlsx
+- All documents in /07_Data_Received
+
+For EACH document:
+1. Identify which specific data request items it supports
+2. Explain why it supports those items
+3. Identify which data request items it does NOT support
+4. Extract and list ALL quantitative data included (numbers, KPIs, market sizes, growth rates, financials, dates)
+5. Note the time period covered
+6. Assign initial confidence (High / Medium / Low)
+
+Outputs required:
+A. A clearly separated summary section for each document
+B. A consolidated table suitable for Excel export</div>
+                </div>
+
+                <h4 style="margin-top: 1.5rem; color: var(--navy);">Step 3C: Save Outputs</h4>
+                <div class="save-instructions">
+                    <h4>Copilot will not auto-generate Word files. You must:</h4>
+                    <ol>
+                        <li>Copy all document summaries</li>
+                        <li>Paste into one master Word document</li>
+                        <li>Save as: <code>/09_Data_Summaries/Phase_0_Master_Data_Summary.docx</code></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-box">
+                <h3>Step 4: Build the Data Inventory Table</h3>
+                <div class="step-meta">
+                    <span><strong>Where:</strong> Copilot Chat or Notebook</span>
+                    <span><strong>File upload:</strong> Yes (master summary)</span>
+                </div>
+                <div class="prompt-template">
+                    <div class="prompt-code">Using Phase_0_Master_Data_Summary.docx:
+
+Create a table with columns:
+1. Document Name
+2. Data Request Items Covered
+3. Quantitative Data Present (Yes/No + examples)
+4. Time Period Covered
+5. Confidence Level
+
+Return ONLY the table.</div>
+                </div>
+
+                <div class="save-instructions">
+                    <h4>Save instructions</h4>
+                    <ol>
+                        <li>Copy table</li>
+                        <li>Paste into Excel</li>
+                        <li>Save as: <code>/08_Data_Inventory/Data_Inventory.xlsx</code></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-box">
+                <h3>Step 5: Red / Yellow / Green Assessment</h3>
+                <div class="step-meta">
+                    <span><strong>Where:</strong> Copilot Chat or Notebook</span>
+                    <span><strong>File upload:</strong> Yes (Data Request List + Data Inventory)</span>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--gray-500); margin-bottom: 0.75rem;">Excel is for formatting only — run the assessment in Copilot first.</p>
+                <div class="prompt-template">
+                    <div class="prompt-code">Using ONLY:
+- Phase_0_Data_Request_List.xlsx
+- Data_Inventory.xlsx
+
+For each data request item:
+1. Assign Red, Yellow, or Green
+2. List documents reviewed
+3. Explain the rating
+4. Identify what work would close gaps
+
+Do not assume missing data.
+Do not infer beyond evidence.</div>
+                </div>
+
+                <div class="save-instructions">
+                    <h4>Save as</h4>
+                    <p><code>/10_RYG_Assessment/RYG_Assessment.xlsx</code></p>
+                </div>
+            </div>
+
+            <!-- Compliance Checklist -->
+            <div class="callout callout-info" style="margin-top: 2rem;">
+                <h4>Data Review Compliance Checklist</h4>
+                <ul class="compliance-list">
+                    <li><span class="compliance-check"></span> Data request list uploaded</li>
+                    <li><span class="compliance-check"></span> All files uploaded</li>
+                    <li><span class="compliance-check"></span> Notebook created</li>
+                    <li><span class="compliance-check"></span> Master summary created</li>
+                    <li><span class="compliance-check"></span> Data inventory exported to Excel</li>
+                    <li><span class="compliance-check"></span> R/Y/G assessment completed</li>
+                </ul>
+                <p style="margin-top: 0.75rem; font-weight: 600; color: var(--red);">If any box is unchecked, the data review is not complete.</p>
+            </div>
+        </section>
+
+        <!-- ===== TROUBLESHOOTING ===== -->
+        <section class="section section-alt">
+            <h2 class="section-title">If Copilot Doesn't Give You the Output You Expected</h2>
+            <p class="section-desc">This happens. Do not abandon the process. Use these fixes.</p>
+
+            <div class="troubleshoot-item">
+                <h4>Problem: Output is inconsistent</h4>
+                <p>Add to your prompt: <code>"Return ONLY the table. No commentary."</code></p>
+            </div>
+            <div class="troubleshoot-item">
+                <h4>Problem: Documents were missed</h4>
+                <p>Confirm the entire folder was added to the Notebook. Re-run with: <code>"Confirm all documents were reviewed."</code></p>
+            </div>
+            <div class="troubleshoot-item">
+                <h4>Problem: Output feels shallow</h4>
+                <p>Add to your prompt: <code>"Be exhaustive. This is for client-facing Phase 0 conclusions."</code></p>
+            </div>
+            <div class="troubleshoot-item">
+                <h4>Problem: This feels like more work</h4>
+                <p>Manual Phase 0 means repeated reading and rewriting across dozens of documents. With Notebook + one prompt, you get a single pass — and every downstream step (inventory, R/Y/G, synthesis) is faster because the foundation is already structured.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/vendor/msal-browser.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
+</body>
+</html>
