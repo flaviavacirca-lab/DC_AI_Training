@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot Enterprise Data Protection — Denneen &amp; Company AI Learning Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="index.html" class="brand-link">
+                <span class="brand-mark">D&amp;C</span>
+                <span class="brand-text">AI Learning Hub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <div class="nav-dropdown">
+                <a href="suggested-training-flow.html" class="nav-link nav-dropdown-toggle">Trainings <span class="nav-dropdown-arrow">&#x25BE;</span></a>
+                <div class="nav-dropdown-menu">
+                    <a href="suggested-training-flow.html" class="nav-dropdown-item">Suggested Flow</a>
+                    <a href="training-library.html" class="nav-dropdown-item">Training Library</a>
+                    <a href="quick-wins.html" class="nav-dropdown-item">Quick Wins</a>
+                    <a href="live-trainings.html" class="nav-dropdown-item">Live Trainings</a>
+                </div>
+            </div>
+            <a href="prompt-library.html" class="nav-link">Prompt Library</a>
+            <a href="phase-zero.html" class="nav-link">Phase Zero</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="account.html" class="nav-link nav-link-accent" id="nav-account">Account</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Copilot Enterprise Data Protection</h1>
+            <p>How Microsoft 365 Copilot protects your data, what risks remain, and how consultants should work safely with AI.</p>
+        </section>
+
+        <div id="auth-banner"></div>
+
+        <!-- How Copilot Enterprise Protects Data -->
+        <section class="section">
+            <h2 class="section-title">How Copilot Enterprise Protects Data</h2>
+
+            <div class="content-block">
+                <p>Microsoft 365 Copilot operates <strong>inside your organization's Microsoft 365 security boundary</strong>. It is not a public AI tool. It runs within the same infrastructure that protects your SharePoint, Outlook, Teams, and OneDrive data.</p>
+            </div>
+
+            <div class="framework-grid" style="margin-top: 1.5rem;">
+                <div class="framework-item">
+                    <div class="framework-letter" style="background: var(--navy);">&#x1F512;</div>
+                    <div class="framework-body">
+                        <h3>Permission-Based Access Only</h3>
+                        <p>Copilot can only access files and data that <strong>you already have permission to view</strong>. It does not bypass file permissions, sensitivity labels, or access controls. If you cannot open a document, Copilot cannot read it either.</p>
+                    </div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter" style="background: var(--navy);">&#x1F4C1;</div>
+                    <div class="framework-body">
+                        <h3>Data Sources</h3>
+                        <p>In Work mode, Copilot accesses data through the Microsoft Graph, which includes:</p>
+                        <ul>
+                            <li>SharePoint documents</li>
+                            <li>OneDrive files</li>
+                            <li>Teams messages and meeting transcripts</li>
+                            <li>Outlook emails and calendar</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter" style="background: var(--navy);">&#x1F6E1;</div>
+                    <div class="framework-body">
+                        <h3>No Model Training on Your Data</h3>
+                        <p>Prompts and documents from Denneen's enterprise tenant are <strong>not used to train public AI models</strong>. Your data stays within the Microsoft 365 boundary and is not shared with other organizations or used to improve the underlying language model.</p>
+                    </div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter" style="background: var(--navy);">&#x2699;</div>
+                    <div class="framework-body">
+                        <h3>Tenant Security Policies Apply</h3>
+                        <p>Copilot respects all existing organizational security controls, including:</p>
+                        <ul>
+                            <li>File permissions and sharing settings</li>
+                            <li>Sensitivity labels (Confidential, Internal, etc.)</li>
+                            <li>Tenant-level security policies configured by IT</li>
+                            <li>Data Loss Prevention (DLP) rules</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Remaining Risks -->
+        <section class="section section-alt">
+            <h2 class="section-title">Remaining Risks When Using AI</h2>
+            <p class="section-desc">Enterprise data protection reduces many risks, but it does not eliminate all of them. Consultants must be aware of these remaining risks.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Over-Sharing in Prompts</h3>
+                    <p>Including more information than necessary in a prompt increases the surface area for unintended exposure. If Copilot accesses broadly shared files, sensitive details could appear in outputs visible to others.</p>
+                    <div class="callout" style="margin-top: 0.75rem;">
+                        <p><strong>Guidance:</strong> Share only the minimum information needed in your prompts. Reference specific files rather than asking Copilot to search broadly.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Incorrect AI Outputs</h3>
+                    <p>Copilot may produce outputs that contain errors &mdash; wrong numbers, misattributed quotes, or inaccurate summaries. These errors can look identical to accurate content.</p>
+                    <div class="callout" style="margin-top: 0.75rem;">
+                        <p><strong>Guidance:</strong> Verify all outputs against source material before using them in analysis or deliverables.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Hallucinated Content</h3>
+                    <p>AI may generate plausible-sounding information that has no basis in the source documents. This includes invented statistics, fabricated sources, and conclusions that were never stated.</p>
+                    <div class="callout" style="margin-top: 0.75rem;">
+                        <p><strong>Guidance:</strong> If you cannot trace a claim back to a specific document, treat it as potentially fabricated.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Misinterpretation of Internal Data</h3>
+                    <p>Copilot may misread context, combine unrelated information, or draw connections between documents that do not belong together. This is particularly risky when working across multiple client engagements.</p>
+                    <div class="callout" style="margin-top: 0.75rem;">
+                        <p><strong>Guidance:</strong> Use Copilot Notebook or explicitly reference specific files to limit the scope of what Copilot reads.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout callout-info" style="margin-top: 2rem;">
+                <h4>Bottom line</h4>
+                <p>Consultants should share only the minimum information needed in prompts and must always verify outputs against source material before using them in client work.</p>
+            </div>
+        </section>
+
+        <!-- The AI Safety Rule -->
+        <section class="section">
+            <h2 class="section-title">The AI Safety Rule</h2>
+            <div class="two-column">
+                <div>
+                    <h4 class="column-header column-header-good">Use AI to</h4>
+                    <ul class="check-list">
+                        <li>Accelerate reading</li>
+                        <li>Analyze data</li>
+                        <li>Summarize documents</li>
+                        <li>Structure information</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="column-header column-header-caution">Do NOT rely on AI to</h4>
+                    <ul class="x-list">
+                        <li>Validate facts</li>
+                        <li>Confirm numbers</li>
+                        <li>Generate strategy</li>
+                        <li>Replace consulting judgment</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="callout callout-info" style="margin-top: 1.5rem;">
+                <p><strong>Consultants remain responsible for accuracy and conclusions.</strong> AI accelerates the work. You own the result.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Denneen &amp; Company — Internal Use Only</p>
+            <p class="footer-note">Questions? Contact <a href="mailto:flavia.vacirca@denneen.com">flavia.vacirca@denneen.com</a></p>
+        </div>
+    </footer>
+
+    <script src="js/vendor/msal-browser.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/telemetry.js"></script>
+    <script src="js/moduleNav.js"></script>
+    <script src="js/feedback.js"></script>
+</body>
+</html>
